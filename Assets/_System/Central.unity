@@ -173,7 +173,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   control: 1
   combat: 1
-  speed: 5
+  speed: 6
+  jumpForce: 7
+  downForceFactor: 2.5
+  downJerk: 4
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   camera: {fileID: 8944932453567441658}
 --- !u!95 &859220716
 Animator:
@@ -264,7 +270,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 00ea04a1d7bcf4a4f81a6960eeb88b3f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -517,7 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e623ab698750540bb86d1de4a3ab3d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 6
   offset: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
