@@ -33,7 +33,7 @@ class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
     }
 
-    void Start() {
+    void OnEnable() {
         camera.enabled = true;
     }
 
