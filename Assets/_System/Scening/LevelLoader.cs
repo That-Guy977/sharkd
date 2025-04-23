@@ -12,5 +12,6 @@ class LevelLoader : MonoBehaviour {
 
     public void LoadLevel() {
         loader.LoadScene(level);
+        GameManager.instance.state = GameManager.GameState.InLevel;
     }
 }

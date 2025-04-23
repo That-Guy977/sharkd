@@ -1,21 +1,13 @@
 using UnityEngine;
-using Eflatun.SceneReference;
 
 class MainMenu : MonoBehaviour {
-    public SceneReference intro;
-    public SceneReference map;
+    public Canvas levelSelect;
 
-    SceneLoader loader;
-
-    void Awake() {
-        loader = GetComponent<SceneLoader>();
+    public void Play() {
+        GameManager.instance.OpenOverlay(levelSelect);
     }
 
-    public void StartGame() {
-        if (!GameManager.instance.introPlayed) {
-            loader.LoadScene(intro);
-        } else {
-            loader.LoadScene(map);
-        }
+    public void ShowSettings() {
+        GameManager.instance.Settings();
     }
 }

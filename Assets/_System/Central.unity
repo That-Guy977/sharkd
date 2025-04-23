@@ -449,6 +449,7 @@ GameObject:
   m_Component:
   - component: {fileID: 874300804}
   - component: {fileID: 874300803}
+  - component: {fileID: 874300806}
   - component: {fileID: 874300805}
   m_Layer: 0
   m_Name: GameManager
@@ -471,6 +472,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <player>k__BackingField: {fileID: 859220713}
   <camera>k__BackingField: {fileID: 4664245411090758516}
+  settings: {fileID: 0}
+  pause: {fileID: 0}
+  state: 0
+  tutorialComplete: 0
 --- !u!4 &874300804
 Transform:
   m_ObjectHideFlags: 0
@@ -501,6 +506,36 @@ MonoBehaviour:
   mainMenu:
     asset: {fileID: 102900000, guid: 8bd2503945f6e4231af1fdf139d330fe, type: 3}
     guid: 8bd2503945f6e4231af1fdf139d330fe
+--- !u!114 &874300806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874300802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f9515d193c41244b6ac3311f8c7936d8, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: UI
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!4 &1741483330288878307
 Transform:
   m_ObjectHideFlags: 0
