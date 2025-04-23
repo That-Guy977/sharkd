@@ -173,10 +173,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   control: 1
   combat: 1
-  speed: 6
-  jumpForce: 7
-  downForceFactor: 2.5
-  downJerk: 4
+  jumpAscentDuration: 0.3
+  jumpDescentDuration: 0.35
+  jumpHeight: 2.5
+  speed: 8
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -279,7 +279,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &859220719
 BoxCollider2D:
