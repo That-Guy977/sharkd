@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 395451041}
   - component: {fileID: 395451040}
   - component: {fileID: 395451042}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Levels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 513688695}
   - component: {fileID: 513688694}
   - component: {fileID: 513688693}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -849,7 +849,7 @@ GameObject:
   - component: {fileID: 937658570}
   - component: {fileID: 937658569}
   - component: {fileID: 937658568}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Ina'nis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -996,7 +996,7 @@ GameObject:
   - component: {fileID: 974012192}
   - component: {fileID: 974012194}
   - component: {fileID: 974012193}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1130,7 +1130,7 @@ GameObject:
   - component: {fileID: 977692775}
   - component: {fileID: 977692777}
   - component: {fileID: 977692776}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

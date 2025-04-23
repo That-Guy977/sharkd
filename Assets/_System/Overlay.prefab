@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 148998799785270986}
   - component: {fileID: 4744472736590158471}
   - component: {fileID: 4189823359127655134}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 7279078825013739008}
   - component: {fileID: 3560342698434067369}
   - component: {fileID: 5295916985657203432}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Overlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
