@@ -6,11 +6,11 @@ class BackgroundController : MonoBehaviour {
     public float depth;
 
     new Camera camera;
-    Sprite sprite;
-    string layer;
 
     GameObject background;
     readonly LinkedList<GameObject> tiles = new();
+    Sprite sprite;
+    string layer;
     float spriteWidth;
 
     private Vector2 previousCameraPosition = Vector2.zero;
