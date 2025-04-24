@@ -3,6 +3,7 @@ using Eflatun.SceneReference;
 
 class PauseMenu : MonoBehaviour {
     public SceneReference mainMenu;
+    public SceneLoader.Transition restartTransition;
     public SceneLoader.Transition exitTransition;
 
     void OnEnable() {
@@ -20,5 +21,9 @@ class PauseMenu : MonoBehaviour {
     public void Exit() {
         SceneLoader.instance.LoadScene(mainMenu, exitTransition);
         GameManager.instance.state = GameManager.GameState.MainMenu;
+    }
+
+    public void Restart() {
+        SceneLoader.instance.LoadScene(SceneLoader.instance.current, exitTransition);
     }
 }

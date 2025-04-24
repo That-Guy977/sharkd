@@ -11,6 +11,8 @@ class SceneLoader : MonoBehaviour {
     public SceneReference initial;
     public Transition levelTransition;
 
+    public SceneReference current => SceneReference.FromScenePath(SceneManager.GetActiveScene().path);
+
     [Serializable]
     public struct Transition {
         public float delay;
