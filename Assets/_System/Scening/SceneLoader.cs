@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Eflatun.SceneReference;
 
+using static GameManager;
+
 class SceneLoader : MonoBehaviour {
     public static SceneLoader instance;
 
@@ -42,7 +44,7 @@ class SceneLoader : MonoBehaviour {
         }
     }
 
-    public void LoadScene(SceneReference scene, Transition transition, GameManager.GameState outState) {
+    public void LoadScene(SceneReference scene, Transition transition, GameState outState) {
         StartCoroutine(Load(scene, transition, outState));
     }
 
@@ -51,12 +53,12 @@ class SceneLoader : MonoBehaviour {
     }
 
     public void LoadLevel(SceneReference level) {
-        StartCoroutine(Load(level, levelTransition, GameManager.GameState.InLevel));
+        StartCoroutine(Load(level, levelTransition, GameState.InLevel));
     }
 
-    private IEnumerator Load(SceneReference scene, Transition transition, GameManager.GameState outState) {
-        if (GameManager.instance.state == GameManager.GameState.Transitioning) yield break;
-        GameManager.instance.state = GameManager.GameState.Transitioning;
+    private IEnumerator Load(SceneReference scene, Transition transition, GameState outState) {
+        if (GameManager.instance.state == GameState.Transitioning) yield break;
+        GameManager.instance.state = GameState.Transitioning;
         InstantiateParameters instParams = new() { scene = central.LoadedScene };
         Animator animOut = Instantiate(transition.animOut, instParams);
         yield return new WaitWhile(() => animOut.GetCurrentAnimatorStateInfo(0).normalizedTime < 1);
