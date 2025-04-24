@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-class PlayerController : MonoBehaviour
-{
+class PlayerController : MonoBehaviour {
     public bool control = true;
     public bool combat = true;
     [Header("Movement")]
@@ -34,8 +33,7 @@ class PlayerController : MonoBehaviour
 
     float customGravity => rigidbody.velocity.y > 0 ? jumpGravity : fallGravity;
 
-    void Awake()
-    {
+    void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -47,19 +45,15 @@ class PlayerController : MonoBehaviour
         rigidbody.gravityScale = 0;
     }
 
-    void OnEnable()
-    {
+    void OnEnable() {
         camera.enabled = true;
     }
 
-    void Update()
-    {
-        if (move > 0)
-        {
+    void Update() {
+        if (move > 0) {
             spriteRenderer.flipX = false;
         }
-        else if (move < 0)
-        {
+        else if (move < 0) {
             spriteRenderer.flipX = true;
         }
         animator.SetBool("grounded", grounded);
@@ -67,23 +61,19 @@ class PlayerController : MonoBehaviour
         animator.SetFloat("vely", rigidbody.velocity.y);
     }
 
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         Vector2 vel = rigidbody.velocity;
         vel.x = move * speed;
         rigidbody.velocity = vel;
         rigidbody.AddForce(customGravity * Time.fixedDeltaTime * Vector2.down, ForceMode2D.Impulse);
     }
 
-    protected void OnMove(InputValue input)
-    {
+    protected void OnMove(InputValue input) {
         move = input.Get<float>();
     }
 
-    protected void OnJump()
-    {
-        if (!grounded)
-        {
+    protected void OnJump() {
+        if (!grounded) {
             return;
         }
         rigidbody.AddForce(jumpVelocity * Vector2.up, ForceMode2D.Impulse);
