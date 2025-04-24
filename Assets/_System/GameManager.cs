@@ -22,6 +22,7 @@ class GameManager : MonoBehaviour {
 
     public enum GameState {
         MainMenu,
+        Transitioning,
         InLevel
     }
 

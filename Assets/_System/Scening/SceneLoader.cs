@@ -42,16 +42,21 @@ class SceneLoader : MonoBehaviour {
         }
     }
 
-    public void LoadScene(SceneReference scene, Transition transition) {
-        StartCoroutine(Load(scene, transition));
+    public void LoadScene(SceneReference scene, Transition transition, GameManager.GameState outState) {
+        StartCoroutine(Load(scene, transition, outState));
+    }
+
+    public void ReloadScene(Transition transition) {
+        StartCoroutine(Load(current, transition, GameManager.instance.state));
     }
 
     public void LoadLevel(SceneReference level) {
-        StartCoroutine(Load(level, levelTransition));
-        GameManager.instance.state = GameManager.GameState.InLevel;
+        StartCoroutine(Load(level, levelTransition, GameManager.GameState.InLevel));
     }
 
-    private IEnumerator Load(SceneReference scene, Transition transition) {
+    private IEnumerator Load(SceneReference scene, Transition transition, GameManager.GameState outState) {
+        if (GameManager.instance.state == GameManager.GameState.Transitioning) yield break;
+        GameManager.instance.state = GameManager.GameState.Transitioning;
         InstantiateParameters instParams = new() { scene = central.LoadedScene };
         Animator animOut = Instantiate(transition.animOut, instParams);
         yield return new WaitWhile(() => animOut.GetCurrentAnimatorStateInfo(0).normalizedTime < 1);
@@ -64,6 +69,7 @@ class SceneLoader : MonoBehaviour {
         Destroy(animOut.gameObject);
         yield return new WaitWhile(() => animIn.GetCurrentAnimatorStateInfo(0).normalizedTime < 1);
         Destroy(animIn.gameObject);
+        GameManager.instance.state = outState;
     }
 
     private IEnumerator LoadInitial() {

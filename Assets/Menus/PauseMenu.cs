@@ -19,11 +19,10 @@ class PauseMenu : MonoBehaviour {
     }
 
     public void Exit() {
-        SceneLoader.instance.LoadScene(mainMenu, exitTransition);
-        GameManager.instance.state = GameManager.GameState.MainMenu;
+        SceneLoader.instance.LoadScene(mainMenu, exitTransition, GameManager.GameState.MainMenu);
     }
 
     public void Restart() {
-        SceneLoader.instance.LoadScene(SceneLoader.instance.current, exitTransition);
+        SceneLoader.instance.ReloadScene(exitTransition);
     }
 }
