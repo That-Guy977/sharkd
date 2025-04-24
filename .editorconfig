@@ -1,0 +1,4 @@
+# For OmniSharp.
+[*.cs]
+# Enforce K&R indentation style (same line brace).
+csharp_new_line_before_open_brace = none

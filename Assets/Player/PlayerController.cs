@@ -6,9 +6,9 @@ class PlayerController : MonoBehaviour {
     public bool combat = true;
     [Header("Movement")]
     public float speed;
-    public float jumpForce;
-    public float downForceFactor;
-    public float downJerk;
+    public float jumpAscentDuration;
+    public float jumpDescentDuration;
+    public float jumpHeight;
 
     [Header("Config")]
     public LayerMask groundLayer;
@@ -18,6 +18,10 @@ class PlayerController : MonoBehaviour {
     SpriteRenderer spriteRenderer;
     Animator animator;
 
+    float jumpVelocity;
+    float jumpGravity;
+    float fallGravity;
+
     private float move = 0;
 
     bool grounded => Physics2D.Raycast(
@@ -26,6 +30,7 @@ class PlayerController : MonoBehaviour {
         0.1f,
         groundLayer
     );
+    float gravity => rigidbody.velocity.y > 0 ? jumpGravity : fallGravity;
 
     void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -37,10 +42,17 @@ class PlayerController : MonoBehaviour {
         camera.enabled = true;
     }
 
+    void Start() {
+        jumpVelocity = 2.0f * jumpHeight / jumpAscentDuration;
+        jumpGravity = 2.0f * jumpHeight / Mathf.Pow(jumpAscentDuration, 2);
+        fallGravity = 2.0f * jumpHeight / Mathf.Pow(jumpDescentDuration, 2);
+    }
+
     void Update() {
         if (move > 0) {
             spriteRenderer.flipX = false;
-        } else if (move < 0) {
+        }
+        else if (move < 0) {
             spriteRenderer.flipX = true;
         }
         animator.SetBool("grounded", grounded);
@@ -52,11 +64,7 @@ class PlayerController : MonoBehaviour {
         Vector2 vel = rigidbody.velocity;
         vel.x = move * speed;
         rigidbody.velocity = vel;
-        if (!grounded && vel.y < 0) {
-            rigidbody.gravityScale = Mathf.MoveTowards(rigidbody.gravityScale, downForceFactor, downJerk * Time.fixedDeltaTime);
-        } else {
-            rigidbody.gravityScale = 1;
-        }
+        rigidbody.AddForce(Vector2.down * gravity);
     }
 
     protected void OnMove(InputValue input) {
@@ -64,9 +72,10 @@ class PlayerController : MonoBehaviour {
     }
 
     protected void OnJump() {
-        if (grounded) {
-            rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            animator.SetTrigger("jump");
+        if (!grounded) {
+            return;
         }
+        rigidbody.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
+        animator.SetTrigger("jump");
     }
 }
