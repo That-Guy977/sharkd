@@ -51,8 +51,7 @@ class PlayerController : MonoBehaviour {
     void Update() {
         if (move > 0) {
             spriteRenderer.flipX = false;
-        }
-        else if (move < 0) {
+        } else if (move < 0) {
             spriteRenderer.flipX = true;
         }
         animator.SetBool("grounded", grounded);
