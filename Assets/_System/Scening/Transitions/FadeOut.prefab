@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5105780623337098113
+--- !u!1001 &748157663328856858
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,10 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 52727046223060830, guid: b9326073276ed4412a807922863e293f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7f248ae9477fd46739659743fc5e3b8d, type: 2}
     - target: {fileID: 373877322085836708, guid: b9326073276ed4412a807922863e293f, type: 3}
       propertyPath: m_Animation
       value: 
-      objectReference: {fileID: 7400000, guid: d6515388816934b9d94efdfc7dc2dfa7, type: 2}
+      objectReference: {fileID: 7400000, guid: 31816efdb42ad44e9bcc7cefecb28948, type: 2}
     - target: {fileID: 373877322085836708, guid: b9326073276ed4412a807922863e293f, type: 3}
       propertyPath: m_Animations.Array.size
       value: 1
@@ -19,7 +23,7 @@ PrefabInstance:
     - target: {fileID: 373877322085836708, guid: b9326073276ed4412a807922863e293f, type: 3}
       propertyPath: m_Animations.Array.data[0]
       value: 
-      objectReference: {fileID: 7400000, guid: d6515388816934b9d94efdfc7dc2dfa7, type: 2}
+      objectReference: {fileID: 7400000, guid: 31816efdb42ad44e9bcc7cefecb28948, type: 2}
     - target: {fileID: 3673588836789775219, guid: b9326073276ed4412a807922863e293f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -100,21 +104,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3801670079006719696, guid: b9326073276ed4412a807922863e293f, type: 3}
-      propertyPath: m_Type
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3801670079006719696, guid: b9326073276ed4412a807922863e293f, type: 3}
-      propertyPath: m_FillMethod
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3801670079006719696, guid: b9326073276ed4412a807922863e293f, type: 3}
-      propertyPath: m_FillOrigin
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8019402690875190332, guid: b9326073276ed4412a807922863e293f, type: 3}
       propertyPath: m_Name
-      value: WipeOut
+      value: FadeOut
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
