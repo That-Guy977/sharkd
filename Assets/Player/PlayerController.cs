@@ -5,10 +5,10 @@ class PlayerController : MonoBehaviour {
     public bool control = true;
     public bool combat = true;
     [Header("Movement")]
+    public float speed;
     public float jumpAscentDuration;
     public float jumpDescentDuration;
     public float jumpHeight;
-    public float speed;
 
     [Header("Config")]
     public LayerMask groundLayer;
@@ -18,11 +18,11 @@ class PlayerController : MonoBehaviour {
     SpriteRenderer spriteRenderer;
     Animator animator;
 
-    private float move = 0;
+    float jumpVelocity;
+    float jumpGravity;
+    float fallGravity;
 
-    private float jumpVelocity;
-    private float jumpGravity;
-    private float fallGravity;
+    private float move = 0;
 
     bool grounded => Physics2D.Raycast(
         transform.position,
@@ -30,23 +30,22 @@ class PlayerController : MonoBehaviour {
         0.1f,
         groundLayer
     );
-
-    float customGravity => rigidbody.velocity.y > 0 ? jumpGravity : fallGravity;
+    float gravity => rigidbody.velocity.y > 0 ? jumpGravity : fallGravity;
 
     void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        jumpVelocity = (2.0f * jumpHeight / jumpAscentDuration);
-        jumpGravity = (2.0f * jumpHeight) / (Mathf.Pow(jumpAscentDuration, 2));
-        fallGravity = (2.0f * jumpHeight) / (Mathf.Pow(jumpDescentDuration, 2));
-
-        // Use our custom gravity instead
-        rigidbody.gravityScale = 0;
     }
 
     void OnEnable() {
         camera.enabled = true;
+    }
+
+    void Start() {
+        jumpVelocity = 2.0f * jumpHeight / jumpAscentDuration;
+        jumpGravity = 2.0f * jumpHeight / Mathf.Pow(jumpAscentDuration, 2);
+        fallGravity = 2.0f * jumpHeight / Mathf.Pow(jumpDescentDuration, 2);
     }
 
     void Update() {
@@ -65,7 +64,7 @@ class PlayerController : MonoBehaviour {
         Vector2 vel = rigidbody.velocity;
         vel.x = move * speed;
         rigidbody.velocity = vel;
-        rigidbody.AddForce(customGravity * Time.fixedDeltaTime * Vector2.down, ForceMode2D.Impulse);
+        rigidbody.AddForce(Vector2.down * gravity);
     }
 
     protected void OnMove(InputValue input) {
@@ -76,7 +75,7 @@ class PlayerController : MonoBehaviour {
         if (!grounded) {
             return;
         }
-        rigidbody.AddForce(jumpVelocity * Vector2.up, ForceMode2D.Impulse);
+        rigidbody.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
         animator.SetTrigger("jump");
     }
 }
