@@ -75,9 +75,7 @@ class PlayerController : MonoBehaviour {
     }
 
     protected void OnJump() {
-        if (!grounded) {
-            return;
-        }
+        if (!grounded) return;
         rigidbody.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
         animator.SetTrigger("jump");
     }
