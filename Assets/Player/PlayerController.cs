@@ -111,7 +111,7 @@ class PlayerController : MonoBehaviour {
     }
 
     protected void OnJump() {
-        if (!grounded || state != PlayerState.None) return;
+        if (state != PlayerState.None || !grounded) return;
         rigidbody.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
     }
 
