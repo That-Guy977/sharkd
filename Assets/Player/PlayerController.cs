@@ -20,6 +20,7 @@ class PlayerController : MonoBehaviour {
     public new CameraFollow camera;
 
     new Rigidbody2D rigidbody;
+    new BoxCollider2D collider;
     SpriteRenderer spriteRenderer;
     Animator animator;
 
@@ -33,10 +34,12 @@ class PlayerController : MonoBehaviour {
     private Vector2 dashDirection;
     private bool dashCooldown;
 
-    bool grounded => Physics2D.Raycast(
+    bool grounded => Physics2D.BoxCast(
         transform.position,
+        new Vector2(collider.size.x, 0.1f),
+        0,
         Vector2.down,
-        0.1f,
+        0,
         groundLayer
     );
     float gravity => rigidbody.velocity.y > 0 ? jumpGravity : fallGravity;
@@ -48,6 +51,7 @@ class PlayerController : MonoBehaviour {
 
     void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
+        collider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
