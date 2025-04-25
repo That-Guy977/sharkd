@@ -36,9 +36,6 @@ class PlayerController : MonoBehaviour {
         rigidbody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-    }
-
-    void Start() {
         jumpVelocity = 2.0f * jumpHeight / jumpAscentDuration;
         jumpGravity = 2.0f * jumpHeight / Mathf.Pow(jumpAscentDuration, 2);
         fallGravity = 2.0f * jumpHeight / Mathf.Pow(jumpDescentDuration, 2);

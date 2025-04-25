@@ -20,11 +20,11 @@ public class CameraFollow : MonoBehaviour {
         }
     }
 
-    public void Awake() {
+    void Awake() {
         camera = GetComponent<Camera>();
     }
 
-    public void Start() {
+    void Start() {
         player = GameManager.instance.player;
         // float cameraHalfWidth = camera.orthographicSize * camera.aspect;
         // leftBound = cameraHalfWidth;
@@ -41,7 +41,7 @@ public class CameraFollow : MonoBehaviour {
         transform.position = pos;
     }
 
-    public void LateUpdate() {
+    void LateUpdate() {
         Vector3 pos = transform.position;
         pos.x = Mathf.SmoothDamp(
             pos.x,
