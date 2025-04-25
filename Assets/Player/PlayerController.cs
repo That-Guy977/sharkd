@@ -64,7 +64,9 @@ class PlayerController : MonoBehaviour {
     }
 
     void OnDisable() {
-        camera.enabled = false;
+        if (camera) {
+            camera.enabled = false;
+        }
     }
 
     protected void OnMove(InputValue input) {
