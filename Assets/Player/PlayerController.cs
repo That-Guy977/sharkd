@@ -38,10 +38,6 @@ class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
     }
 
-    void OnEnable() {
-        camera.enabled = true;
-    }
-
     void Start() {
         jumpVelocity = 2.0f * jumpHeight / jumpAscentDuration;
         jumpGravity = 2.0f * jumpHeight / Mathf.Pow(jumpAscentDuration, 2);
@@ -64,6 +60,14 @@ class PlayerController : MonoBehaviour {
         vel.x = move * speed;
         rigidbody.velocity = vel;
         rigidbody.AddForce(Vector2.down * gravity);
+    }
+
+    void OnEnable() {
+        camera.enabled = true;
+    }
+
+    void OnDisable() {
+        camera.enabled = false;
     }
 
     protected void OnMove(InputValue input) {

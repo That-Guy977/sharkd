@@ -34,8 +34,15 @@ class GameManager : MonoBehaviour {
         }
     }
 
+    void OnEnable() {
+        Clean();
+    }
+
     public void Clean() {
         player.SetActive(false);
+        float cameraHalfHeight = camera.orthographicSize;
+        float cameraHalfWidth = cameraHalfHeight * camera.aspect;
+        camera.transform.position = new Vector3(cameraHalfWidth, cameraHalfHeight, -10);
         while (overlayOpen) {
             CloseOverlay();
         }
