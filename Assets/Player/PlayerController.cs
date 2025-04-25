@@ -125,6 +125,14 @@ class PlayerController : MonoBehaviour {
         StartCoroutine(Dash());
     }
 
+    public void OnHit(Vector2 knockback) {
+
+    }
+
+    public void OnDeath(Vector2 knockback) {
+
+    }
+
     private IEnumerator Dash() {
         state = PlayerState.Dash;
         yield return new WaitForSeconds(dashDuration);
