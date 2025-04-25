@@ -4,7 +4,7 @@ using UnityEngine;
 class GameManager : MonoBehaviour {
     public static GameManager instance;
 
-    [field: SerializeField] public GameObject player { get; private set; }
+    [field: SerializeField] public PlayerController player { get; private set; }
     [field: SerializeField] public SceneLoader loader { get; private set; }
     [field: SerializeField] public new Camera camera { get; private set; }
 
@@ -39,7 +39,7 @@ class GameManager : MonoBehaviour {
     }
 
     public void Clean() {
-        player.SetActive(false);
+        player.gameObject.SetActive(false);
         float cameraHalfHeight = camera.orthographicSize;
         float cameraHalfWidth = cameraHalfHeight * camera.aspect;
         camera.transform.position = new Vector3(cameraHalfWidth, cameraHalfHeight, -10);

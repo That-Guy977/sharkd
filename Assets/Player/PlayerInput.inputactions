@@ -9,7 +9,7 @@
                     "name": "Move",
                     "type": "Value",
                     "id": "356311b8-dc5c-4955-94db-4733f97c3764",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -22,13 +22,22 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "5e66b35b-e416-41e2-b401-949734e7a21d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
-                    "name": "1D Axis",
+                    "name": "WASD",
                     "id": "0cfc10d6-a279-4fa2-8481-1c0764443992",
-                    "path": "1DAxis",
+                    "path": "2DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -37,8 +46,30 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
+                    "name": "Up",
                     "id": "afcd4877-99de-478e-901c-9988d00cfcec",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Down",
+                    "id": "9c68d288-dc96-495c-83fa-d810ae20df89",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Left",
+                    "id": "81915f66-0a7c-4ad9-8f06-826a02541b63",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -48,8 +79,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
-                    "id": "9c68d288-dc96-495c-83fa-d810ae20df89",
+                    "name": "Right",
+                    "id": "169327e8-1710-4ce9-9675-a3f6309002c8",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -59,42 +90,20 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "b0a1d0cb-c940-40a4-87af-51368df35a7a",
-                    "path": "1DAxis",
+                    "name": "",
+                    "id": "8369e8ac-fa26-4f94-9e80-551524ac1c29",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Controller",
                     "action": "Move",
-                    "isComposite": true,
+                    "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "0800f9cf-4e09-4360-af8d-b489e36beb23",
-                    "path": "<Gamepad>/leftStick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Controller",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "0eb24cf7-c8b7-4f58-8884-5031191dff9a",
-                    "path": "<Gamepad>/leftStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Controller",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
                     "id": "0560bd70-81b4-4c9a-889c-882c48989ecc",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard",
@@ -110,6 +119,28 @@
                     "processors": "",
                     "groups": ";Controller",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cdfe2cf3-cf01-4442-a5f1-c76c2afca7fc",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0a879cee-1ba2-47ae-bc49-ec7d3c09118e",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Controller",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

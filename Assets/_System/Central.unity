@@ -1301,10 +1301,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   control: 1
   combat: 1
+  facing: 0
+  speed: 8
   jumpAscentDuration: 0.3
   jumpDescentDuration: 0.35
   jumpHeight: 2.5
-  speed: 8
+  dashSpeed: 12
+  dashDistance: 3
+  dashCooldownDuration: 0.8
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1519,7 +1523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c25e5fefeeb84a3886d310c1e2334fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <player>k__BackingField: {fileID: 859220713}
+  <player>k__BackingField: {fileID: 859220715}
   <loader>k__BackingField: {fileID: 874300807}
   <camera>k__BackingField: {fileID: 4664245411090758516}
   settings: {fileID: 840204675}

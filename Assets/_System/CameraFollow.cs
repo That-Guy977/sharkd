@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour {
     public float offset;
 
     new Camera camera;
-    GameObject player;
+    PlayerController player;
 
     float leftBound, rightBound;
 
