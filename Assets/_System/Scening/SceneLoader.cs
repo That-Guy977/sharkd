@@ -61,6 +61,7 @@ class SceneLoader : MonoBehaviour {
         GameManager.instance.state = GameState.Transitioning;
         InstantiateParameters instParams = new() { scene = central.LoadedScene };
         Animator animOut = Instantiate(transition.animOut, instParams);
+        yield return new AnimatorPlaying(animOut);
         yield return new WaitWhile(() => animOut.GetCurrentAnimatorStateInfo(0).normalizedTime < 1);
         GameManager.instance.Clean();
         yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
@@ -69,7 +70,7 @@ class SceneLoader : MonoBehaviour {
         yield return new WaitForSecondsRealtime(transition.delay);
         Animator animIn = Instantiate(transition.animIn, instParams);
         Destroy(animOut.gameObject);
-        yield return new WaitWhile(() => animIn.GetCurrentAnimatorStateInfo(0).normalizedTime < 1);
+        yield return new AnimatorPlaying(animIn);
         Destroy(animIn.gameObject);
         GameManager.instance.state = outState;
     }

@@ -6,9 +6,7 @@ using UnityEngine.UI;
 class Entity : MonoBehaviour {
     public int maxHealth;
     public Slider healthBar;
-    public int flashCounts;
-    public float flashDuration;
-    public SpriteRenderer flashSprite;
+    public Animator highlight;
 
     [Header("Messages")]
     public UnityEvent<Vector2, bool> onHit;
@@ -31,16 +29,8 @@ class Entity : MonoBehaviour {
         if (health == 0) return;
         health -= damage;
         health = Mathf.Max(health, 0);
-        StartCoroutine(Flash());
+        highlight.speed = 1;
+        highlight.SetTrigger("flash");
         onHit.Invoke(knockback, health == 0);
-    }
-
-    private IEnumerator Flash() {
-        for (int i = 0; i < flashCounts; i++) {
-            flashSprite.color = Color.white;
-            yield return new WaitForSeconds(flashDuration);
-            flashSprite.color = default;
-            yield return new WaitForSeconds(flashDuration);
-        }
     }
 }

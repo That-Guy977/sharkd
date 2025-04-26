@@ -17,6 +17,9 @@ class PlayerController : MonoBehaviour {
     public float dashCooldownDuration;
 
     [Header("Combat")]
+    public float turnInDuration;
+    public float turnOutDuration;
+    public float turnCooldownDuration;
     public float stunDuration;
     public int defeatSlowdownSteps;
     public float defeatInitialSlowdown;
@@ -30,6 +33,7 @@ class PlayerController : MonoBehaviour {
     new BoxCollider2D collider;
     SpriteRenderer spriteRenderer;
     Animator animator;
+    Animator highlight;
 
     float jumpVelocity;
     float jumpGravity;
@@ -38,9 +42,11 @@ class PlayerController : MonoBehaviour {
 
     private PlayerState state;
     private Coroutine activeCoroutine;
+    private Character character;
     private Vector2 move;
     private Vector2 dashDirection;
     private bool dashCooldown;
+    private bool turnCooldown;
 
     bool grounded => Physics2D.BoxCast(
         transform.position,
@@ -57,6 +63,12 @@ class PlayerController : MonoBehaviour {
         Dash,
         Stun,
         Defeat,
+        Turn,
+    }
+
+    public enum Character {
+        Gura,
+        Gawr,
     }
 
     void Awake() {
@@ -64,14 +76,19 @@ class PlayerController : MonoBehaviour {
         collider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        highlight = GetComponent<Entity>().highlight;
     }
 
     void Update() {
         if (state == PlayerState.None) {
             SetFacing(move);
         }
-        spriteRenderer.flipX = facing == Direction.Left;
+        spriteRenderer.flipX = facing switch {
+            Direction.Left => true,
+            Direction.Right => false,
+        };
         animator.SetInteger("state", (int)state);
+        animator.SetFloat("char", (int)character);
         animator.SetFloat("movex", Mathf.Abs(move.x));
         animator.SetFloat("movey", move.y);
         animator.SetBool("grounded", grounded);
@@ -84,6 +101,7 @@ class PlayerController : MonoBehaviour {
     void FixedUpdate() {
         switch (state) {
             case PlayerState.None:
+            case PlayerState.Turn:
                 Vector2 vel = rigidbody.velocity;
                 vel.x = move.x * speed;
                 rigidbody.velocity = vel;
@@ -113,8 +131,10 @@ class PlayerController : MonoBehaviour {
         state = PlayerState.None;
         StopAllCoroutines();
         activeCoroutine = null;
+        character = Character.Gura;
         move = Vector2.zero;
         dashCooldown = false;
+        turnCooldown = false;
     }
 
     protected void OnMove(InputValue input) {
@@ -131,10 +151,18 @@ class PlayerController : MonoBehaviour {
         if (move.magnitude > 0.1f) {
             dashDirection = move.normalized;
         } else {
-            dashDirection = facing == Direction.Right ? Vector2.right : Vector2.left;
+            dashDirection = facing switch {
+                Direction.Right => Vector2.right,
+                Direction.Left => Vector2.left,
+            };
         }
         SetFacing(dashDirection);
         activeCoroutine = StartCoroutine(Dash());
+    }
+
+    protected void OnTurn() {
+        if (state != PlayerState.None || turnCooldown) return;
+        activeCoroutine = StartCoroutine(Turn());
     }
 
     public void OnHit(Vector2 knockback, bool defeat) {
@@ -158,6 +186,27 @@ class PlayerController : MonoBehaviour {
         dashCooldown = true;
         yield return new WaitForSeconds(dashCooldownDuration);
         dashCooldown = false;
+    }
+
+    private IEnumerator Turn() {
+        state = PlayerState.Turn;
+        highlight.speed = 1 / turnInDuration;
+        highlight.SetTrigger("highlight");
+        yield return new AnimatorPlaying(highlight);
+        character = character switch {
+            Character.Gura => Character.Gawr,
+            Character.Gawr => Character.Gura,
+        };
+        highlight.speed = 1 / turnOutDuration;
+        highlight.SetTrigger("dehighlight");
+        yield return new AnimatorPlaying(highlight);
+        state = PlayerState.None;
+        highlight.speed = 1;
+        highlight.SetTrigger("reset");
+        activeCoroutine = null;
+        turnCooldown = true;
+        yield return new WaitForSeconds(turnCooldownDuration);
+        turnCooldown = false;
     }
 
     private IEnumerator Stun(bool defeat) {

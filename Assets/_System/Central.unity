@@ -1707,6 +1707,9 @@ MonoBehaviour:
   dashSpeed: 12
   dashDistance: 3
   dashCooldownDuration: 0.8
+  turnInDuration: 0.3
+  turnOutDuration: 0.1
+  turnCooldownDuration: 0.2
   stunDuration: 0.4
   defeatSlowdownSteps: 10
   defeatInitialSlowdown: 0.5
