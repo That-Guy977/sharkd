@@ -5,6 +5,7 @@ class SpawnPoint : MonoBehaviour {
     public Direction facing;
 
     void Awake() {
+        if (!Application.isPlaying) return;
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
     }
@@ -13,17 +14,18 @@ class SpawnPoint : MonoBehaviour {
         if (!Application.isPlaying) return;
         PlayerController player = GameManager.instance.player;
         player.transform.position = transform.position;
-        player.SetFacing(facing);
+        player.GetComponent<Entity>().SetFacing(facing);
         player.gameObject.SetActive(true);
     }
 
     #if UNITY_EDITOR
     void Update() {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.flipX = facing switch {
-            Direction.Left => true,
-            Direction.Right => false,
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * facing switch {
+            Direction.Right => 1,
+            Direction.Left => -1,
         };
+        transform.localScale = scale;
     }
     #endif
 }

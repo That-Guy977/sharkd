@@ -31,11 +31,10 @@ class PlayerController : MonoBehaviour {
     public LayerMask groundLayer;
     public new CameraFollow camera;
 
+    Entity entity;
     new Rigidbody2D rigidbody;
     new BoxCollider2D collider;
-    SpriteRenderer spriteRenderer;
     Animator animator;
-    Animator highlight;
 
     float jumpVelocity;
     float jumpGravity;
@@ -77,21 +76,17 @@ class PlayerController : MonoBehaviour {
     }
 
     void Awake() {
+        entity = GetComponent<Entity>();
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<BoxCollider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        highlight = GetComponent<Entity>().highlight;
     }
 
     void Update() {
         if (state == PlayerState.None) {
             SetFacing(move);
         }
-        spriteRenderer.flipX = facing switch {
-            Direction.Left => true,
-            Direction.Right => false,
-        };
+        entity.SetFacing(facing);
         animator.SetInteger("state", (int)state);
         animator.SetFloat("char", (int)character);
         animator.SetFloat("movex", Mathf.Abs(move.x));
@@ -254,20 +249,20 @@ class PlayerController : MonoBehaviour {
 
     private IEnumerator Turn() {
         state = PlayerState.Turn;
-        highlight.speed = 1 / turnInDuration;
-        highlight.SetTrigger("highlight");
-        yield return new AnimatorPlaying(highlight);
+        entity.highlight.speed = 1 / turnInDuration;
+        entity.highlight.SetTrigger("highlight");
+        yield return new AnimatorPlaying(entity.highlight);
         character = character switch {
             Character.Gura => Character.Gawr,
             Character.Gawr => Character.Gura,
         };
         attackCooldown = false;
-        highlight.speed = 1 / turnOutDuration;
-        highlight.SetTrigger("dehighlight");
-        yield return new AnimatorPlaying(highlight);
+        entity.highlight.speed = 1 / turnOutDuration;
+        entity.highlight.SetTrigger("dehighlight");
+        yield return new AnimatorPlaying(entity.highlight);
         state = PlayerState.None;
-        highlight.speed = 1;
-        highlight.SetTrigger("reset");
+        entity.highlight.speed = 1;
+        entity.highlight.SetTrigger("reset");
         activeCoroutine = null;
         turnCooldown = true;
         yield return new WaitForSeconds(turnCooldownDuration);
@@ -294,10 +289,6 @@ class PlayerController : MonoBehaviour {
         }
         yield return new WaitForSecondsRealtime(defeatDelay);
         GameManager.instance.Defeat();
-    }
-
-    public void SetFacing(Direction direction) {
-        facing = direction;
     }
 
     void SetFacing(Vector2 direction) {
