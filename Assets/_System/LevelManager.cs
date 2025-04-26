@@ -4,7 +4,7 @@ using UnityEngine.UI;
 class LevelManager : MonoBehaviour {
     public Button inanis;
 
-    void OnEnable() {
+    void Start() {
         inanis.interactable = GameManager.instance.tutorialComplete;
     }
 }
