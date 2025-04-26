@@ -9,8 +9,9 @@ class GameManager : MonoBehaviour {
     [field: SerializeField] public new Camera camera { get; private set; }
 
     [Header("Overlay Menus")]
-    public Canvas settings;
     public Canvas pause;
+    public Canvas defeat;
+    public Canvas settings;
 
     [Header("Game State")]
     public GameState state = GameState.MainMenu;
@@ -23,7 +24,8 @@ class GameManager : MonoBehaviour {
     public enum GameState {
         MainMenu,
         Transitioning,
-        InLevel
+        InLevel,
+        Defeat,
     }
 
     void Awake() {
@@ -49,6 +51,7 @@ class GameManager : MonoBehaviour {
     }
 
     protected void OnExit() {
+        if (state == GameState.Defeat) return;
         if (overlays.Count > 0) {
             CloseOverlay();
         } else if (state == GameState.InLevel) {
@@ -73,6 +76,10 @@ class GameManager : MonoBehaviour {
         while (pause.gameObject.activeSelf && overlays.Count > 0) {
             CloseOverlay();
         }
+    }
+
+    public void Defeat() {
+        OpenOverlay(defeat);
     }
 
     public void Settings() {

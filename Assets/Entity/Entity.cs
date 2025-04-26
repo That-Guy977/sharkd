@@ -1,14 +1,19 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 class Entity : MonoBehaviour {
-    public float maxHealth;
+    public int maxHealth;
     public Slider healthBar;
-    public UnityEvent<Vector2> onHit;
-    public UnityEvent<Vector2> onDeath;
+    public int flashCounts;
+    public float flashDuration;
+    public SpriteRenderer flashSprite;
 
-    private float health;
+    [Header("Messages")]
+    public UnityEvent<Vector2, bool> onHit;
+
+    private int health;
 
     void Start() {
         healthBar.maxValue = maxHealth;
@@ -23,12 +28,19 @@ class Entity : MonoBehaviour {
     }
 
     public void Damage(int damage, Vector2 knockback) {
+        if (health == 0) return;
         health -= damage;
         health = Mathf.Max(health, 0);
-        if (health == 0) {
-            onDeath.Invoke(knockback);
-        } else {
-            onHit.Invoke(knockback);
+        StartCoroutine(Flash());
+        onHit.Invoke(knockback, health == 0);
+    }
+
+    private IEnumerator Flash() {
+        for (int i = 0; i < flashCounts; i++) {
+            flashSprite.color = Color.white;
+            yield return new WaitForSeconds(flashDuration);
+            flashSprite.color = default;
+            yield return new WaitForSeconds(flashDuration);
         }
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using Eflatun.SceneReference;
 
-class PauseMenu : MonoBehaviour {
+class InLevelMenu : MonoBehaviour {
     public SceneReference mainMenu;
     public SceneLoader.Transition restartTransition;
     public SceneLoader.Transition exitTransition;
@@ -23,6 +23,6 @@ class PauseMenu : MonoBehaviour {
     }
 
     public void Restart() {
-        SceneLoader.instance.ReloadScene(exitTransition);
+        SceneLoader.instance.ReloadScene(restartTransition);
     }
 }

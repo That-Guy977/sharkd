@@ -6,6 +6,7 @@ class PlayerController : MonoBehaviour {
     public bool control = true;
     public bool combat = true;
     public Direction facing;
+
     [Header("Movement")]
     public float speed;
     public float jumpAscentDuration;
@@ -14,6 +15,12 @@ class PlayerController : MonoBehaviour {
     public float dashSpeed;
     public float dashDistance;
     public float dashCooldownDuration;
+
+    [Header("Combat")]
+    public float stunDuration;
+    public int defeatSlowdownSteps;
+    public float defeatInitialSlowdown;
+    public float defeatDelay;
 
     [Header("Config")]
     public LayerMask groundLayer;
@@ -30,6 +37,7 @@ class PlayerController : MonoBehaviour {
     float dashDuration;
 
     private PlayerState state;
+    private Coroutine activeCoroutine;
     private Vector2 move;
     private Vector2 dashDirection;
     private bool dashCooldown;
@@ -47,6 +55,8 @@ class PlayerController : MonoBehaviour {
     enum PlayerState {
         None,
         Dash,
+        Stun,
+        Defeat,
     }
 
     void Awake() {
@@ -58,8 +68,9 @@ class PlayerController : MonoBehaviour {
 
     void Update() {
         if (state == PlayerState.None) {
-            spriteRenderer.flipX = facing == Direction.Left;
+            SetFacing(move);
         }
+        spriteRenderer.flipX = facing == Direction.Left;
         animator.SetInteger("state", (int)state);
         animator.SetFloat("movex", Mathf.Abs(move.x));
         animator.SetFloat("movey", move.y);
@@ -81,6 +92,9 @@ class PlayerController : MonoBehaviour {
             case PlayerState.Dash:
                 rigidbody.velocity = dashDirection * dashSpeed;
                 break;
+            case PlayerState.Defeat:
+                rigidbody.velocity = Vector2.zero;
+                break;
         }
     }
 
@@ -97,17 +111,14 @@ class PlayerController : MonoBehaviour {
 
     void Reset() {
         state = PlayerState.None;
+        StopAllCoroutines();
+        activeCoroutine = null;
         move = Vector2.zero;
         dashCooldown = false;
     }
 
     protected void OnMove(InputValue input) {
         move = input.Get<Vector2>();
-        if (move.x > 0) {
-            facing = Direction.Right;
-        } else if (move.x < 0) {
-            facing = Direction.Left;
-        }
     }
 
     protected void OnJump() {
@@ -122,24 +133,61 @@ class PlayerController : MonoBehaviour {
         } else {
             dashDirection = facing == Direction.Right ? Vector2.right : Vector2.left;
         }
-        StartCoroutine(Dash());
+        SetFacing(dashDirection);
+        activeCoroutine = StartCoroutine(Dash());
     }
 
-    public void OnHit(Vector2 knockback) {
-
-    }
-
-    public void OnDeath(Vector2 knockback) {
-
+    public void OnHit(Vector2 knockback, bool defeat) {
+        SetFacing(-knockback);
+        rigidbody.velocity = Vector2.zero;
+        rigidbody.AddForce(knockback, ForceMode2D.Impulse);
+        if (activeCoroutine != null) {
+            StopCoroutine(activeCoroutine);
+        }
+        activeCoroutine = StartCoroutine(Stun(defeat));
+        if (defeat) {
+            StartCoroutine(Defeat());
+        }
     }
 
     private IEnumerator Dash() {
         state = PlayerState.Dash;
         yield return new WaitForSeconds(dashDuration);
         state = PlayerState.None;
+        activeCoroutine = null;
         dashCooldown = true;
         yield return new WaitForSeconds(dashCooldownDuration);
         dashCooldown = false;
+    }
+
+    private IEnumerator Stun(bool defeat) {
+        state = PlayerState.Stun;
+        yield return new WaitForSeconds(stunDuration);
+        if (defeat) {
+            state = PlayerState.Defeat;
+        } else {
+            state = PlayerState.None;
+            activeCoroutine = null;
+        }
+    }
+
+    private IEnumerator Defeat() {
+        GameManager.instance.state = GameManager.GameState.Defeat;
+        Time.timeScale = defeatInitialSlowdown;
+        for (int i = 0; i < defeatSlowdownSteps; i++) {
+            yield return new WaitForSecondsRealtime(stunDuration / defeatSlowdownSteps);
+            Time.timeScale = Mathf.Lerp(defeatInitialSlowdown, 0, (float) i / defeatSlowdownSteps);
+        }
+        yield return new WaitForSecondsRealtime(defeatDelay);
+        GameManager.instance.Defeat();
+    }
+
+    void SetFacing(Vector2 direction) {
+        if (direction.x > 0) {
+            facing = Direction.Right;
+        } else if (direction.x < 0) {
+            facing = Direction.Left;
+        }
     }
 
     void CalculateKinematics() {
