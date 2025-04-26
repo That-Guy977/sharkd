@@ -51,7 +51,7 @@ class GameManager : MonoBehaviour {
     }
 
     protected void OnExit() {
-        if (state == GameState.Defeat) return;
+        if (state == GameState.Transitioning || state == GameState.Defeat) return;
         if (overlays.Count > 0) {
             CloseOverlay();
         } else if (state == GameState.InLevel) {
