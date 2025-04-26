@@ -13,6 +13,12 @@ class PlayerController : MonoBehaviour {
     public float dashCooldownDuration;
 
     [Header("Combat")]
+    public float guraAttackDamage;
+    public float guraAttackRate;
+    public float guraAttackExitTime;
+    public float guraAttackCooldownDuration;
+    public float gawrAttackDamage;
+    public float gawrAttackCooldownDuration;
     public float turnInDuration;
     public float turnOutDuration;
     public float turnCooldownDuration;
@@ -44,6 +50,7 @@ class PlayerController : MonoBehaviour {
     private Vector2 dashDirection;
     private bool dashCooldown;
     private bool turnCooldown;
+    private bool attackCooldown;
 
     bool grounded => Physics2D.BoxCast(
         transform.position,
@@ -58,9 +65,10 @@ class PlayerController : MonoBehaviour {
     enum PlayerState {
         None,
         Dash,
+        Attack,
+        Turn,
         Stun,
         Defeat,
-        Turn,
     }
 
     public enum Character {
@@ -88,7 +96,7 @@ class PlayerController : MonoBehaviour {
         animator.SetFloat("char", (int)character);
         animator.SetFloat("movex", Mathf.Abs(move.x));
         animator.SetFloat("movey", move.y);
-        animator.SetBool("grounded", grounded);
+        animator.SetFloat("air", grounded ? -1 : 1);
         animator.SetFloat("vely", rigidbody.velocity.y);
         #if UNITY_EDITOR
             CalculateKinematics();
@@ -98,14 +106,21 @@ class PlayerController : MonoBehaviour {
     void FixedUpdate() {
         switch (state) {
             case PlayerState.None:
-            case PlayerState.Turn:
-                Vector2 vel = rigidbody.velocity;
-                vel.x = move.x * speed;
-                rigidbody.velocity = vel;
-                rigidbody.AddForce(Vector2.down * gravity);
+                Move();
                 break;
             case PlayerState.Dash:
                 rigidbody.velocity = dashDirection * dashSpeed;
+                break;
+            case PlayerState.Attack:
+                if (character == Character.Gawr) {
+                    goto case PlayerState.None;
+                } else {
+                    rigidbody.velocity = Vector2.zero;
+                }
+                break;
+            case PlayerState.Turn:
+                goto case PlayerState.None;
+            case PlayerState.Stun:
                 break;
             case PlayerState.Defeat:
                 rigidbody.velocity = Vector2.zero;
@@ -157,6 +172,26 @@ class PlayerController : MonoBehaviour {
         activeCoroutine = StartCoroutine(Dash());
     }
 
+    protected void OnAttack(InputValue input) {
+        switch (character) {
+            case Character.Gura:
+                if (input.isPressed) {
+                    if (state != PlayerState.None || attackCooldown) return;
+                    activeCoroutine = StartCoroutine(GuraAttack());
+                } else {
+                    if (state != PlayerState.Attack) return;
+                    StartCoroutine(OnGuraAttackCancel());
+                }
+                break;
+            case Character.Gawr:
+                if (input.isPressed) {
+                    if (state != PlayerState.None || attackCooldown) return;
+                    activeCoroutine = StartCoroutine(GawrAttack());
+                }
+                break;
+        }
+    }
+
     protected void OnTurn() {
         if (state != PlayerState.None || turnCooldown) return;
         activeCoroutine = StartCoroutine(Turn());
@@ -175,6 +210,13 @@ class PlayerController : MonoBehaviour {
         }
     }
 
+    void Move() {
+        Vector2 vel = rigidbody.velocity;
+        vel.x = move.x * speed;
+        rigidbody.velocity = vel;
+        rigidbody.AddForce(Vector2.down * gravity);
+    }
+
     private IEnumerator Dash() {
         state = PlayerState.Dash;
         yield return new WaitForSeconds(dashDuration);
@@ -183,6 +225,31 @@ class PlayerController : MonoBehaviour {
         dashCooldown = true;
         yield return new WaitForSeconds(dashCooldownDuration);
         dashCooldown = false;
+    }
+
+    private IEnumerator GuraAttack() {
+        state = PlayerState.Attack;
+        yield return new WaitWhile(() => state == PlayerState.Attack);
+        state = PlayerState.None;
+        activeCoroutine = null;
+        attackCooldown = true;
+        yield return new WaitForSeconds(guraAttackCooldownDuration);
+        attackCooldown = false;
+    }
+
+    private IEnumerator OnGuraAttackCancel() {
+        yield return new WaitForSeconds(guraAttackExitTime);
+        state = PlayerState.None;
+    }
+
+    private IEnumerator GawrAttack() {
+        state = PlayerState.Attack;
+        yield return new AnimatorPlaying(animator);
+        state = PlayerState.None;
+        activeCoroutine = null;
+        attackCooldown = true;
+        yield return new WaitForSeconds(gawrAttackCooldownDuration);
+        attackCooldown = false;
     }
 
     private IEnumerator Turn() {
@@ -194,6 +261,7 @@ class PlayerController : MonoBehaviour {
             Character.Gura => Character.Gawr,
             Character.Gawr => Character.Gura,
         };
+        attackCooldown = false;
         highlight.speed = 1 / turnOutDuration;
         highlight.SetTrigger("dehighlight");
         yield return new AnimatorPlaying(highlight);

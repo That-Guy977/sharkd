@@ -1704,6 +1704,12 @@ MonoBehaviour:
   dashSpeed: 12
   dashDistance: 3
   dashCooldownDuration: 0.8
+  guraAttackDamage: 0
+  guraAttackRate: 0
+  guraAttackExitTime: 0.2
+  guraAttackCooldownDuration: 0.3
+  gawrAttackDamage: 0
+  gawrAttackCooldownDuration: 0.1
   turnInDuration: 0.3
   turnOutDuration: 0.1
   turnCooldownDuration: 0.2
