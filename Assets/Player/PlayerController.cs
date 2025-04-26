@@ -3,10 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 class PlayerController : MonoBehaviour {
-    public bool control = true;
-    public bool combat = true;
-    public Direction facing;
-
     [Header("Movement")]
     public float speed;
     public float jumpAscentDuration;
@@ -43,6 +39,7 @@ class PlayerController : MonoBehaviour {
     private PlayerState state;
     private Coroutine activeCoroutine;
     private Character character;
+    private Direction facing;
     private Vector2 move;
     private Vector2 dashDirection;
     private bool dashCooldown;
@@ -229,6 +226,10 @@ class PlayerController : MonoBehaviour {
         }
         yield return new WaitForSecondsRealtime(defeatDelay);
         GameManager.instance.Defeat();
+    }
+
+    public void SetFacing(Direction direction) {
+        facing = direction;
     }
 
     void SetFacing(Vector2 direction) {

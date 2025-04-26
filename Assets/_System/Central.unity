@@ -1697,9 +1697,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0b40829bf8544f4b82e3e8e6b547f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  control: 1
-  combat: 1
-  facing: 0
   speed: 8
   jumpAscentDuration: 0.3
   jumpDescentDuration: 0.35

@@ -13,7 +13,7 @@ class SpawnPoint : MonoBehaviour {
         if (!Application.isPlaying) return;
         PlayerController player = GameManager.instance.player;
         player.transform.position = transform.position;
-        player.facing = facing;
+        player.SetFacing(facing);
         player.gameObject.SetActive(true);
     }
 
