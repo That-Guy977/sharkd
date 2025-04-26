@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[ExecuteAlways]
 class SpawnPoint : MonoBehaviour {
     public Direction facing;
 
@@ -9,9 +10,20 @@ class SpawnPoint : MonoBehaviour {
     }
 
     void Start() {
+        if (!Application.isPlaying) return;
         PlayerController player = GameManager.instance.player;
         player.transform.position = transform.position;
         player.facing = facing;
         player.gameObject.SetActive(true);
     }
+
+    #if UNITY_EDITOR
+    void Update() {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.flipX = facing switch {
+            Direction.Left => true,
+            Direction.Right => false,
+        };
+    }
+    #endif
 }
