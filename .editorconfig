@@ -6,7 +6,7 @@ csharp_new_line_before_else = false
 csharp_new_line_before_catch = false
 csharp_new_line_before_finally = false
 
-# Spaces (I inferred these based on the existing code).
+# Spaces
 csharp_space_after_cast = false
 csharp_space_before_colon_in_inheritance_clause = true
 csharp_space_after_colon_in_inheritance_clause = true
