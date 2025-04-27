@@ -42,7 +42,7 @@ class PlayerController : MonoBehaviour {
     float dashDuration;
 
     private PlayerState state;
-    private Coroutine activeCoroutine;
+    private Coroutine activeState;
     private Character character;
     private Direction facing;
     private Vector2 move;
@@ -137,7 +137,7 @@ class PlayerController : MonoBehaviour {
     void Reset() {
         state = PlayerState.None;
         StopAllCoroutines();
-        activeCoroutine = null;
+        activeState = null;
         character = Character.Gura;
         move = Vector2.zero;
         dashCooldown = false;
@@ -164,7 +164,7 @@ class PlayerController : MonoBehaviour {
             };
         }
         SetFacing(dashDirection);
-        activeCoroutine = StartCoroutine(Dash());
+        activeState = StartCoroutine(Dash());
     }
 
     protected void OnAttack(InputValue input) {
@@ -172,7 +172,7 @@ class PlayerController : MonoBehaviour {
             case Character.Gura:
                 if (input.isPressed) {
                     if (state != PlayerState.None || attackCooldown) return;
-                    activeCoroutine = StartCoroutine(GuraAttack());
+                    activeState = StartCoroutine(GuraAttack());
                 } else {
                     if (state != PlayerState.Attack) return;
                     StartCoroutine(OnGuraAttackCancel());
@@ -181,7 +181,7 @@ class PlayerController : MonoBehaviour {
             case Character.Gawr:
                 if (input.isPressed) {
                     if (state != PlayerState.None || attackCooldown) return;
-                    activeCoroutine = StartCoroutine(GawrAttack());
+                    activeState = StartCoroutine(GawrAttack());
                 }
                 break;
         }
@@ -189,17 +189,17 @@ class PlayerController : MonoBehaviour {
 
     protected void OnTurn() {
         if (state != PlayerState.None || turnCooldown) return;
-        activeCoroutine = StartCoroutine(Turn());
+        activeState = StartCoroutine(Turn());
     }
 
     public void OnHit(Vector2 knockback, bool defeat) {
         SetFacing(-knockback);
         rigidbody.velocity = Vector2.zero;
         rigidbody.AddForce(knockback, ForceMode2D.Impulse);
-        if (activeCoroutine != null) {
-            StopCoroutine(activeCoroutine);
+        if (activeState != null) {
+            StopCoroutine(activeState);
         }
-        activeCoroutine = StartCoroutine(Stun(defeat));
+        activeState = StartCoroutine(Stun(defeat));
         if (defeat) {
             StartCoroutine(Defeat());
         }
@@ -216,7 +216,7 @@ class PlayerController : MonoBehaviour {
         state = PlayerState.Dash;
         yield return new WaitForSeconds(dashDuration);
         state = PlayerState.None;
-        activeCoroutine = null;
+        activeState = null;
         dashCooldown = true;
         yield return new WaitForSeconds(dashCooldownDuration);
         dashCooldown = false;
@@ -226,7 +226,7 @@ class PlayerController : MonoBehaviour {
         state = PlayerState.Attack;
         yield return new WaitWhile(() => state == PlayerState.Attack);
         state = PlayerState.None;
-        activeCoroutine = null;
+        activeState = null;
         attackCooldown = true;
         yield return new WaitForSeconds(guraAttackCooldownDuration);
         attackCooldown = false;
@@ -241,7 +241,7 @@ class PlayerController : MonoBehaviour {
         state = PlayerState.Attack;
         yield return new AnimatorPlaying(animator);
         state = PlayerState.None;
-        activeCoroutine = null;
+        activeState = null;
         attackCooldown = true;
         yield return new WaitForSeconds(gawrAttackCooldownDuration);
         attackCooldown = false;
@@ -263,7 +263,7 @@ class PlayerController : MonoBehaviour {
         state = PlayerState.None;
         entity.highlight.speed = 1;
         entity.highlight.SetTrigger("reset");
-        activeCoroutine = null;
+        activeState = null;
         turnCooldown = true;
         yield return new WaitForSeconds(turnCooldownDuration);
         turnCooldown = false;
@@ -276,7 +276,7 @@ class PlayerController : MonoBehaviour {
             state = PlayerState.Defeat;
         } else {
             state = PlayerState.None;
-            activeCoroutine = null;
+            activeState = null;
         }
     }
 
