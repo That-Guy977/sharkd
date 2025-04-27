@@ -13,11 +13,8 @@ class PlayerController : MonoBehaviour {
     public float dashCooldownDuration;
 
     [Header("Combat")]
-    public float guraAttackDamage;
-    public float guraAttackRate;
     public float guraAttackExitTime;
     public float guraAttackCooldownDuration;
-    public float gawrAttackDamage;
     public float gawrAttackCooldownDuration;
     public float turnInDuration;
     public float turnOutDuration;
@@ -32,6 +29,7 @@ class PlayerController : MonoBehaviour {
     public new CameraFollow camera;
 
     Entity entity;
+    PlayerAttack attack;
     new Rigidbody2D rigidbody;
     new BoxCollider2D collider;
     Animator animator;
@@ -76,6 +74,7 @@ class PlayerController : MonoBehaviour {
 
     void Awake() {
         entity = GetComponent<Entity>();
+        attack = GetComponent<PlayerAttack>();
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
@@ -140,6 +139,8 @@ class PlayerController : MonoBehaviour {
         move = Vector2.zero;
         dashCooldown = false;
         turnCooldown = false;
+        attackCooldown = false;
+        attack.Reset();
     }
 
     protected void OnMove(InputValue input) {
@@ -197,6 +198,7 @@ class PlayerController : MonoBehaviour {
         if (activeState != null) {
             StopCoroutine(activeState);
         }
+        attack.Reset();
         activeState = StartCoroutine(Stun(defeat));
         if (defeat) {
             StartCoroutine(Defeat());
@@ -204,9 +206,7 @@ class PlayerController : MonoBehaviour {
     }
 
     void Move() {
-        Vector2 vel = rigidbody.velocity;
-        vel.x = move.x * speed;
-        rigidbody.velocity = vel;
+        rigidbody.velocity = rigidbody.velocity.WithX(move.x * speed);
         rigidbody.AddForce(Vector2.down * gravity);
     }
 
@@ -232,6 +232,7 @@ class PlayerController : MonoBehaviour {
 
     private IEnumerator OnGuraAttackCancel() {
         yield return new WaitForSeconds(guraAttackExitTime);
+        attack.GuraCancel();
         state = PlayerState.None;
     }
 
