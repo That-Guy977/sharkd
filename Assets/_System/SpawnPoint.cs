@@ -14,7 +14,7 @@ class SpawnPoint : MonoBehaviour {
         if (!Application.isPlaying) return;
         PlayerController player = GameManager.instance.player;
         player.transform.position = transform.position;
-        player.GetComponent<Entity>().SetFacing(facing);
+        player.GetComponent<Entity>().facing = facing;
         player.gameObject.SetActive(true);
     }
 

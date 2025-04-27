@@ -12,6 +12,16 @@ class Entity : MonoBehaviour {
     public UnityEvent<Vector2, bool> onHit;
 
     private int health;
+    private Direction currentDir;
+
+    public Direction facing {
+        get => currentDir;
+        set {
+            currentDir = value;
+            UpdateFacing(transform);
+            UpdateFacing(hud.transform);
+        }
+    }
 
     void Start() {
         healthBar.maxValue = maxHealth;
@@ -34,14 +44,9 @@ class Entity : MonoBehaviour {
         onHit.Invoke(knockback, health == 0);
     }
 
-    public void SetFacing(Direction direction) {
-        SetFacing(transform, direction);
-        SetFacing(hud.transform, direction);
-    }
-
-    void SetFacing(Transform transform, Direction direction) {
+    void UpdateFacing(Transform transform) {
         Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * direction switch {
+        scale.x = Mathf.Abs(scale.x) * facing switch {
             Direction.Right => 1,
             Direction.Left => -1,
         };

@@ -44,7 +44,6 @@ class PlayerController : MonoBehaviour {
     private PlayerState state;
     private Coroutine activeState;
     private Character character;
-    private Direction facing;
     private Vector2 move;
     private Vector2 dashDirection;
     private bool dashCooldown;
@@ -83,10 +82,9 @@ class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        if (state == PlayerState.None) {
+        if (state == PlayerState.None || state == PlayerState.Turn) {
             SetFacing(move);
         }
-        entity.SetFacing(facing);
         animator.SetInteger("state", (int)state);
         animator.SetFloat("char", (int)character);
         animator.SetFloat("movex", Mathf.Abs(move.x));
@@ -158,7 +156,7 @@ class PlayerController : MonoBehaviour {
         if (move.magnitude > 0.1f) {
             dashDirection = move.normalized;
         } else {
-            dashDirection = facing switch {
+            dashDirection = entity.facing switch {
                 Direction.Right => Vector2.right,
                 Direction.Left => Vector2.left,
             };
@@ -293,9 +291,9 @@ class PlayerController : MonoBehaviour {
 
     void SetFacing(Vector2 direction) {
         if (direction.x > 0) {
-            facing = Direction.Right;
+            entity.facing = Direction.Right;
         } else if (direction.x < 0) {
-            facing = Direction.Left;
+            entity.facing = Direction.Left;
         }
     }
 
