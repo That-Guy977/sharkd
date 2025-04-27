@@ -93,9 +93,9 @@ class PlayerController : MonoBehaviour {
         animator.SetFloat("movey", move.y);
         animator.SetFloat("air", grounded ? -1 : 1);
         animator.SetFloat("vely", rigidbody.velocity.y);
-        #if UNITY_EDITOR
-            CalculateKinematics();
-        #endif
+#if UNITY_EDITOR
+        CalculateKinematics();
+#endif
     }
 
     void FixedUpdate() {
@@ -285,7 +285,7 @@ class PlayerController : MonoBehaviour {
         Time.timeScale = defeatInitialSlowdown;
         for (int i = 0; i < defeatSlowdownSteps; i++) {
             yield return new WaitForSecondsRealtime(stunDuration / defeatSlowdownSteps);
-            Time.timeScale = Mathf.Lerp(defeatInitialSlowdown, 0, (float) i / defeatSlowdownSteps);
+            Time.timeScale = Mathf.Lerp(defeatInitialSlowdown, 0, (float)i / defeatSlowdownSteps);
         }
         yield return new WaitForSecondsRealtime(defeatDelay);
         GameManager.instance.Defeat();

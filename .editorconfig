@@ -2,6 +2,20 @@
 [*.cs]
 # Enforce K&R indentation style (same line brace).
 csharp_new_line_before_open_brace = none
+csharp_new_line_before_else = false
+csharp_new_line_before_catch = false
+csharp_new_line_before_finally = false
+
+# Spaces (I inferred these based on the existing code).
+csharp_space_after_cast = false
+csharp_space_before_colon_in_inheritance_clause = true
+csharp_space_after_colon_in_inheritance_clause = true
+csharp_space_before_comma = false
+csharp_space_after_comma = true
+csharp_space_after_dot = false
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_before_semicolon_in_for_statement = false
+csharp_space_after_semicolon_in_for_statement = true
 
 # CS8524: The switch expression does not handle some values of its input type (it is not exhaustive) involving an unnamed enum value.
 dotnet_diagnostic.CS8524.severity = none
