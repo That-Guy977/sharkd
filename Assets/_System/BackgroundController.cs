@@ -15,8 +15,8 @@ class BackgroundController : MonoBehaviour {
 
     private Vector2 previousCameraPosition = Vector2.zero;
 
-    Vector2 cameraPosition { get => camera.gameObject.transform.position; }
-    float center { get => (tiles.First.Value.transform.position.x + tiles.Last.Value.transform.position.x + spriteWidth) / 2f; }
+    Vector2 cameraPosition => camera.gameObject.transform.position;
+    float center => (tiles.First.Value.transform.position.x + tiles.Last.Value.transform.position.x + spriteWidth) / 2f;
 
     void Awake() {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
