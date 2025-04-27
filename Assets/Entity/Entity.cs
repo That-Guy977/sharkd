@@ -6,7 +6,7 @@ class Entity : MonoBehaviour {
     public int maxHealth;
     public Slider healthBar;
     public Animator highlight;
-    public Canvas hud;
+    public RectTransform fixedReflection;
 
     [Header("Messages")]
     public UnityEvent<Vector2, bool> onHit;
@@ -19,7 +19,7 @@ class Entity : MonoBehaviour {
         set {
             currentDir = value;
             UpdateFacing(transform);
-            UpdateFacing(hud.transform);
+            UpdateFacing(fixedReflection);
         }
     }
 

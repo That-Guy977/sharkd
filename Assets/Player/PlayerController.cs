@@ -58,7 +58,7 @@ class PlayerController : MonoBehaviour {
     );
     float gravity => rigidbody.velocity.y > 0 ? jumpGravity : fallGravity;
 
-    public enum Character {
+    enum Character {
         Gura,
         Gawr,
     }
@@ -158,11 +158,11 @@ class PlayerController : MonoBehaviour {
         switch (character) {
             case Character.Gura:
                 if (input.isPressed) {
-                    if (state != PlayerState.None || attackCooldown) return;
+                    if (state != PlayerState.None || attackCooldown || !attack.beamCanStart) return;
                     activeState = StartCoroutine(GuraAttack());
                 } else {
                     if (state != PlayerState.Attack) return;
-                    StartCoroutine(OnGuraAttackCancel());
+                    StartCoroutine(GuraAttackCancel());
                 }
                 break;
             case Character.Gawr:
@@ -210,7 +210,12 @@ class PlayerController : MonoBehaviour {
 
     private IEnumerator GuraAttack() {
         state = PlayerState.Attack;
-        yield return new WaitWhile(() => state == PlayerState.Attack);
+        while (state == PlayerState.Attack) {
+            if (!attack.beamCanAttack) {
+                yield return GuraAttackCancel();
+            }
+            yield return null;
+        }
         state = PlayerState.None;
         activeState = null;
         attackCooldown = true;
@@ -218,7 +223,7 @@ class PlayerController : MonoBehaviour {
         attackCooldown = false;
     }
 
-    private IEnumerator OnGuraAttackCancel() {
+    private IEnumerator GuraAttackCancel() {
         yield return new WaitForSeconds(guraAttackExitTime);
         attack.GuraCancel();
         state = PlayerState.None;

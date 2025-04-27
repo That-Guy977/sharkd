@@ -1,11 +1,19 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 class PlayerAttack : MonoBehaviour {
+    public int maxMana;
+    public float manaRegenRate;
+    public float manaRegenDelay;
+    public Slider manaBar;
+
     [Header("Gura Attacks")]
     public int beamDamage;
     public float beamDamageInterval;
     public float beamKnockback;
+    public int beamManaThreshold;
+    public float beamManaDrain;
     public float beamSpeed;
     public GameObject beamContainer;
     public Transform beamAnchorGround;
@@ -19,15 +27,38 @@ class PlayerAttack : MonoBehaviour {
     Entity entity;
 
     private Coroutine repeatDamage;
+    private Coroutine manaDelay;
+    private float mana;
+    private bool manaRegen;
     private Collider2D targetCollider;
+
+    public bool beamCanStart => mana >= beamManaThreshold;
+    public bool beamCanAttack => mana > 0;
 
     void Awake() {
         entity = GetComponent<Entity>();
     }
 
+    void Start() {
+        manaBar.maxValue = maxMana;
+    }
+
+    void Update() {
+        if (manaRegen) {
+            mana += manaRegenRate * Time.deltaTime;
+            mana = Mathf.Min(mana, maxMana);
+        }
+        manaBar.value = mana;
+    }
+
+    void OnEnable() {
+        mana = maxMana;
+    }
+
     public void Reset() {
         StopAllCoroutines();
         repeatDamage = null;
+        manaDelay = StartCoroutine(ManaRegenDelay());
         beamContainer.SetActive(false);
         beamOrigin.gameObject.SetActive(false);
         beam.gameObject.SetActive(false);
@@ -48,9 +79,17 @@ class PlayerAttack : MonoBehaviour {
     private IEnumerator GuraSummon() {
         beamContainer.SetActive(true);
         yield return new AnimatorPlaying(beamSummon);
+        manaRegen = false;
+        if (manaDelay != null) {
+            StopCoroutine(manaDelay);
+        }
         beamOrigin.gameObject.SetActive(true);
         beam.gameObject.SetActive(true);
         while (true) {
+            if (!beamCanAttack) {
+                GuraCancel();
+                break;
+            }
             if (targetCollider) {
                 float closeEdge = entity.facing switch {
                     Direction.Right => targetCollider.bounds.min.x,
@@ -63,6 +102,8 @@ class PlayerAttack : MonoBehaviour {
                 beam.size += Vector2.right * beamSpeed * Time.deltaTime;
                 beamHit.gameObject.SetActive(false);
             }
+            mana -= beamManaDrain * Time.deltaTime;
+            mana = Mathf.Max(mana, 0);
             yield return null;
         }
     }
@@ -94,5 +135,11 @@ class PlayerAttack : MonoBehaviour {
             }
             yield return null;
         }
+    }
+
+    private IEnumerator ManaRegenDelay() {
+        manaRegen = false;
+        yield return new WaitForSeconds(manaRegenDelay);
+        manaRegen = true;
     }
 }
