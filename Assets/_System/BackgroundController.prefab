@@ -45,8 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 765812fe0f5344646bb37a72f75198d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  layer: Background
   depth: 0
 --- !u!212 &6101065103162213354
 SpriteRenderer:
