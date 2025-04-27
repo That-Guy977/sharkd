@@ -58,15 +58,6 @@ class PlayerController : MonoBehaviour {
     );
     float gravity => rigidbody.velocity.y > 0 ? jumpGravity : fallGravity;
 
-    enum PlayerState {
-        None,
-        Dash,
-        Attack,
-        Turn,
-        Stun,
-        Defeat,
-    }
-
     public enum Character {
         Gura,
         Gawr,
@@ -277,7 +268,7 @@ class PlayerController : MonoBehaviour {
     }
 
     private IEnumerator Defeat() {
-        GameManager.instance.state = GameManager.GameState.Defeat;
+        GameManager.instance.state = GameState.Defeat;
         Time.timeScale = defeatInitialSlowdown;
         for (int i = 0; i < defeatSlowdownSteps; i++) {
             yield return new WaitForSecondsRealtime(stunDuration / defeatSlowdownSteps);
@@ -301,4 +292,13 @@ class PlayerController : MonoBehaviour {
         fallGravity = 2.0f * jumpHeight / Mathf.Pow(jumpDescentDuration, 2);
         dashDuration = dashDistance / dashSpeed;
     }
+}
+
+enum PlayerState {
+    None,
+    Dash,
+    Attack,
+    Turn,
+    Stun,
+    Defeat,
 }

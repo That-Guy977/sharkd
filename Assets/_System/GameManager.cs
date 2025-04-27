@@ -21,13 +21,6 @@ class GameManager : MonoBehaviour {
 
     public bool overlayOpen => overlays.Count > 0;
 
-    public enum GameState {
-        MainMenu,
-        Transitioning,
-        InLevel,
-        Defeat,
-    }
-
     void Awake() {
         if (!instance) {
             instance = this;
@@ -85,4 +78,11 @@ class GameManager : MonoBehaviour {
     public void Settings() {
         OpenOverlay(settings);
     }
+}
+
+enum GameState {
+    MainMenu,
+    Transitioning,
+    InLevel,
+    Defeat,
 }

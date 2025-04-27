@@ -19,7 +19,7 @@ class InLevelMenu : MonoBehaviour {
     }
 
     public void Exit() {
-        SceneLoader.instance.LoadScene(mainMenu, exitTransition, GameManager.GameState.MainMenu);
+        SceneLoader.instance.LoadScene(mainMenu, exitTransition, GameState.MainMenu);
     }
 
     public void Restart() {

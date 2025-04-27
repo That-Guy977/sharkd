@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Eflatun.SceneReference;
 
-using static GameManager;
-
 class SceneLoader : MonoBehaviour {
     public static SceneLoader instance;
 
