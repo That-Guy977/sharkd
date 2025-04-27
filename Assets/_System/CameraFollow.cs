@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
-public class CameraFollow : MonoBehaviour {
+class CameraFollow : MonoBehaviour {
     [Min(0f)]
     public float speed;
     public float offset;

@@ -21,10 +21,7 @@ class SpawnPoint : MonoBehaviour {
     #if UNITY_EDITOR
     void Update() {
         Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * facing switch {
-            Direction.Right => 1,
-            Direction.Left => -1,
-        };
+        scale.x = Mathf.Abs(scale.x) * facing.AsScale();
         transform.localScale = scale;
     }
     #endif

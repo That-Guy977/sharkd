@@ -88,10 +88,7 @@ class PlayerAttack : MonoBehaviour {
             while (time >= beamDamageInterval) {
                 target.Damage(
                     beamDamage,
-                    entity.facing switch {
-                        Direction.Right => Vector2.right,
-                        Direction.Left => Vector2.left,
-                    } * beamKnockback
+                    entity.facing.AsVector() * beamKnockback
                 );
                 time -= beamDamageInterval;
             }

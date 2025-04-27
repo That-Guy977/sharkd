@@ -46,10 +46,7 @@ class Entity : MonoBehaviour {
 
     void UpdateFacing(Transform transform) {
         Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * facing switch {
-            Direction.Right => 1,
-            Direction.Left => -1,
-        };
+        scale.x = Mathf.Abs(scale.x) * facing.AsScale();
         transform.localScale = scale;
     }
 }

@@ -157,10 +157,7 @@ class PlayerController : MonoBehaviour {
         if (move.magnitude > 0.1f) {
             dashDirection = move.normalized;
         } else {
-            dashDirection = entity.facing switch {
-                Direction.Right => Vector2.right,
-                Direction.Left => Vector2.left,
-            };
+            dashDirection = entity.facing.AsVector();
         }
         SetFacing(dashDirection);
         activeState = StartCoroutine(Dash());
