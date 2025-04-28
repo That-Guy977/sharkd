@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
@@ -13,17 +12,11 @@ class MusicPlayer : MonoBehaviour {
     public float pauseFadeInDuration;
     public float pauseFadeOutDuration;
     [SerializedDictionary("Scene", "Music")]
-    public SceneDictionary<MusicData> music;
+    public SceneDictionary<AudioSinglePlayable> music;
 
     AudioSource source;
 
     private float clipVolume;
-
-    [Serializable]
-    public struct MusicData {
-        public AudioClip clip;
-        public float volume;
-    }
 
     void Awake() {
         if (!instance) {
@@ -40,13 +33,13 @@ class MusicPlayer : MonoBehaviour {
     }
 
     public void Play(SceneReference scene) {
-        if (!music.ContainsKey(scene)) return;
-        MusicData musicData = music[scene];
-        source.clip = musicData.clip;
-        clipVolume = musicData.volume;
-        source.Play();
-        StopAllCoroutines();
-        StartCoroutine(Fade(clipVolume, fadeInDuration));
+        if (music.TryGetValue(scene, out var playable)) {
+            source.clip = playable.clip;
+            clipVolume = playable.volume;
+            source.Play();
+            StopAllCoroutines();
+            StartCoroutine(Fade(clipVolume, fadeInDuration));
+        }
     }
 
     public void Stop() {
