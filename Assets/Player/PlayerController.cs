@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using AYellowpaper.SerializedCollections;
 
 class PlayerController : MonoBehaviour {
     [Header("Movement")]
@@ -27,6 +28,8 @@ class PlayerController : MonoBehaviour {
     [Header("Config")]
     public LayerMask groundLayer;
     public new CameraFollow camera;
+    [SerializedDictionary("Character", "SoundFX")]
+    public SerializedDictionary<Character, AudioSinglePlayable> entranceSounds;
     public AudioBankPlayable dashSounds;
     public AudioBankPlayable turnSounds;
 
@@ -60,7 +63,7 @@ class PlayerController : MonoBehaviour {
     );
     float gravity => rigidbody.velocity.y > 0 ? jumpGravity : fallGravity;
 
-    enum Character {
+    public enum Character {
         Gura,
         Gawr,
     }
@@ -261,6 +264,7 @@ class PlayerController : MonoBehaviour {
             Character.Gura => Character.Gawr,
             Character.Gawr => Character.Gura,
         };
+        SoundFXPlayer.instance.Play(entranceSounds[character]);
         attackCooldown = false;
         entity.highlight.speed = 1 / turnOutDuration;
         entity.highlight.SetTrigger("dehighlight");

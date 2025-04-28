@@ -2369,6 +2369,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   camera: {fileID: 8944932453567441658}
+  entranceSounds:
+    _serializedList:
+    - Key: 0
+      Value:
+        <clip>k__BackingField: {fileID: 8300000, guid: b37a0ac4fb85c4e1ba1b0f1c9b96f7eb, type: 3}
+        <volume>k__BackingField: 1
+    - Key: 1
+      Value:
+        <clip>k__BackingField: {fileID: 8300000, guid: 9f4b7ae1e1a0d4603967cf0e6440ebe0, type: 3}
+        <volume>k__BackingField: 1
   dashSounds:
     clips:
     - {fileID: 8300000, guid: 446150f39c3324ee8b1d44339ddb0773, type: 3}
