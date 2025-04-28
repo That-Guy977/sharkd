@@ -14,7 +14,7 @@ class SoundFXPlayer : MonoBehaviour {
         source = GetComponent<AudioSource>();
     }
 
-    public void Play(AudioPlayable playable, float volume) {
+    public void Play(AudioPlayable playable, float volume = 1) {
         source.PlayOneShot(playable.clip, playable.volume * volume);
     }
 }

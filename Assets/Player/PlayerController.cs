@@ -27,6 +27,8 @@ class PlayerController : MonoBehaviour {
     [Header("Config")]
     public LayerMask groundLayer;
     public new CameraFollow camera;
+    public AudioBankPlayable dashSounds;
+    public AudioBankPlayable turnSounds;
 
     Entity entity;
     PlayerAttack attack;
@@ -161,6 +163,7 @@ class PlayerController : MonoBehaviour {
         }
         SetFacing(dashDirection);
         activeState = StartCoroutine(Dash());
+        SoundFXPlayer.instance.Play(dashSounds);
     }
 
     protected void OnAttack(InputValue input) {
@@ -186,6 +189,7 @@ class PlayerController : MonoBehaviour {
     protected void OnTurn() {
         if (state != PlayerState.None || turnCooldown) return;
         activeState = StartCoroutine(Turn());
+        SoundFXPlayer.instance.Play(turnSounds);
     }
 
     public void OnHit(Vector2 knockback, bool defeat) {

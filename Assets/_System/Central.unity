@@ -2147,6 +2147,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   camera: {fileID: 8944932453567441658}
+  dashSounds:
+    clips:
+    - {fileID: 8300000, guid: 446150f39c3324ee8b1d44339ddb0773, type: 3}
+    - {fileID: 8300000, guid: ae6b2e6aee7994fdf8c6d5211b7e06c3, type: 3}
+    - {fileID: 8300000, guid: 847f71207807647c7bcbd3424f6419a0, type: 3}
+    <volume>k__BackingField: 1
+  turnSounds:
+    clips:
+    - {fileID: 8300000, guid: 66628f205050846a8bef2035bc763a65, type: 3}
+    - {fileID: 8300000, guid: 02fc4be6cd3584a6b8cd193639319591, type: 3}
+    - {fileID: 8300000, guid: 90c1b33ab9359415398bc3353ce57830, type: 3}
+    <volume>k__BackingField: 1
 --- !u!114 &859220720
 MonoBehaviour:
   m_ObjectHideFlags: 0
