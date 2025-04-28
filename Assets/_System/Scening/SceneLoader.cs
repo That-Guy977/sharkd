@@ -31,14 +31,19 @@ class SceneLoader : MonoBehaviour {
         Scene centralScene = SceneManager.GetSceneByBuildIndex(central.BuildIndex);
         if (SceneManager.loadedSceneCount == 1) {
             StartCoroutine(LoadInitial());
-        } else if (SceneManager.GetActiveScene() == centralScene) {
-            for (int i = 0; i < SceneManager.loadedSceneCount; i++) {
-                Scene scene = SceneManager.GetSceneAt(i);
-                if (scene != centralScene) {
-                    SceneManager.SetActiveScene(scene);
-                    break;
+        } else {
+#if UNITY_EDITOR
+            if (SceneManager.GetActiveScene() == centralScene) {
+                for (int i = 0; i < SceneManager.loadedSceneCount; i++) {
+                    Scene scene = SceneManager.GetSceneAt(i);
+                    if (scene != centralScene) {
+                        SceneManager.SetActiveScene(scene);
+                        break;
+                    }
                 }
+                MusicPlayer.instance.Play(SceneManager.GetActiveScene().Ref());
             }
+#endif
         }
     }
 

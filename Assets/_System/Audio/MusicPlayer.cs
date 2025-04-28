@@ -67,6 +67,10 @@ class MusicPlayer : MonoBehaviour {
     }
 
     private IEnumerator Fade(float target, float time) {
+#if UNITY_EDITOR
+        yield return null;
+        yield return null;
+#endif
         float elapsedTime = 0;
         float start = source.volume;
         do {
