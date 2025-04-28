@@ -8,10 +8,14 @@ class InLevelMenu : MonoBehaviour {
 
     void OnEnable() {
         Time.timeScale = 0;
+        AudioListener.pause = true;
+        MusicPlayer.instance.Pause();
     }
 
     void OnDisable() {
         Time.timeScale = 1;
+        AudioListener.pause = false;
+        MusicPlayer.instance.Unpause();
     }
 
     public void ShowSettings() {

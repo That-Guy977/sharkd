@@ -57,6 +57,7 @@ class SceneLoader : MonoBehaviour {
     private IEnumerator Load(SceneReference scene, Transition transition, GameState outState) {
         if (GameManager.instance.state == GameState.Transitioning) yield break;
         GameManager.instance.state = GameState.Transitioning;
+        MusicPlayer.instance.Stop();
         InstantiateParameters instParams = new() { scene = central.LoadedScene };
         Animator animOut = Instantiate(transition.animOut, instParams);
         yield return new AnimatorPlaying(animOut);
@@ -65,6 +66,7 @@ class SceneLoader : MonoBehaviour {
         yield return SceneManager.LoadSceneAsync(scene.BuildIndex, LoadSceneMode.Additive);
         SceneManager.SetActiveScene(scene.LoadedScene);
         yield return new WaitForSecondsRealtime(transition.delay);
+        MusicPlayer.instance.Play(scene);
         Animator animIn = Instantiate(transition.animIn, instParams);
         Destroy(animOut.gameObject);
         yield return new AnimatorPlaying(animIn);
@@ -75,5 +77,6 @@ class SceneLoader : MonoBehaviour {
     private IEnumerator LoadInitial() {
         yield return SceneManager.LoadSceneAsync(initial.Name, LoadSceneMode.Additive);
         SceneManager.SetActiveScene(initial.LoadedScene);
+        MusicPlayer.instance.Play(initial);
     }
 }
