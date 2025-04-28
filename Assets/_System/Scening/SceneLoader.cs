@@ -60,7 +60,6 @@ class SceneLoader : MonoBehaviour {
         InstantiateParameters instParams = new() { scene = central.LoadedScene };
         Animator animOut = Instantiate(transition.animOut, instParams);
         yield return new AnimatorPlaying(animOut);
-        yield return new WaitWhile(() => animOut.GetCurrentAnimatorStateInfo(0).normalizedTime < 1);
         GameManager.instance.Clean();
         yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         yield return SceneManager.LoadSceneAsync(scene.BuildIndex, LoadSceneMode.Additive);
