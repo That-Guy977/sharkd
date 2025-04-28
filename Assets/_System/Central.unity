@@ -3454,6 +3454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee3a37c2596a4a70a34fbe3c6958bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 859220720}
   mainMenu:
     asset: {fileID: 102900000, guid: 8bd2503945f6e4231af1fdf139d330fe, type: 3}
     guid: 8bd2503945f6e4231af1fdf139d330fe
@@ -3655,6 +3656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee3a37c2596a4a70a34fbe3c6958bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 859220720}
   mainMenu:
     asset: {fileID: 102900000, guid: 8bd2503945f6e4231af1fdf139d330fe, type: 3}
     guid: 8bd2503945f6e4231af1fdf139d330fe
