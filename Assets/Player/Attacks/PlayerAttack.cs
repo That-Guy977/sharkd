@@ -31,6 +31,8 @@ class PlayerAttack : MonoBehaviour {
     public float slashKnockback;
     public float slashKnockbackUp;
     public BoxCollider2D slashHurtbox;
+    public AudioBankPlayable slashSounds;
+    public AudioBankPlayable slashHitSounds;
 
     Entity entity;
 
@@ -41,6 +43,7 @@ class PlayerAttack : MonoBehaviour {
     private Collider2D beamTargetCollider;
     private AudioSource beamSummonSoundSource;
     private AudioSource beamSoundSource;
+    private bool slashHit;
 
     public bool beamCanStart => mana >= beamManaThreshold;
     public bool beamCanAttack => mana > 0;
@@ -74,6 +77,8 @@ class PlayerAttack : MonoBehaviour {
         beam.gameObject.SetActive(false);
         beamHit.gameObject.SetActive(false);
         beam.size = beam.size.WithX(0);
+        slashHurtbox.gameObject.SetActive(false);
+        slashHit = false;
         if (beamSummonSoundSource) Destroy(beamSummonSoundSource.gameObject);
         if (beamSoundSource) Destroy(beamSoundSource.gameObject);
     }
@@ -150,15 +155,20 @@ class PlayerAttack : MonoBehaviour {
 
     public void Slash() {
         slashHurtbox.gameObject.SetActive(true);
+        SoundFXPlayer.instance.Play(slashSounds);
     }
 
     public void SlashCancel() {
-        slashHurtbox.gameObject.SetActive(false);
+        Reset();
     }
 
     public void SlashTarget(Collider2D collider) {
         if (collider.TryGetComponent(out Entity target)) {
             target.Damage(slashDamage, (entity.facing.AsVector() * slashKnockback).SlightUp(slashKnockbackUp));
+            if (!slashHit) {
+                SoundFXPlayer.instance.Play(slashHitSounds);
+                slashHit = true;
+            }
         }
     }
 

@@ -2451,6 +2451,21 @@ MonoBehaviour:
   slashKnockback: 4
   slashKnockbackUp: 1.5
   slashHurtbox: {fileID: 460907499}
+  slashSounds:
+    clips:
+    - {fileID: 8300000, guid: 067fb73c35d23459ab96640e6107a99a, type: 3}
+    - {fileID: 8300000, guid: e29cde78fffa64bd1892257879dfa413, type: 3}
+    - {fileID: 8300000, guid: 50f66a81db1a04d1ebef2789ff3311ec, type: 3}
+    - {fileID: 8300000, guid: d4602e3ecc8f843f49f38551dfc88a66, type: 3}
+    - {fileID: 8300000, guid: 3356fdbb9b24c493c8ba93a536b600f9, type: 3}
+    <volume>k__BackingField: 1
+  slashHitSounds:
+    clips:
+    - {fileID: 8300000, guid: 1963010365c4b4b6ea6b876054eee2e6, type: 3}
+    - {fileID: 8300000, guid: 97e07baf92418451d8fa22e3e95a951e, type: 3}
+    - {fileID: 8300000, guid: fab6e690f1e654ef9b2a22558f183d17, type: 3}
+    - {fileID: 8300000, guid: b43ce54c0be1b442da87955dbbf4eee2, type: 3}
+    <volume>k__BackingField: 1
 --- !u!1 &874300802
 GameObject:
   m_ObjectHideFlags: 0
