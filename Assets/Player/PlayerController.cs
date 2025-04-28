@@ -238,7 +238,7 @@ class PlayerController : MonoBehaviour {
 
     private IEnumerator GuraAttackCancel() {
         yield return new WaitForSeconds(guraAttackExitTime);
-        attack.GuraCancel();
+        attack.BeamCancel();
         state = PlayerState.None;
     }
 

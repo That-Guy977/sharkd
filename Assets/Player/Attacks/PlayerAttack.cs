@@ -26,6 +26,12 @@ class PlayerAttack : MonoBehaviour {
     public AudioSinglePlayable beamSummonSound;
     public AudioSinglePlayable beamSound;
 
+    [Header("Gawr Attacks")]
+    public int slashDamage;
+    public float slashKnockback;
+    public float slashKnockbackUp;
+    public BoxCollider2D slashHurtbox;
+
     Entity entity;
 
     private Coroutine manaDelay;
@@ -72,17 +78,17 @@ class PlayerAttack : MonoBehaviour {
         if (beamSoundSource) Destroy(beamSoundSource.gameObject);
     }
 
-    public void GuraSummonGround() {
+    public void BeamSummonGround() {
         beamContainer.transform.position = beamAnchorGround.position;
-        StartCoroutine(GuraSummon());
+        StartCoroutine(BeamSummon());
     }
 
-    public void GuraSummonAir() {
+    public void BeamSummonAir() {
         beamContainer.transform.position = beamAnchorAir.position;
-        StartCoroutine(GuraSummon());
+        StartCoroutine(BeamSummon());
     }
 
-    private IEnumerator GuraSummon() {
+    private IEnumerator BeamSummon() {
         beamContainer.SetActive(true);
         beamSummonSoundSource = SoundFXPlayer.instance.Play(beamSummonSound);
         yield return new AnimatorPlaying(beamSummon);
@@ -95,7 +101,7 @@ class PlayerAttack : MonoBehaviour {
         beamSoundSource = SoundFXPlayer.instance.PlayLoop(beamSound);
         while (true) {
             if (!beamCanAttack) {
-                GuraCancel();
+                BeamCancel();
                 break;
             }
             if (beamTargetCollider) {
@@ -116,32 +122,43 @@ class PlayerAttack : MonoBehaviour {
         }
     }
 
-    public void GuraTarget(Collider2D collider) {
+    public void BeamTarget(Collider2D collider) {
         beamTargetCollider = collider;
         if (beamRepeatDamage != null) {
             StopCoroutine(beamRepeatDamage);
         }
         if (collider && collider.TryGetComponent(out Entity target)) {
-            beamRepeatDamage = StartCoroutine(RepeatDamage(target));
+            beamRepeatDamage = StartCoroutine(BeamRepeatDamage(target));
         }
     }
 
-    public void GuraCancel() {
+    public void BeamCancel() {
         Reset();
     }
 
-    private IEnumerator RepeatDamage(Entity target) {
+    private IEnumerator BeamRepeatDamage(Entity target) {
         float time = beamDamageInterval;
         while (true) {
             time += Time.deltaTime;
             while (time >= beamDamageInterval) {
-                target.Damage(
-                    beamDamage,
-                    entity.facing.AsVector() * beamKnockback
-                );
+                target.Damage(beamDamage, entity.facing.AsVector() * beamKnockback);
                 time -= beamDamageInterval;
             }
             yield return null;
+        }
+    }
+
+    public void Slash() {
+        slashHurtbox.gameObject.SetActive(true);
+    }
+
+    public void SlashCancel() {
+        slashHurtbox.gameObject.SetActive(false);
+    }
+
+    public void SlashTarget(Collider2D collider) {
+        if (collider.TryGetComponent(out Entity target)) {
+            target.Damage(slashDamage, (entity.facing.AsVector() * slashKnockback).SlightUp(slashKnockbackUp));
         }
     }
 
