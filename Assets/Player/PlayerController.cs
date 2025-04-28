@@ -25,6 +25,10 @@ class PlayerController : MonoBehaviour {
     public float defeatInitialSlowdown;
     public float defeatDelay;
 
+    [Header("Misc")]
+    public float entranceFadeInDuration;
+    public float entranceFadeOutDuration;
+
     [Header("Config")]
     public LayerMask groundLayer;
     public new CameraFollow camera;
@@ -38,6 +42,8 @@ class PlayerController : MonoBehaviour {
     new Rigidbody2D rigidbody;
     new BoxCollider2D collider;
     Animator animator;
+    SpriteRenderer spriteRenderer;
+    PlayerInput playerInput;
 
     float jumpVelocity;
     float jumpGravity;
@@ -74,6 +80,8 @@ class PlayerController : MonoBehaviour {
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     void Update() {
@@ -119,6 +127,7 @@ class PlayerController : MonoBehaviour {
     void OnEnable() {
         camera.enabled = true;
         Reset();
+        StartCoroutine(Entrance());
     }
 
     void OnDisable() {
@@ -313,6 +322,26 @@ class PlayerController : MonoBehaviour {
         jumpGravity = 2.0f * jumpHeight / Mathf.Pow(jumpAscentDuration, 2);
         fallGravity = 2.0f * jumpHeight / Mathf.Pow(jumpDescentDuration, 2);
         dashDuration = dashDistance / dashSpeed;
+    }
+
+    private IEnumerator Entrance() {
+        playerInput.enabled = false;
+        spriteRenderer.enabled = false;
+        entity.hud.enabled = false;
+        yield return null;
+        yield return new WaitUntil(() => GameManager.instance.state != GameState.Transitioning);
+        entity.highlight.speed = 1 / entranceFadeInDuration;
+        entity.highlight.SetTrigger("highlight");
+        yield return new AnimatorPlaying(entity.highlight);
+        spriteRenderer.enabled = true;
+        SoundFXPlayer.instance.Play(entranceSounds[character]);
+        entity.highlight.speed = 1 / entranceFadeOutDuration;
+        entity.highlight.SetTrigger("dehighlight");
+        yield return new AnimatorPlaying(entity.highlight);
+        entity.highlight.speed = 1;
+        entity.highlight.SetTrigger("reset");
+        playerInput.enabled = true;
+        entity.hud.enabled = true;
     }
 
     private IEnumerator StepSoundLoop() {

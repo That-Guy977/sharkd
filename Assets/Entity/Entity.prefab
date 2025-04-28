@@ -53,6 +53,7 @@ MonoBehaviour:
   maxHealth: 0
   healthBar: {fileID: 3700460536648349685}
   highlight: {fileID: 6899053081708708273}
+  hud: {fileID: 3498510294769331363}
   fixedReflection: {fileID: 7469026018996756377}
   damageSounds:
     clips:

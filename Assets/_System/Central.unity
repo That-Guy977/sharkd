@@ -537,11 +537,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8990681235625015318, guid: 68abcbaa1d12349a8b15d1a17e71579d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8990681235625015318, guid: 68abcbaa1d12349a8b15d1a17e71579d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2365,6 +2365,8 @@ MonoBehaviour:
   defeatSlowdownSteps: 10
   defeatInitialSlowdown: 0.5
   defeatDelay: 0.8
+  entranceFadeInDuration: 0.2
+  entranceFadeOutDuration: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

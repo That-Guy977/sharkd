@@ -6,6 +6,7 @@ class Entity : MonoBehaviour {
     public int maxHealth;
     public Slider healthBar;
     public Animator highlight;
+    public Canvas hud;
     public RectTransform fixedReflection;
     public AudioBankPlayable damageSounds;
 
