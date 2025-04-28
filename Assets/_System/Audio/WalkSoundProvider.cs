@@ -5,6 +5,7 @@ using AYellowpaper.SerializedCollections;
 class WalkSoundProvider : MonoBehaviour {
     public static WalkSoundProvider instance;
 
+    public float stepRate;
     [SerializedDictionary("Terrain", "Bank")]
     public SerializedDictionary<TerrainType, WalkSoundBankWrapper> terrainSoundBanks;
 

@@ -48,7 +48,7 @@ class PlayerController : MonoBehaviour {
     private bool turnCooldown;
     private bool attackCooldown;
 
-    bool grounded => Physics2D.BoxCast(
+    RaycastHit2D ground => Physics2D.BoxCast(
         transform.position,
         new Vector2(collider.size.x, 0.1f),
         0,
@@ -79,7 +79,7 @@ class PlayerController : MonoBehaviour {
         animator.SetFloat("char", (int)character);
         animator.SetFloat("movex", Mathf.Abs(move.x));
         animator.SetFloat("movey", move.y);
-        animator.SetFloat("air", grounded ? -1 : 1);
+        animator.SetFloat("air", ground ? -1 : 1);
         animator.SetFloat("vely", rigidbody.velocity.y);
 #if UNITY_EDITOR
         CalculateKinematics();
@@ -132,6 +132,12 @@ class PlayerController : MonoBehaviour {
         turnCooldown = false;
         attackCooldown = false;
         attack.Reset();
+        SoundFXChecks();
+    }
+
+    void SoundFXChecks() {
+        StartCoroutine(StepSoundLoop());
+        StartCoroutine(LandCheck());
     }
 
     protected void OnMove(InputValue input) {
@@ -139,8 +145,11 @@ class PlayerController : MonoBehaviour {
     }
 
     protected void OnJump() {
-        if (state != PlayerState.None || !grounded) return;
+        if (state != PlayerState.None || !ground) return;
         rigidbody.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
+        if (ground.collider.TryGetComponent(out TerrainTypeProvider terrain)) {
+            WalkSoundProvider.instance.Emit(terrain.type, WalkSoundType.Jump);
+        }
     }
 
     protected void OnDash() {
@@ -296,6 +305,33 @@ class PlayerController : MonoBehaviour {
         jumpGravity = 2.0f * jumpHeight / Mathf.Pow(jumpAscentDuration, 2);
         fallGravity = 2.0f * jumpHeight / Mathf.Pow(jumpDescentDuration, 2);
         dashDuration = dashDistance / dashSpeed;
+    }
+
+    private IEnumerator StepSoundLoop() {
+        while (true) {
+            while (
+                state != PlayerState.None && state != PlayerState.Attack && state != PlayerState.Turn
+                || Mathf.Abs(rigidbody.velocity.x) < 0.1
+                || !ground
+                || !ground.collider.TryGetComponent(out TerrainTypeProvider _)
+            ) {
+                yield return null;
+            }
+            if (ground.collider.TryGetComponent(out TerrainTypeProvider terrain)) {
+                WalkSoundProvider.instance.Emit(terrain.type, WalkSoundType.Step);
+            }
+            yield return new WaitForSeconds(1 / WalkSoundProvider.instance.stepRate / Mathf.Abs(rigidbody.velocity.x));
+        }
+    }
+
+    private IEnumerator LandCheck() {
+        while (true) {
+            yield return new WaitUntil(() => !ground);
+            yield return new WaitUntil(() => ground);
+            if (ground.collider.TryGetComponent(out TerrainTypeProvider terrain)) {
+                WalkSoundProvider.instance.Emit(terrain.type, WalkSoundType.Land);
+            }
+        }
     }
 }
 

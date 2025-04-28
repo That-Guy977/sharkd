@@ -4309,6 +4309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc39644f219c4eba96d46866cd21a8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepRate: 0.5
   terrainSoundBanks:
     _serializedList:
     - Key: 0
