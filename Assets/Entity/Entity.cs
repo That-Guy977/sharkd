@@ -7,6 +7,7 @@ class Entity : MonoBehaviour {
     public Slider healthBar;
     public Animator highlight;
     public RectTransform fixedReflection;
+    public AudioBankPlayable damageSounds;
 
     [Header("Messages")]
     public UnityEvent<Vector2, bool> onHit;
@@ -41,6 +42,7 @@ class Entity : MonoBehaviour {
         health = Mathf.Max(health, 0);
         highlight.speed = 1;
         highlight.SetTrigger("flash");
+        SoundFXPlayer.instance.Play(damageSounds);
         onHit.Invoke(knockback, health == 0);
     }
 

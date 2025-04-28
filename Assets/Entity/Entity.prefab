@@ -54,6 +54,13 @@ MonoBehaviour:
   healthBar: {fileID: 3700460536648349685}
   highlight: {fileID: 6899053081708708273}
   fixedReflection: {fileID: 7469026018996756377}
+  damageSounds:
+    clips:
+    - {fileID: 8300000, guid: 41ddfcb4cadf54c09957ae570f81937a, type: 3}
+    - {fileID: 8300000, guid: a73112d683a3b45458b25f571a2f355f, type: 3}
+    - {fileID: 8300000, guid: 2aff4ee43d04649c28e1fa790ddb9f51, type: 3}
+    - {fileID: 8300000, guid: 51130b11e1593478facfa18edd1ee72c, type: 3}
+    <volume>k__BackingField: 1
   onHit:
     m_PersistentCalls:
       m_Calls: []
