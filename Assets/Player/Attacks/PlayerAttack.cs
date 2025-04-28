@@ -23,14 +23,18 @@ class PlayerAttack : MonoBehaviour {
     public SpriteRenderer beamOrigin;
     public SpriteRenderer beam;
     public SpriteRenderer beamHit;
+    public AudioSinglePlayable beamSummonSound;
+    public AudioSinglePlayable beamSound;
 
     Entity entity;
 
-    private Coroutine repeatDamage;
     private Coroutine manaDelay;
     private float mana;
     private bool manaRegen;
-    private Collider2D targetCollider;
+    private Coroutine beamRepeatDamage;
+    private Collider2D beamTargetCollider;
+    private AudioSource beamSummonSoundSource;
+    private AudioSource beamSoundSource;
 
     public bool beamCanStart => mana >= beamManaThreshold;
     public bool beamCanAttack => mana > 0;
@@ -57,13 +61,15 @@ class PlayerAttack : MonoBehaviour {
 
     public void Reset() {
         StopAllCoroutines();
-        repeatDamage = null;
+        beamRepeatDamage = null;
         manaDelay = StartCoroutine(ManaRegenDelay());
         beamContainer.SetActive(false);
         beamOrigin.gameObject.SetActive(false);
         beam.gameObject.SetActive(false);
         beamHit.gameObject.SetActive(false);
         beam.size = beam.size.WithX(0);
+        if (beamSummonSoundSource) Destroy(beamSummonSoundSource.gameObject);
+        if (beamSoundSource) Destroy(beamSoundSource.gameObject);
     }
 
     public void GuraSummonGround() {
@@ -78,6 +84,7 @@ class PlayerAttack : MonoBehaviour {
 
     private IEnumerator GuraSummon() {
         beamContainer.SetActive(true);
+        beamSummonSoundSource = SoundFXPlayer.instance.Play(beamSummonSound);
         yield return new AnimatorPlaying(beamSummon);
         manaRegen = false;
         if (manaDelay != null) {
@@ -85,15 +92,16 @@ class PlayerAttack : MonoBehaviour {
         }
         beamOrigin.gameObject.SetActive(true);
         beam.gameObject.SetActive(true);
+        beamSoundSource = SoundFXPlayer.instance.PlayLoop(beamSound);
         while (true) {
             if (!beamCanAttack) {
                 GuraCancel();
                 break;
             }
-            if (targetCollider) {
+            if (beamTargetCollider) {
                 float closeEdge = entity.facing switch {
-                    Direction.Right => targetCollider.bounds.min.x,
-                    Direction.Left => targetCollider.bounds.max.x,
+                    Direction.Right => beamTargetCollider.bounds.min.x,
+                    Direction.Left => beamTargetCollider.bounds.max.x,
                 };
                 beam.size = beam.size.WithX(Mathf.Abs(beam.transform.position.x - closeEdge));
                 beamHit.transform.position = new Vector3(closeEdge, beam.transform.position.y, 0);
@@ -109,12 +117,12 @@ class PlayerAttack : MonoBehaviour {
     }
 
     public void GuraTarget(Collider2D collider) {
-        targetCollider = collider;
-        if (repeatDamage != null) {
-            StopCoroutine(repeatDamage);
+        beamTargetCollider = collider;
+        if (beamRepeatDamage != null) {
+            StopCoroutine(beamRepeatDamage);
         }
         if (collider && collider.TryGetComponent(out Entity target)) {
-            repeatDamage = StartCoroutine(RepeatDamage(target));
+            beamRepeatDamage = StartCoroutine(RepeatDamage(target));
         }
     }
 
