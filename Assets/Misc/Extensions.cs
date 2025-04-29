@@ -8,9 +8,7 @@ static class VectorUtils {
         return vec;
     }
 
-    public static Vector2 SlightUp(this Vector2 vec, float y) {
-        return Vector2.ClampMagnitude(vec + Vector2.up * y, vec.magnitude);
-    }
+    public static Vector2 SlightUp(this Vector2 vec, float y) => Vector2.ClampMagnitude(vec + Vector2.up * y, vec.magnitude);
 }
 
 static class SceneUtils {
