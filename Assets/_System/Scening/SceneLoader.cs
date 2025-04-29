@@ -62,6 +62,7 @@ class SceneLoader : MonoBehaviour {
     private IEnumerator Load(SceneReference scene, Transition transition, GameState outState) {
         if (GameManager.instance.state == GameState.Transitioning) yield break;
         GameManager.instance.state = GameState.Transitioning;
+        GameManager.instance.levelEnd = false;
         MusicPlayer.instance.Stop();
         InstantiateParameters instParams = new() { scene = central.LoadedScene };
         Animator animOut = Instantiate(transition.animOut, instParams);

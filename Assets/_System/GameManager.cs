@@ -15,6 +15,7 @@ class GameManager : MonoBehaviour {
 
     [Header("Game State")]
     public GameState state = GameState.MainMenu;
+    public bool levelEnd = false;
     public bool tutorialComplete = false;
 
     Stack<Canvas> overlays = new();
@@ -44,7 +45,7 @@ class GameManager : MonoBehaviour {
     }
 
     protected void OnExit() {
-        if (state == GameState.Transitioning || state == GameState.Defeat) return;
+        if (state == GameState.Transitioning || levelEnd) return;
         if (overlays.Count > 0) {
             CloseOverlay();
         } else if (state == GameState.InLevel) {
@@ -84,5 +85,4 @@ enum GameState {
     MainMenu,
     Transitioning,
     InLevel,
-    Defeat,
 }

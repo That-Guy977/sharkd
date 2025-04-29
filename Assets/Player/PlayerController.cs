@@ -302,7 +302,7 @@ class PlayerController : MonoBehaviour {
     }
 
     private IEnumerator Defeat() {
-        GameManager.instance.state = GameState.Defeat;
+        GameManager.instance.levelEnd = true;
         Time.timeScale = defeatInitialSlowdown;
         for (int i = 0; i < defeatSlowdownSteps; i++) {
             yield return new WaitForSecondsRealtime(stunDuration / defeatSlowdownSteps);
