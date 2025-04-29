@@ -18,11 +18,11 @@ class SpawnPoint : MonoBehaviour {
         player.gameObject.SetActive(true);
     }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     void Update() {
         Vector3 scale = transform.localScale;
         scale.x = Mathf.Abs(scale.x) * facing.AsScale();
         transform.localScale = scale;
     }
-    #endif
+#endif
 }
