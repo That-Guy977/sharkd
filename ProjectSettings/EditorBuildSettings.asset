@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Menus/MainMenu.unity
     guid: 8bd2503945f6e4231af1fdf139d330fe
   - enabled: 1
+    path: Assets/Levels/GawrLevel/GawrLevel.unity
+    guid: 45d693c57e2b54bce830787457ef7064
+  - enabled: 1
     path: Assets/Test/TestScene.unity
     guid: 17e15ca388ec64d2baf9d510ebda1730
   m_configObjects:

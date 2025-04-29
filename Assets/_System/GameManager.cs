@@ -10,6 +10,7 @@ class GameManager : MonoBehaviour {
 
     [Header("Overlay Menus")]
     public Canvas pause;
+    public Canvas win;
     public Canvas defeat;
     public Canvas settings;
 
@@ -48,7 +49,7 @@ class GameManager : MonoBehaviour {
         if (state == GameState.Transitioning || levelEnd) return;
         if (overlays.Count > 0) {
             CloseOverlay();
-        } else if (state == GameState.InLevel) {
+        } else if (state == GameState.InLevel || state == GameState.Tutorial) {
             Pause();
         }
     }
@@ -72,6 +73,10 @@ class GameManager : MonoBehaviour {
         }
     }
 
+    public void Win() {
+        OpenOverlay(win);
+    }
+
     public void Defeat() {
         OpenOverlay(defeat);
     }
@@ -85,4 +90,5 @@ enum GameState {
     MainMenu,
     Transitioning,
     InLevel,
+    Tutorial,
 }

@@ -69,6 +69,8 @@ class PlayerController : MonoBehaviour {
     );
     float gravity => rigidbody.velocity.y > 0 ? jumpGravity : fallGravity;
 
+    public Coroutine entrance { get; private set; }
+
     public enum Character {
         Gura,
         Gawr,
@@ -129,7 +131,7 @@ class PlayerController : MonoBehaviour {
         camera.enabled = true;
         Reset();
         SoundFXChecks();
-        StartCoroutine(Entrance());
+        entrance = StartCoroutine(Entrance());
     }
 
     void OnDisable() {
@@ -149,6 +151,7 @@ class PlayerController : MonoBehaviour {
         turnCooldown = false;
         attackCooldown = false;
         attack.Reset();
+        entrance = null;
     }
 
     void SoundFXChecks() {
@@ -201,6 +204,7 @@ class PlayerController : MonoBehaviour {
     }
 
     protected void OnTurn() {
+        if (GameManager.instance.state == GameState.Tutorial) return;
         if (state != PlayerState.None || turnCooldown) return;
         activeState = StartCoroutine(Turn());
         SoundFXPlayer.instance.Play(turnSounds);
@@ -345,6 +349,7 @@ class PlayerController : MonoBehaviour {
         entity.highlight.SetTrigger("reset");
         playerInput.enabled = true;
         entity.hud.enabled = true;
+        entrance = null;
     }
 
     private IEnumerator StepSoundLoop() {
