@@ -130,19 +130,19 @@ class PlayerController : MonoBehaviour {
 
     void OnEnable() {
         camera.enabled = true;
-        Reset();
+        Clean();
         SoundFXChecks();
         entrance = StartCoroutine(Entrance());
     }
 
     void OnDisable() {
-        Reset();
+        Clean();
         if (camera) {
             camera.enabled = false;
         }
     }
 
-    void Reset() {
+    void Clean() {
         state = PlayerState.None;
         StopAllCoroutines();
         activeState = null;
@@ -151,7 +151,7 @@ class PlayerController : MonoBehaviour {
         dashCooldown = false;
         turnCooldown = false;
         attackCooldown = false;
-        attack.Reset();
+        attack.Clean();
         entrance = null;
     }
 
@@ -218,7 +218,7 @@ class PlayerController : MonoBehaviour {
         if (activeState != null) {
             StopCoroutine(activeState);
         }
-        attack.Reset();
+        attack.Clean();
         activeState = StartCoroutine(Stun(defeat));
         if (defeat) {
             StartCoroutine(Defeat());
@@ -261,7 +261,7 @@ class PlayerController : MonoBehaviour {
         yield return new AnimatorPlaying(animator);
         state = PlayerState.None;
         activeState = null;
-        attack.Reset();
+        attack.Clean();
         attackCooldown = true;
         yield return new WaitForSeconds(gawrAttackCooldownDuration);
         attackCooldown = false;

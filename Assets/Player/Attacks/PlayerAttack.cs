@@ -69,7 +69,7 @@ class PlayerAttack : MonoBehaviour {
         mana = maxMana;
     }
 
-    public void Reset() {
+    public void Clean() {
         StopAllCoroutines();
         beamRepeatDamage = null;
         beamContainer.SetActive(false);
@@ -139,7 +139,7 @@ class PlayerAttack : MonoBehaviour {
     }
 
     public void BeamCancel() {
-        Reset();
+        Clean();
         manaDelay = StartCoroutine(ManaRegenDelay());
     }
 
@@ -165,7 +165,7 @@ class PlayerAttack : MonoBehaviour {
     }
 
     public void SlashEnd() {
-        Reset();
+        Clean();
     }
 
     public void SlashTarget(Collider2D collider) {
