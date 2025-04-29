@@ -128,10 +128,12 @@ class PlayerController : MonoBehaviour {
     void OnEnable() {
         camera.enabled = true;
         Reset();
+        SoundFXChecks();
         StartCoroutine(Entrance());
     }
 
     void OnDisable() {
+        Reset();
         if (camera) {
             camera.enabled = false;
         }
@@ -147,7 +149,6 @@ class PlayerController : MonoBehaviour {
         turnCooldown = false;
         attackCooldown = false;
         attack.Reset();
-        SoundFXChecks();
     }
 
     void SoundFXChecks() {

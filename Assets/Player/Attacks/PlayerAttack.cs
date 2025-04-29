@@ -72,7 +72,6 @@ class PlayerAttack : MonoBehaviour {
     public void Reset() {
         StopAllCoroutines();
         beamRepeatDamage = null;
-        manaDelay = StartCoroutine(ManaRegenDelay());
         beamContainer.SetActive(false);
         beamOrigin.gameObject.SetActive(false);
         beam.gameObject.SetActive(false);
@@ -141,6 +140,7 @@ class PlayerAttack : MonoBehaviour {
 
     public void BeamCancel() {
         Reset();
+        manaDelay = StartCoroutine(ManaRegenDelay());
     }
 
     private IEnumerator BeamRepeatDamage(Entity target) {
