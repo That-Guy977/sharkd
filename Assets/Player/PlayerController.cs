@@ -165,7 +165,7 @@ class PlayerController : MonoBehaviour {
     }
 
     protected void OnJump() {
-        if (state != PlayerState.None || !ground) return;
+        if (state != PlayerState.None && (state != PlayerState.Attack || character != Character.Gawr) || !ground) return;
         rigidbody.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
         if (ground.collider.TryGetComponent(out TerrainTypeProvider terrain)) {
             WalkSoundProvider.instance.Emit(terrain.type, WalkSoundType.Jump);
