@@ -4862,7 +4862,7 @@ GameObject:
   - component: {fileID: 1798382917}
   - component: {fileID: 1798382916}
   m_Layer: 6
-  m_Name: GuraSlash
+  m_Name: GawrSlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
