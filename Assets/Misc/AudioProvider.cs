@@ -4,19 +4,19 @@ using UnityEngine;
 
 using Random = UnityEngine.Random;
 
-interface AudioPlayable {
+interface AudioProvider {
     AudioClip clip { get; }
     float volume { get; }
 }
 
 [Serializable]
-struct AudioSinglePlayable : AudioPlayable {
+struct AudioSingleProvider : AudioProvider {
     [field: SerializeField] public AudioClip clip { get; set; }
     [field: SerializeField] public float volume { get; set; }
 }
 
 [Serializable]
-struct AudioBankPlayable : AudioPlayable {
+struct AudioBankProvider : AudioProvider {
     public List<AudioClip> clips;
     [field: SerializeField] public float volume { get; set; }
 

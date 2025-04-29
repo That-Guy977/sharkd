@@ -12,7 +12,7 @@ class MusicPlayer : MonoBehaviour {
     public float pauseFadeInDuration;
     public float pauseFadeOutDuration;
     [SerializedDictionary("Scene", "Music")]
-    public SceneDictionary<AudioSinglePlayable> music;
+    public SceneDictionary<AudioSingleProvider> music;
 
     AudioSource source;
 

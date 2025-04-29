@@ -12,7 +12,7 @@ class WalkSoundProvider : MonoBehaviour {
     [Serializable]
     public struct WalkSoundBankWrapper {
         [SerializedDictionary("Type", "SoundFX")]
-        public SerializedDictionary<WalkSoundType, AudioBankPlayable> soundBank;
+        public SerializedDictionary<WalkSoundType, AudioBankProvider> soundBank;
     }
 
     void Awake() {

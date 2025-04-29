@@ -14,19 +14,19 @@ class SoundFXPlayer : MonoBehaviour {
         }
     }
 
-    public AudioSource Play(AudioPlayable playable, float volume = 1) {
+    public AudioSource Play(AudioProvider provider, float volume = 1) {
         AudioSource source = Instantiate(template, transform);
-        source.clip = playable.clip;
-        source.volume *= playable.volume * volume;
+        source.clip = provider.clip;
+        source.volume *= provider.volume * volume;
         source.Play();
         StartCoroutine(AutoStop(source));
         return source;
     }
 
-    public AudioSource PlayLoop(AudioPlayable playable, float volume = 1) {
+    public AudioSource PlayLoop(AudioProvider provider, float volume = 1) {
         AudioSource source = Instantiate(template, transform);
-        source.clip = playable.clip;
-        source.volume *= playable.volume * volume;
+        source.clip = provider.clip;
+        source.volume *= provider.volume * volume;
         source.loop = true;
         source.Play();
         return source;

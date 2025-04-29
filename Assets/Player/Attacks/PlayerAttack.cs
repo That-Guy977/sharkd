@@ -23,8 +23,8 @@ class PlayerAttack : MonoBehaviour {
     public SpriteRenderer beamOrigin;
     public SpriteRenderer beam;
     public SpriteRenderer beamHit;
-    public AudioSinglePlayable beamSummonSound;
-    public AudioSinglePlayable beamSound;
+    public AudioSingleProvider beamSummonSound;
+    public AudioSingleProvider beamSound;
 
     [Header("Gawr Attacks")]
     public int slashDamage;
@@ -32,8 +32,8 @@ class PlayerAttack : MonoBehaviour {
     public float slashKnockbackUp;
     public GameObject slashContainer;
     public BoxCollider2D slashHurtbox;
-    public AudioBankPlayable slashSounds;
-    public AudioBankPlayable slashHitSounds;
+    public AudioBankProvider slashSounds;
+    public AudioBankProvider slashHitSounds;
 
     Entity entity;
 

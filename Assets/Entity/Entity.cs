@@ -8,7 +8,7 @@ class Entity : MonoBehaviour {
     public Animator highlight;
     public Canvas hud;
     public RectTransform fixedReflection;
-    public AudioBankPlayable damageSounds;
+    public AudioBankProvider damageSounds;
 
     [Header("Messages")]
     public UnityEvent<Vector2, bool> onHit;

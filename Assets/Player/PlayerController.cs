@@ -33,9 +33,9 @@ class PlayerController : MonoBehaviour {
     public LayerMask groundLayer;
     public new CameraFollow camera;
     [SerializedDictionary("Character", "SoundFX")]
-    public SerializedDictionary<Character, AudioSinglePlayable> entranceSounds;
-    public AudioBankPlayable dashSounds;
-    public AudioBankPlayable turnSounds;
+    public SerializedDictionary<Character, AudioSingleProvider> entranceSounds;
+    public AudioBankProvider dashSounds;
+    public AudioBankProvider turnSounds;
 
     Entity entity;
     PlayerAttack attack;
