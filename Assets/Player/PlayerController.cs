@@ -82,6 +82,7 @@ class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         playerInput = GetComponent<PlayerInput>();
+        CalculateKinematics();
     }
 
     void Update() {
