@@ -30,6 +30,7 @@ class PlayerAttack : MonoBehaviour {
     public int slashDamage;
     public float slashKnockback;
     public float slashKnockbackUp;
+    public GameObject slashContainer;
     public BoxCollider2D slashHurtbox;
     public AudioBankPlayable slashSounds;
     public AudioBankPlayable slashHitSounds;
@@ -77,6 +78,7 @@ class PlayerAttack : MonoBehaviour {
         beam.gameObject.SetActive(false);
         beamHit.gameObject.SetActive(false);
         beam.size = beam.size.WithX(0);
+        slashContainer.SetActive(false);
         slashHurtbox.gameObject.SetActive(false);
         slashHit = false;
         if (beamSummonSoundSource) Destroy(beamSummonSoundSource.gameObject);
@@ -153,12 +155,16 @@ class PlayerAttack : MonoBehaviour {
         }
     }
 
+    public void SlashStart() {
+        slashContainer.SetActive(true);
+    }
+
     public void Slash() {
         slashHurtbox.gameObject.SetActive(true);
         SoundFXPlayer.instance.Play(slashSounds);
     }
 
-    public void SlashCancel() {
+    public void SlashEnd() {
         Reset();
     }
 

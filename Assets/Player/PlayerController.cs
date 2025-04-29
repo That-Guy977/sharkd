@@ -259,6 +259,7 @@ class PlayerController : MonoBehaviour {
         yield return new AnimatorPlaying(animator);
         state = PlayerState.None;
         activeState = null;
+        attack.Reset();
         attackCooldown = true;
         yield return new WaitForSeconds(gawrAttackCooldownDuration);
         attackCooldown = false;
