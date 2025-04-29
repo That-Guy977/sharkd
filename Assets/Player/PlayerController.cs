@@ -105,7 +105,8 @@ class PlayerController : MonoBehaviour {
     void FixedUpdate() {
         switch (state) {
             case PlayerState.None:
-                Move();
+                rigidbody.velocity = rigidbody.velocity.WithX(move.x * speed);
+                rigidbody.AddForce(Vector2.down * gravity);
                 break;
             case PlayerState.Dash:
                 rigidbody.velocity = dashDirection * dashSpeed;
@@ -222,11 +223,6 @@ class PlayerController : MonoBehaviour {
         if (defeat) {
             StartCoroutine(Defeat());
         }
-    }
-
-    void Move() {
-        rigidbody.velocity = rigidbody.velocity.WithX(move.x * speed);
-        rigidbody.AddForce(Vector2.down * gravity);
     }
 
     private IEnumerator Dash() {
