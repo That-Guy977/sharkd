@@ -6,7 +6,7 @@ class GameManager : MonoBehaviour {
 
     [field: SerializeField] public PlayerController player { get; private set; }
     [field: SerializeField] public SceneLoader loader { get; private set; }
-    [field: SerializeField] public new Camera camera { get; private set; }
+    [field: SerializeField] public new CameraController camera { get; private set; }
 
     [Header("Overlay Menus")]
     public Canvas pause;
@@ -31,15 +31,13 @@ class GameManager : MonoBehaviour {
         }
     }
 
-    void OnEnable() {
+    void Start() {
         Clean();
     }
 
     public void Clean() {
         player.gameObject.SetActive(false);
-        float cameraHalfHeight = camera.orthographicSize;
-        float cameraHalfWidth = cameraHalfHeight * camera.aspect;
-        camera.transform.position = new Vector3(cameraHalfWidth, cameraHalfHeight, -10);
+        camera.ResetPosition();
         while (overlayOpen) {
             CloseOverlay();
         }

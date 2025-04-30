@@ -5,7 +5,7 @@ class BackgroundController : MonoBehaviour {
     [Range(0f, 1f)]
     public float depth;
 
-    new Camera camera;
+    new CameraController camera;
 
     GameObject background;
     readonly LinkedList<GameObject> tiles = new();
@@ -30,7 +30,7 @@ class BackgroundController : MonoBehaviour {
 
     void Start() {
         camera = GameManager.instance.camera;
-        int tileCount = Mathf.FloorToInt(camera.orthographicSize * camera.aspect * 2.1f / spriteWidth) + 2;
+        int tileCount = Mathf.FloorToInt(camera.width * 1.1f / spriteWidth) + 2;
         for (int i = 0; i < tileCount; i++) {
             GameObject tile = new(sprite.name, typeof(SpriteRenderer));
             tile.transform.SetParent(background.transform);

@@ -31,7 +31,7 @@ class PlayerController : MonoBehaviour {
 
     [Header("Config")]
     public LayerMask groundLayer;
-    public new CameraFollow camera;
+    public new CameraController camera;
     [SerializedDictionary("Character", "SoundFX")]
     public SerializedDictionary<Character, AudioSingleProvider> entranceSounds;
     public AudioBankProvider dashSounds;

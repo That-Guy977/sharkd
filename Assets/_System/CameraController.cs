@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
-class CameraFollow : MonoBehaviour {
+class CameraController : MonoBehaviour {
     [Min(0f)]
     public float speed;
     public float offset;
@@ -9,16 +9,26 @@ class CameraFollow : MonoBehaviour {
     new Camera camera;
     PlayerController player;
 
-    float leftBound, rightBound;
+    float leftBound;
+    float rightBound;
 
     private float velocity = 0;
+    private bool bound = false;
 
+    float halfHeight => camera.orthographicSize;
+    float halfWidth => halfHeight * camera.aspect;
     float targetPos {
         get {
-            return player.transform.position.x + offset;
-            // return Mathf.Clamp(player.transform.position.x + offset, leftBound, rightBound);
+            float playerPos = player.transform.position.x + offset;
+            if (!bound) {
+                return playerPos;
+            } else {
+                return Mathf.Clamp(playerPos, leftBound, rightBound);
+            }
         }
     }
+
+    public float width => halfWidth * 2;
 
     void Awake() {
         camera = GetComponent<Camera>();
@@ -26,9 +36,6 @@ class CameraFollow : MonoBehaviour {
 
     void Start() {
         player = GameManager.instance.player;
-        // float cameraHalfWidth = camera.orthographicSize * camera.aspect;
-        // leftBound = cameraHalfWidth;
-        // rightBound = Mathf.Max(levelController.size.x - cameraHalfWidth, cameraHalfWidth);
         Vector3 pos = transform.position;
         pos.x = Mathf.SmoothDamp(
             pos.x,
@@ -52,5 +59,19 @@ class CameraFollow : MonoBehaviour {
             Time.deltaTime
         );
         transform.position = pos;
+    }
+
+    public void ResetPosition() {
+        camera.transform.position = new Vector3(halfWidth, halfHeight, -10);
+    }
+
+    public void SetBounds(BoxCollider2D left, BoxCollider2D right) {
+        bound = true;
+        leftBound = left.bounds.max.x + halfWidth;
+        rightBound = Mathf.Max(right.bounds.min.x - halfWidth, halfWidth);
+    }
+
+    public void UnsetBounds() {
+        bound = false;
     }
 }

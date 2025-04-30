@@ -2953,7 +2953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <player>k__BackingField: {fileID: 859220715}
   <loader>k__BackingField: {fileID: 874300807}
-  <camera>k__BackingField: {fileID: 4664245411090758516}
+  <camera>k__BackingField: {fileID: 8944932453567441658}
   pause: {fileID: 1418738658}
   win: {fileID: 1486036568}
   defeat: {fileID: 1615743735}
