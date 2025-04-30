@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-class LevelManager : MonoBehaviour {
+class LevelSelectManager : MonoBehaviour {
     public Button inanis;
 
     void Start() {
