@@ -193,6 +193,7 @@ class GawrController : MonoBehaviour {
             Time.timeScale = Mathf.Lerp(defeatInitialSlowdown, 0, (float)i / defeatSlowdownSteps);
         }
         yield return new WaitForSecondsRealtime(defeatDelay);
+        Time.timeScale = 1;
         levelController.Win();
     }
 
