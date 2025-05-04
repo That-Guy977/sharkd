@@ -1,10 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
 class GawrLevelLogic : MonoBehaviour {
     public GameObject gawr;
+    public List<EntitySpawnPoint> spawnPoints;
     public TimelineAsset tutorial;
     public TimelineAsset turnTutorial;
 
@@ -30,7 +32,8 @@ class GawrLevelLogic : MonoBehaviour {
     }
 
     public void SpawnGawr() {
-        gawr.SetActive(true);
+        EntitySpawnPoint spawnPoint = player.transform.position.Farthest(spawnPoints);
+        spawnPoint.gameObject.SetActive(true);
     }
 
     public void WinExitLevel() {

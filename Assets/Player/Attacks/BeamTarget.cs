@@ -1,6 +1,6 @@
 using UnityEngine;
 
-class GuraBeamTarget : MonoBehaviour {
+class BeamTarget : MonoBehaviour {
     public PlayerAttack attack;
 
     void OnTriggerEnter2D(Collider2D collider) {

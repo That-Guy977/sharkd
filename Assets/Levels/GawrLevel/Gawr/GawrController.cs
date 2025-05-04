@@ -9,8 +9,10 @@ class GawrController : MonoBehaviour {
     public float jumpHeight;
     public float dashSpeed;
     public float dashDistance;
+    public float dashCooldownDuration;
 
     [Header("Combat")]
+    public float attackCooldownDuration;
     public float stunDuration;
     public int defeatSlowdownSteps;
     public float defeatInitialSlowdown;
@@ -27,6 +29,7 @@ class GawrController : MonoBehaviour {
     public AudioBankProvider dashSounds;
 
     Entity entity;
+    GawrAttack attack;
     new Rigidbody2D rigidbody;
     new BoxCollider2D collider;
     Animator animator;
@@ -38,7 +41,10 @@ class GawrController : MonoBehaviour {
     float dashDuration;
 
     private PlayerState state;
-    private Vector2 dashDirection;
+    private Coroutine activeState;
+    private Vector2 move;
+    private bool dashCooldown;
+    private bool attackCooldown;
 
     RaycastHit2D ground => Physics2D.BoxCast(
         transform.position,
@@ -50,24 +56,38 @@ class GawrController : MonoBehaviour {
     );
     float gravity => rigidbody.velocity.y > 0 ? jumpGravity : fallGravity;
 
+    public PlayerState currentState => state;
+    public Coroutine entrance { get; private set; }
+    public bool canJump => state == PlayerState.None && ground;
+    public bool canDash => state == PlayerState.None && !dashCooldown;
+    public bool canAttack => state == PlayerState.None && !attackCooldown;
+
     void Awake() {
         entity = GetComponent<Entity>();
+        attack = GetComponent<GawrAttack>();
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        gameObject.SetActive(false);
         CalculateKinematics();
     }
 
     void Start() {
         state = PlayerState.None;
+        StopAllCoroutines();
+        activeState = null;
+        move = Vector2.zero;
         SoundFXChecks();
-        StartCoroutine(Entrance());
+        entrance = StartCoroutine(Entrance());
     }
 
     void Update() {
+        if (state == PlayerState.None || state == PlayerState.Dash) {
+            SetFacing(move);
+        }
         animator.SetInteger("state", (int)state);
+        animator.SetFloat("movex", Mathf.Abs(move.x));
+        animator.SetFloat("movey", move.y);
         animator.SetFloat("air", ground ? -1 : 1);
         animator.SetFloat("vely", rigidbody.velocity.y);
 #if UNITY_EDITOR
@@ -78,10 +98,11 @@ class GawrController : MonoBehaviour {
     void FixedUpdate() {
         switch (state) {
             case PlayerState.None:
-                Move();
+                rigidbody.velocity = rigidbody.velocity.WithX(move.x * speed);
+                rigidbody.AddForce(Vector2.down * gravity);
                 break;
             case PlayerState.Dash:
-                rigidbody.velocity = dashDirection * dashSpeed;
+                rigidbody.velocity = move * dashSpeed;
                 break;
             case PlayerState.Attack:
                 goto case PlayerState.None;
@@ -102,16 +123,59 @@ class GawrController : MonoBehaviour {
         SetFacing(-knockback);
         rigidbody.velocity = Vector2.zero;
         rigidbody.AddForce(knockback, ForceMode2D.Impulse);
-        StartCoroutine(Stun(defeat));
+        if (activeState != null) {
+            StopCoroutine(activeState);
+        }
+        dashCooldown = false;
+        attackCooldown = false;
+        attack.Clean();
+        activeState = StartCoroutine(Stun(defeat));
         if (defeat) {
             StartCoroutine(Defeat());
         }
     }
 
-    void Move() {
-        rigidbody.AddForce(Vector2.down * gravity);
+    public void Move(float dir) {
+        move = Vector2.right * dir;
     }
 
+    public void Jump() {
+        rigidbody.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
+        if (ground.collider.TryGetComponent(out TerrainTypeProvider terrain)) {
+            WalkSoundProvider.instance.Emit(terrain.type, WalkSoundType.Jump);
+        }
+    }
+
+    public void Dash(Vector2 dir) {
+        move = dir;
+        activeState = StartCoroutine(DoDash());
+        SoundFXPlayer.instance.Play(dashSounds);
+    }
+
+    public void Attack() {
+        activeState = StartCoroutine(DoAttack());
+    }
+
+    private IEnumerator DoDash() {
+        state = PlayerState.Dash;
+        yield return new WaitForSeconds(dashDuration);
+        state = PlayerState.None;
+        activeState = null;
+        dashCooldown = true;
+        yield return new WaitForSeconds(dashCooldownDuration);
+        dashCooldown = false;
+    }
+
+    private IEnumerator DoAttack() {
+        state = PlayerState.Attack;
+        yield return new AnimatorPlaying(animator);
+        state = PlayerState.None;
+        activeState = null;
+        attack.Clean();
+        attackCooldown = true;
+        yield return new WaitForSeconds(attackCooldownDuration);
+        attackCooldown = false;
+    }
     private IEnumerator Stun(bool defeat) {
         state = PlayerState.Stun;
         yield return new WaitForSeconds(stunDuration);
@@ -163,6 +227,7 @@ class GawrController : MonoBehaviour {
         entity.highlight.speed = 1;
         entity.highlight.SetTrigger("reset");
         entity.hud.enabled = true;
+        entrance = null;
     }
 
     private IEnumerator StepSoundLoop() {

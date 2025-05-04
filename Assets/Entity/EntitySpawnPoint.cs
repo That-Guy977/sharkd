@@ -1,21 +1,22 @@
 using UnityEngine;
 
 [ExecuteAlways]
-class SpawnPoint : MonoBehaviour {
+class EntitySpawnPoint : MonoBehaviour {
+    public Entity entity;
     public Direction facing = Direction.Right;
 
     void Awake() {
         if (!Application.isPlaying) return;
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
+        gameObject.SetActive(false);
     }
 
     void Start() {
         if (!Application.isPlaying) return;
-        PlayerController player = GameManager.instance.player;
-        player.transform.position = transform.position;
-        player.GetComponent<Entity>().facing = facing;
-        player.gameObject.SetActive(true);
+        entity.transform.position = transform.position;
+        entity.GetComponent<Entity>().facing = facing;
+        entity.gameObject.SetActive(true);
     }
 
 #if UNITY_EDITOR

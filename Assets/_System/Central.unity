@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 293292444}
   - component: {fileID: 293292443}
   m_Layer: 6
-  m_Name: GuraBeam
+  m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1341,7 +1341,7 @@ GameObject:
   - component: {fileID: 460907499}
   - component: {fileID: 460907500}
   m_Layer: 6
-  m_Name: GawrSlashHurtbox
+  m_Name: SlashHurtbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3784,7 +3784,7 @@ GameObject:
   - component: {fileID: 1434505370}
   - component: {fileID: 1434505369}
   m_Layer: 6
-  m_Name: GuraBeamOrigin
+  m_Name: BeamOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3897,7 +3897,7 @@ GameObject:
   - component: {fileID: 1494908026}
   - component: {fileID: 1494908027}
   m_Layer: 6
-  m_Name: GuraBeam
+  m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4862,7 +4862,7 @@ GameObject:
   - component: {fileID: 1798382917}
   - component: {fileID: 1798382916}
   m_Layer: 6
-  m_Name: GawrSlash
+  m_Name: Slash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5305,7 +5305,7 @@ GameObject:
   - component: {fileID: 1891946058}
   - component: {fileID: 1891946057}
   m_Layer: 6
-  m_Name: GuraBeamHit
+  m_Name: BeamHit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -47,9 +47,24 @@ class Entity : MonoBehaviour {
         onHit.Invoke(knockback, health == 0);
     }
 
+    public static float Distance(Component a, Component b) {
+        return Mathf.Abs(a.transform.position.x - b.transform.position.x);
+    }
+
+    public bool FacingTowards(Component targetPos) {
+        return facing switch {
+            Direction.Right => targetPos.transform.position.x > transform.position.x,
+            Direction.Left => targetPos.transform.position.x < transform.position.x,
+        };
+    }
+
+    public Direction Towards(Component target) {
+        return (Direction)Mathf.Sign(target.transform.position.x - transform.position.x);
+    }
+
     void UpdateFacing(Transform transform) {
         Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * facing.AsScale();
+        scale.x = Mathf.Abs(scale.x) * facing.Value();
         transform.localScale = scale;
     }
 }

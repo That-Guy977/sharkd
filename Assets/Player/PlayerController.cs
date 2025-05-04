@@ -218,6 +218,9 @@ class PlayerController : MonoBehaviour {
         if (activeState != null) {
             StopCoroutine(activeState);
         }
+        dashCooldown = false;
+        turnCooldown = false;
+        attackCooldown = false;
         attack.Clean();
         activeState = StartCoroutine(Stun(defeat));
         if (defeat) {
