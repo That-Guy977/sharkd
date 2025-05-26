@@ -31,10 +31,6 @@ class GameManager : MonoBehaviour {
         }
     }
 
-    void Start() {
-        Clean();
-    }
-
     public void Clean() {
         player.gameObject.SetActive(false);
         camera.ResetPosition();

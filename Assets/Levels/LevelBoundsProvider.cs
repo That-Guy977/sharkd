@@ -4,11 +4,11 @@ class LevelBoundsProvider : MonoBehaviour {
     public BoxCollider2D leftBound;
     public BoxCollider2D rightBound;
 
-    void OnEnable() {
+    void Start() {
         GameManager.instance.camera.SetBounds(leftBound, rightBound);
     }
 
-    void OnDisable() {
+    void OnDestroy() {
         GameManager.instance.camera.UnsetBounds();
     }
 }
