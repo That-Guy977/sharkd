@@ -5705,7 +5705,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  offset: 0
 --- !u!81 &8944932453567441659
 AudioListener:
   m_ObjectHideFlags: 0

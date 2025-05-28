@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
 class CameraController : MonoBehaviour {
     [Min(0f)]
     public float speed;
-    public float offset;
 
     new Camera camera;
     PlayerController player;
@@ -12,23 +12,25 @@ class CameraController : MonoBehaviour {
     float leftBound;
     float rightBound;
 
-    private float velocity = 0;
+    private Vector2 velocity = Vector2.zero;
     private bool bound = false;
 
     float halfHeight => camera.orthographicSize;
     float halfWidth => halfHeight * camera.aspect;
-    float targetPos {
+    Vector2 targetPos {
         get {
-            float playerPos = player.transform.position.x + offset;
-            if (!bound) {
-                return playerPos;
-            } else {
-                return Mathf.Clamp(playerPos, leftBound, rightBound);
+            Vector2 target = player.transform.position;
+            if (bound) {
+                target.x = Mathf.Clamp(target.x, leftBound, rightBound);
             }
+            target.y = Mathf.Max(target.y, halfHeight);
+            return target;
         }
     }
 
     public float width => halfWidth * 2;
+
+    public event Action cameraUpdate;
 
     void Awake() {
         camera = GetComponent<Camera>();
@@ -36,29 +38,13 @@ class CameraController : MonoBehaviour {
 
     void Start() {
         player = GameManager.instance.player;
-        Vector3 pos = transform.position;
-        pos.x = Mathf.SmoothDamp(
-            pos.x,
-            targetPos,
-            ref velocity,
-            1 / speed,
-            Mathf.Infinity,
-            Time.deltaTime
-        );
-        transform.position = pos;
     }
 
     void LateUpdate() {
-        Vector3 pos = transform.position;
-        pos.x = Mathf.SmoothDamp(
-            pos.x,
-            targetPos,
-            ref velocity,
-            1 / speed,
-            Mathf.Infinity,
-            Time.deltaTime
-        );
+        Vector3 pos = Vector2.SmoothDamp(transform.position, targetPos, ref velocity, 1 / speed);
+        pos.z = transform.position.z;
         transform.position = pos;
+        cameraUpdate?.Invoke();
     }
 
     public void ResetPosition() {

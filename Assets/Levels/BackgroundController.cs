@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteAlways]
 class BackgroundController : MonoBehaviour {
-    [Range(0f, 1f)]
-    public float depth;
+    public new RuntimeAnimatorController animation;
 
     new CameraController camera;
 
-    GameObject background;
-    readonly LinkedList<GameObject> tiles = new();
+    readonly LinkedList<Transform> tiles = new();
+    float depth;
     Sprite sprite;
     string layer;
     float spriteWidth;
@@ -19,42 +19,64 @@ class BackgroundController : MonoBehaviour {
     float center => (tiles.First.Value.transform.position.x + tiles.Last.Value.transform.position.x + spriteWidth) / 2f;
 
     void Awake() {
+        if (!Application.isPlaying) return;
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        depth = transform.position.z;
         sprite = spriteRenderer.sprite;
         layer = spriteRenderer.sortingLayerName;
-        background = new($"Background_{sprite.name}");
-        background.transform.SetParent(transform);
         spriteWidth = sprite.bounds.size.x;
         spriteRenderer.enabled = false;
     }
 
     void Start() {
+        if (!Application.isPlaying) return;
         camera = GameManager.instance.camera;
         int tileCount = Mathf.FloorToInt(camera.width * 1.1f / spriteWidth) + 2;
         for (int i = 0; i < tileCount; i++) {
-            GameObject tile = new(sprite.name, typeof(SpriteRenderer));
-            tile.transform.SetParent(background.transform);
-            SpriteRenderer spriteRenderer = tile.GetComponent<SpriteRenderer>();
+            GameObject tile = new(sprite.name);
+            tile.transform.SetParent(transform);
+            tile.transform.position = new Vector3(spriteWidth * i, 0, 0);
+            tiles.AddLast(tile.transform);
+
+            SpriteRenderer spriteRenderer = tile.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = sprite;
             spriteRenderer.sortingLayerName = layer;
-            tile.transform.position = new Vector3(spriteWidth * i, 0, depth);
-            tiles.AddLast(tile);
+            spriteRenderer.sortingOrder = transform.GetSiblingIndex();
+
+            if (animation) {
+                Animator animator = tile.AddComponent<Animator>();
+                animator.runtimeAnimatorController = animation;
+            }
         }
+        camera.cameraUpdate += CameraUpdate;
     }
 
-    void LateUpdate() {
+    void OnDestroy() {
+        if (!Application.isPlaying) return;
+        camera.cameraUpdate -= CameraUpdate;
+    }
+
+#if UNITY_EDITOR
+    void Update() {
+        GetComponent<SpriteRenderer>().sortingOrder = transform.GetSiblingIndex();
+    }
+#endif
+
+    void CameraUpdate() {
         if (previousCameraPosition != Vector2.zero) {
-            background.transform.position += (Vector3)(cameraPosition - previousCameraPosition) * depth;
+            Vector3 deltaPosition = cameraPosition - previousCameraPosition;
+            deltaPosition.y /= 2;
+            transform.position += deltaPosition * depth;
         }
         previousCameraPosition = cameraPosition;
         if (cameraPosition.x > center + spriteWidth / 2f) {
-            GameObject tile = tiles.First.Value;
-            tile.transform.position += Vector3.right * (tiles.Count * spriteWidth);
+            Transform tile = tiles.First.Value;
+            tile.position += Vector3.right * (tiles.Count * spriteWidth);
             tiles.RemoveFirst();
             tiles.AddLast(tile);
         } else if (cameraPosition.x < center - spriteWidth / 2f) {
-            GameObject tile = tiles.Last.Value;
-            tile.transform.position += Vector3.left * (tiles.Count * spriteWidth);
+            Transform tile = tiles.Last.Value;
+            tile.position += Vector3.left * (tiles.Count * spriteWidth);
             tiles.RemoveLast();
             tiles.AddFirst(tile);
         }
