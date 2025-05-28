@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8309763544175321643, guid: 78ce722a8a6c04eaea94b37f10cc37c4, type: 3}
       propertyPath: m_Name
-      value: LevelBoundsProvider
+      value: LevelInfoProvider
       objectReference: {fileID: 0}
     - target: {fileID: 8664286649240042104, guid: 78ce722a8a6c04eaea94b37f10cc37c4, type: 3}
       propertyPath: m_LocalPosition.x

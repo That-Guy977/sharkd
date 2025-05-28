@@ -33,7 +33,7 @@ class GameManager : MonoBehaviour {
 
     public void Clean() {
         player.gameObject.SetActive(false);
-        camera.ResetPosition();
+        camera.Clean();
         while (overlayOpen) {
             CloseOverlay();
         }

@@ -1187,13 +1187,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7888590635349098000, guid: 78ce722a8a6c04eaea94b37f10cc37c4, type: 3}
+      propertyPath: backgroundFill.b
+      value: 0.8627451
+      objectReference: {fileID: 0}
+    - target: {fileID: -7888590635349098000, guid: 78ce722a8a6c04eaea94b37f10cc37c4, type: 3}
+      propertyPath: backgroundFill.g
+      value: 0.6745098
+      objectReference: {fileID: 0}
+    - target: {fileID: -7888590635349098000, guid: 78ce722a8a6c04eaea94b37f10cc37c4, type: 3}
+      propertyPath: backgroundFill.r
+      value: 0.46666667
+      objectReference: {fileID: 0}
     - target: {fileID: 3696876364773155506, guid: 78ce722a8a6c04eaea94b37f10cc37c4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.5
       objectReference: {fileID: 0}
     - target: {fileID: 8309763544175321643, guid: 78ce722a8a6c04eaea94b37f10cc37c4, type: 3}
       propertyPath: m_Name
-      value: LevelBoundsProvider
+      value: LevelInfoProvider
       objectReference: {fileID: 0}
     - target: {fileID: 8664286649240042104, guid: 78ce722a8a6c04eaea94b37f10cc37c4, type: 3}
       propertyPath: m_LocalPosition.x

@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 8664286649240042104}
   - component: {fileID: -7888590635349098000}
   m_Layer: 3
-  m_Name: LevelBoundsProvider
+  m_Name: LevelInfoProvider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -200,5 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b31332a837c4f8b87f8ce0ae8ee113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundFill: {r: 0.5019608, g: 0, b: 0.5019608, a: 1}
   leftBound: {fileID: 1287651704129614649}
   rightBound: {fileID: 7188162489413909682}

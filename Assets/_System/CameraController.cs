@@ -9,6 +9,7 @@ class CameraController : MonoBehaviour {
     new Camera camera;
     PlayerController player;
 
+    Color backgroundColor;
     float leftBound;
     float rightBound;
 
@@ -34,6 +35,7 @@ class CameraController : MonoBehaviour {
 
     void Awake() {
         camera = GetComponent<Camera>();
+        backgroundColor = camera.backgroundColor;
     }
 
     void Start() {
@@ -47,17 +49,16 @@ class CameraController : MonoBehaviour {
         cameraUpdate?.Invoke();
     }
 
-    public void ResetPosition() {
+    public void Clean() {
         camera.transform.position = new Vector3(halfWidth, halfHeight, -10);
+        camera.backgroundColor = backgroundColor;
+        bound = false;
     }
 
-    public void SetBounds(BoxCollider2D left, BoxCollider2D right) {
+    public void LevelInfo(Color backgroundFill, BoxCollider2D left, BoxCollider2D right) {
+        camera.backgroundColor = backgroundFill;
         bound = true;
         leftBound = left.bounds.max.x + halfWidth;
         rightBound = Mathf.Max(right.bounds.min.x - halfWidth, halfWidth);
-    }
-
-    public void UnsetBounds() {
-        bound = false;
     }
 }
