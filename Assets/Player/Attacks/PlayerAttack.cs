@@ -82,6 +82,9 @@ class PlayerAttack : MonoBehaviour {
         slashHit = false;
         if (beamSummonSoundSource) Destroy(beamSummonSoundSource.gameObject);
         if (beamSoundSource) Destroy(beamSoundSource.gameObject);
+        if (!manaRegen) {
+            manaDelay = StartCoroutine(ManaRegenDelay());
+        }
     }
 
     public void BeamSummonGround() {
