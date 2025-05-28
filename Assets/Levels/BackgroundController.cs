@@ -17,6 +17,7 @@ class BackgroundController : MonoBehaviour {
 
     Vector2 cameraPosition => camera.gameObject.transform.position;
     float center => (tiles.First.Value.transform.position.x + tiles.Last.Value.transform.position.x + spriteWidth) / 2f;
+    int sortingOrder => transform.parent ? transform.GetSiblingIndex() : 0;
 
     void Awake() {
         if (!Application.isPlaying) return;
@@ -41,7 +42,7 @@ class BackgroundController : MonoBehaviour {
             SpriteRenderer spriteRenderer = tile.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = sprite;
             spriteRenderer.sortingLayerName = layer;
-            spriteRenderer.sortingOrder = transform.GetSiblingIndex();
+            spriteRenderer.sortingOrder = sortingOrder;
 
             if (animation) {
                 Animator animator = tile.AddComponent<Animator>();
@@ -58,7 +59,7 @@ class BackgroundController : MonoBehaviour {
 
 #if UNITY_EDITOR
     void Update() {
-        GetComponent<SpriteRenderer>().sortingOrder = transform.GetSiblingIndex();
+        GetComponent<SpriteRenderer>().sortingOrder = sortingOrder;
     }
 #endif
 
