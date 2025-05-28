@@ -50,6 +50,22 @@ MonoBehaviour:
     m_Localized: Resume
     m_Metadata:
       m_Items: []
+  - m_Id: 10819309080141824
+    m_Localized: Test Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10820557263069184
+    m_Localized: Paused
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10820591748636672
+    m_Localized: Victory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10820596777607168
+    m_Localized: Defeat
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
