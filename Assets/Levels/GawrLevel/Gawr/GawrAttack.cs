@@ -5,7 +5,7 @@ class GawrAttack : MonoBehaviour {
     public float knockback;
     public float knockbackUp;
     public GameObject container;
-    public BoxCollider2D hurtbox;
+    public Collider2D hitbox;
     public AudioBankProvider sounds;
     public AudioBankProvider hitSounds;
 
@@ -18,7 +18,7 @@ class GawrAttack : MonoBehaviour {
     public void Clean() {
         StopAllCoroutines();
         container.SetActive(false);
-        hurtbox.gameObject.SetActive(false);
+        hitbox.gameObject.SetActive(false);
     }
 
     public void SlashStart() {
@@ -26,7 +26,7 @@ class GawrAttack : MonoBehaviour {
     }
 
     public void Slash() {
-        hurtbox.gameObject.SetActive(true);
+        hitbox.gameObject.SetActive(true);
         SoundFXPlayer.instance.Play(sounds);
     }
 

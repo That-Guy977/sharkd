@@ -751,7 +751,7 @@ MonoBehaviour:
   knockback: 4
   knockbackUp: 1.5
   container: {fileID: 2073719879}
-  hurtbox: {fileID: 857050635}
+  hitbox: {fileID: 857050635}
   sounds:
     clips:
     - {fileID: 8300000, guid: 067fb73c35d23459ab96640e6107a99a, type: 3}
@@ -810,7 +810,7 @@ GameObject:
   - component: {fileID: 857050635}
   - component: {fileID: 857050636}
   m_Layer: 7
-  m_Name: SlashHurtbox
+  m_Name: SlashHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
