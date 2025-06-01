@@ -19,12 +19,24 @@ MonoBehaviour:
     m_Key: TEXT_TITLE
     m_Metadata:
       m_Items: []
-  - m_Id: 3975731679232
-    m_Key: BUTTON_BEGIN
+  - m_Id: 6028524720128
+    m_Key: MENU_SETTINGS
     m_Metadata:
       m_Items: []
-  - m_Id: 6028524720128
-    m_Key: BUTTON_SETTINGS
+  - m_Id: 10820557263069184
+    m_Key: MENU_PAUSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10820591748636672
+    m_Key: MENU_WIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10820596777607168
+    m_Key: MENU_DEFEAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3975731679232
+    m_Key: BUTTON_BEGIN
     m_Metadata:
       m_Items: []
   - m_Id: 6028528914432
@@ -49,18 +61,6 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 10819309080141824
     m_Key: BUTTON_TEST
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10820557263069184
-    m_Key: MENU_PAUSE
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10820591748636672
-    m_Key: MENU_WIN
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10820596777607168
-    m_Key: MENU_DEFEAT
     m_Metadata:
       m_Items: []
   m_Metadata:
