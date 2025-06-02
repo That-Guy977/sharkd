@@ -21,7 +21,7 @@ class PlayerController : MonoBehaviour {
     public float turnOutDuration;
     public float turnCooldownDuration;
     public float stunDuration;
-    public int defeatSlowdownSteps;
+    public float defeatSlowdownDuration;
     public float defeatInitialSlowdown;
     public float defeatDelay;
 
@@ -307,10 +307,12 @@ class PlayerController : MonoBehaviour {
     private IEnumerator Defeat() {
         GameManager.instance.levelEnd = true;
         Time.timeScale = defeatInitialSlowdown;
-        for (int i = 0; i < defeatSlowdownSteps; i++) {
-            yield return new WaitForSecondsRealtime(stunDuration / defeatSlowdownSteps);
-            Time.timeScale = Mathf.Lerp(defeatInitialSlowdown, 0, (float)i / defeatSlowdownSteps);
-        }
+        float elapsedTime = 0;
+        do {
+            elapsedTime += Time.unscaledDeltaTime;
+            Time.timeScale = Mathf.Lerp(defeatInitialSlowdown, 0, elapsedTime / defeatSlowdownDuration);
+            yield return null;
+        } while (Time.timeScale > 0);
         yield return new WaitForSecondsRealtime(defeatDelay);
         GameManager.instance.Defeat();
     }

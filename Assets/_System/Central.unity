@@ -2913,9 +2913,9 @@ MonoBehaviour:
   turnOutDuration: 0.1
   turnCooldownDuration: 0.2
   stunDuration: 0.4
-  defeatSlowdownSteps: 10
+  defeatSlowdownDuration: 1.4
   defeatInitialSlowdown: 0.5
-  defeatDelay: 0.8
+  defeatDelay: 0.5
   entranceFadeInDuration: 0.2
   entranceFadeOutDuration: 0.2
   groundLayer:
