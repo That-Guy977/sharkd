@@ -22,6 +22,7 @@ class GameManager : MonoBehaviour {
     Stack<Canvas> overlays = new();
 
     public bool overlayOpen => overlays.Count > 0;
+    public bool quitting { get; private set; } = false;
 
     void Awake() {
         if (!instance) {
@@ -77,6 +78,10 @@ class GameManager : MonoBehaviour {
 
     public void Settings() {
         OpenOverlay(settings);
+    }
+
+    void OnApplicationQuit() {
+        quitting = true;
     }
 }
 

@@ -16,6 +16,7 @@ class InLevelMenu : MonoBehaviour {
     }
 
     void OnDisable() {
+        if (GameManager.instance.quitting) return;
         Time.timeScale = 1;
         playerInput.enabled = true;
         AudioListener.pause = false;

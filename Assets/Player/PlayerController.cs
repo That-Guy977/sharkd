@@ -136,10 +136,9 @@ class PlayerController : MonoBehaviour {
     }
 
     void OnDisable() {
+        if (GameManager.instance.quitting) return;
         Clean();
-        if (camera) {
-            camera.enabled = false;
-        }
+        camera.enabled = false;
     }
 
     void Clean() {
