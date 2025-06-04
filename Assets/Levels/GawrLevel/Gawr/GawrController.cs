@@ -233,17 +233,16 @@ class GawrController : MonoBehaviour {
 
     private IEnumerator StepSoundLoop() {
         while (true) {
+            TerrainTypeProvider terrain;
             while (
                 state != PlayerState.None && state != PlayerState.Attack && state != PlayerState.Turn
-                || Mathf.Abs(rigidbody.velocity.x) < 0.1
+                || Mathf.Abs(rigidbody.velocity.x) < 0.1f
                 || !ground
-                || !ground.collider.TryGetComponent(out TerrainTypeProvider _)
+                || !ground.collider.TryGetComponent(out terrain)
             ) {
                 yield return null;
             }
-            if (ground.collider.TryGetComponent(out TerrainTypeProvider terrain)) {
-                WalkSoundProvider.instance.Emit(terrain.type, WalkSoundType.Step);
-            }
+            WalkSoundProvider.instance.Emit(terrain.type, WalkSoundType.Step);
             yield return new WaitForSeconds(1 / WalkSoundProvider.instance.stepRate / Mathf.Abs(rigidbody.velocity.x));
         }
     }
