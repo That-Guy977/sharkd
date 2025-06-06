@@ -35,11 +35,10 @@ class GawrBehaviour : MonoBehaviour {
     }
 
     void Update() {
-        if (controller.entrance != null) return;
-        if (loop != null && controller.currentState == PlayerState.Stun) {
+        if (loop != null && !controller.active) {
             StopCoroutine(loop);
             loop = null;
-        } else if (loop == null && controller.currentState != PlayerState.Stun) {
+        } else if (loop == null && controller.active) {
             loop = StartCoroutine(BehaviourLoop());
         }
     }

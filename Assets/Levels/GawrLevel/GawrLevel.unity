@@ -488,7 +488,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64fa3fa36cce54a1898fef21a290bec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gawr: {fileID: 848052388}
+  gawr: {fileID: 848052389}
+  winSlowdownDuration: 1
+  winInitialSlowdown: 0.8
+  winDelay: 0.2
+  mergeOffset: 2
+  mergeDuration: 1
+  mergeDelay: 0.5
+  mergeHighlightInDuration: 0.5
+  mergeHighlightOutDuration: 0.2
   spawnPoints:
   - {fileID: 6826236595443846747}
   - {fileID: 1007631324}

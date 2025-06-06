@@ -65,7 +65,9 @@ class PlayerAttack : MonoBehaviour {
     }
 
     void OnEnable() {
+        manaRegen = true;
         mana = maxMana;
+        Clean();
     }
 
     public void Clean() {
@@ -81,7 +83,7 @@ class PlayerAttack : MonoBehaviour {
         slashHit = false;
         if (beamSummonSoundSource) Destroy(beamSummonSoundSource.gameObject);
         if (beamSoundSource) Destroy(beamSoundSource.gameObject);
-        if (!manaRegen) {
+        if (!manaRegen && gameObject.activeInHierarchy) {
             manaDelay = StartCoroutine(ManaRegenDelay());
         }
     }

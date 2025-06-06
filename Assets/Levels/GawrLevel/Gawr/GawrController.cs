@@ -58,6 +58,7 @@ class GawrController : MonoBehaviour {
 
     public PlayerState currentState => state;
     public Coroutine entrance { get; private set; }
+    public bool active => state != PlayerState.Stun && entrance == null;
     public bool canJump => state == PlayerState.None && ground;
     public bool canDash => state == PlayerState.None && !dashCooldown;
     public bool canAttack => state == PlayerState.None && !attackCooldown;
@@ -131,7 +132,7 @@ class GawrController : MonoBehaviour {
         attack.Clean();
         activeState = StartCoroutine(Stun(defeat));
         if (defeat) {
-            StartCoroutine(Defeat());
+            levelController.Win();
         }
     }
 
@@ -176,6 +177,7 @@ class GawrController : MonoBehaviour {
         yield return new WaitForSeconds(attackCooldownDuration);
         attackCooldown = false;
     }
+
     private IEnumerator Stun(bool defeat) {
         state = PlayerState.Stun;
         yield return new WaitForSeconds(stunDuration);
@@ -186,15 +188,8 @@ class GawrController : MonoBehaviour {
         }
     }
 
-    private IEnumerator Defeat() {
-        Time.timeScale = defeatInitialSlowdown;
-        for (int i = 1; i <= defeatSlowdownSteps; i++) {
-            yield return new WaitForSecondsRealtime(stunDuration / defeatSlowdownSteps);
-            Time.timeScale = Mathf.Lerp(defeatInitialSlowdown, 0, (float)i / defeatSlowdownSteps);
-        }
-        yield return new WaitForSecondsRealtime(defeatDelay);
-        Time.timeScale = 1;
-        levelController.Win();
+    public void SetFrozen(bool frozen) {
+        rigidbody.isKinematic = frozen;
     }
 
     void SetFacing(Vector2 direction) {
@@ -217,16 +212,11 @@ class GawrController : MonoBehaviour {
         entity.hud.enabled = false;
         yield return null;
         yield return new WaitUntil(() => GameManager.instance.state != GameState.Transitioning);
-        entity.highlight.speed = 1 / entranceFadeInDuration;
-        entity.highlight.SetTrigger("highlight");
-        yield return new AnimatorPlaying(entity.highlight);
+        yield return entity.Highlight(entranceFadeInDuration);
         spriteRenderer.enabled = true;
         SoundFXPlayer.instance.Play(entranceSound);
-        entity.highlight.speed = 1 / entranceFadeOutDuration;
-        entity.highlight.SetTrigger("dehighlight");
-        yield return new AnimatorPlaying(entity.highlight);
-        entity.highlight.speed = 1;
-        entity.highlight.SetTrigger("reset");
+        yield return entity.Dehighlight(entranceFadeOutDuration);
+        entity.ResetHighlight();
         entity.hud.enabled = true;
         entrance = null;
     }

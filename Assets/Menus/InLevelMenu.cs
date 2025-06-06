@@ -1,16 +1,14 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Eflatun.SceneReference;
 
 class InLevelMenu : MonoBehaviour {
-    public PlayerInput playerInput;
     public SceneReference mainMenu;
     public SceneLoader.Transition restartTransition;
     public SceneLoader.Transition exitTransition;
 
     void OnEnable() {
         Time.timeScale = 0;
-        playerInput.enabled = false;
+        GameManager.instance.player.SetFrozen(true);
         AudioListener.pause = true;
         MusicPlayer.instance.Pause();
     }
@@ -18,7 +16,7 @@ class InLevelMenu : MonoBehaviour {
     void OnDisable() {
         if (GameManager.instance.quitting) return;
         Time.timeScale = 1;
-        playerInput.enabled = true;
+        GameManager.instance.player.SetFrozen(false);
         AudioListener.pause = false;
         MusicPlayer.instance.Unpause();
     }

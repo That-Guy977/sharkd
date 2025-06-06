@@ -34,6 +34,7 @@ class Entity : MonoBehaviour {
     }
 
     void OnEnable() {
+        hud.enabled = true;
         health = maxHealth;
     }
 
@@ -66,5 +67,22 @@ class Entity : MonoBehaviour {
         Vector3 scale = transform.localScale;
         scale.x = Mathf.Abs(scale.x) * facing.Value();
         transform.localScale = scale;
+    }
+
+    public AnimatorPlaying Highlight(float duration) {
+        highlight.speed = 1 / duration;
+        highlight.SetTrigger("highlight");
+        return new AnimatorPlaying(highlight);
+    }
+
+    public AnimatorPlaying Dehighlight(float duration) {
+        highlight.speed = 1 / duration;
+        highlight.SetTrigger("dehighlight");
+        return new AnimatorPlaying(highlight);
+    }
+
+    public void ResetHighlight() {
+        highlight.speed = 1;
+        highlight.SetTrigger("reset");
     }
 }

@@ -129,19 +129,19 @@ class PlayerController : MonoBehaviour {
     }
 
     void OnEnable() {
+        playerInput.enabled = true;
         camera.enabled = true;
-        Clean();
         SoundFXChecks();
-        entrance = StartCoroutine(Entrance());
     }
 
     void OnDisable() {
         if (GameManager.instance.quitting) return;
         Clean();
+        playerInput.enabled = false;
         camera.enabled = false;
     }
 
-    void Clean() {
+    public void Clean() {
         state = PlayerState.None;
         StopAllCoroutines();
         activeState = null;
@@ -271,21 +271,16 @@ class PlayerController : MonoBehaviour {
 
     private IEnumerator Turn() {
         state = PlayerState.Turn;
-        entity.highlight.speed = 1 / turnInDuration;
-        entity.highlight.SetTrigger("highlight");
-        yield return new AnimatorPlaying(entity.highlight);
+        yield return entity.Highlight(turnInDuration);
         character = character switch {
             Character.Gura => Character.Gawr,
             Character.Gawr => Character.Gura,
         };
         SoundFXPlayer.instance.Play(entranceSounds[character]);
         attackCooldown = false;
-        entity.highlight.speed = 1 / turnOutDuration;
-        entity.highlight.SetTrigger("dehighlight");
-        yield return new AnimatorPlaying(entity.highlight);
+        yield return entity.Dehighlight(turnOutDuration);
         state = PlayerState.None;
-        entity.highlight.speed = 1;
-        entity.highlight.SetTrigger("reset");
+        entity.ResetHighlight();
         activeState = null;
         turnCooldown = true;
         yield return new WaitForSeconds(turnCooldownDuration);
@@ -316,6 +311,11 @@ class PlayerController : MonoBehaviour {
         GameManager.instance.Defeat();
     }
 
+    public void SetFrozen(bool frozen) {
+        playerInput.enabled = !frozen;
+        rigidbody.isKinematic = frozen;
+    }
+
     void SetFacing(Vector2 direction) {
         if (direction.x > 0) {
             entity.facing = Direction.Right;
@@ -331,22 +331,24 @@ class PlayerController : MonoBehaviour {
         dashDuration = dashDistance / dashSpeed;
     }
 
+    public void Spawn(Vector3 position, Direction facing) {
+        gameObject.SetActive(true);
+        transform.position = position;
+        entity.facing = facing;
+        entrance = StartCoroutine(Entrance());
+    }
+
     private IEnumerator Entrance() {
         playerInput.enabled = false;
         spriteRenderer.enabled = false;
         entity.hud.enabled = false;
         yield return null;
         yield return new WaitUntil(() => GameManager.instance.state != GameState.Transitioning);
-        entity.highlight.speed = 1 / entranceFadeInDuration;
-        entity.highlight.SetTrigger("highlight");
-        yield return new AnimatorPlaying(entity.highlight);
+        yield return entity.Highlight(entranceFadeInDuration);
         spriteRenderer.enabled = true;
         SoundFXPlayer.instance.Play(entranceSounds[character]);
-        entity.highlight.speed = 1 / entranceFadeOutDuration;
-        entity.highlight.SetTrigger("dehighlight");
-        yield return new AnimatorPlaying(entity.highlight);
-        entity.highlight.speed = 1;
-        entity.highlight.SetTrigger("reset");
+        yield return entity.Dehighlight(entranceFadeOutDuration);
+        entity.ResetHighlight();
         playerInput.enabled = true;
         entity.hud.enabled = true;
         entrance = null;
