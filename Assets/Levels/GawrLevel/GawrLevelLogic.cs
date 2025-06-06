@@ -27,28 +27,38 @@ class GawrLevelLogic : MonoBehaviour {
 
     void Start() {
         player = GameManager.instance.player;
-        if (!GameManager.instance.tutorialComplete) {
+        if (!GameManager.instance.tutorialShown) {
             StartCoroutine(Tutorial());
         } else {
             SpawnGawr();
         }
     }
 
-    public void Win() {
-        StartCoroutine(WinSequence(GameManager.instance.tutorialComplete));
-        GameManager.instance.tutorialComplete = true;
+    public void TutorialDone() {
+        GameManager.instance.tutorialShown = true;
+        SpawnGawr();
     }
 
-    public void SpawnGawr() {
+    public void TurnTutorialDone() {
+        GameManager.instance.tutorialComplete = true;
+        GameManager.instance.Win();
+    }
+
+    public void Win() {
+        StartCoroutine(WinSequence());
+    }
+
+    void SpawnGawr() {
         EntitySpawnPoint spawnPoint = player.transform.position.Farthest(spawnPoints);
         spawnPoint.gameObject.SetActive(true);
     }
 
-    public void WinExitLevel() {
-        GameManager.instance.Win();
+    private IEnumerator Tutorial() {
+        yield return player.entrance;
+        director.Play(tutorial);
     }
 
-    private IEnumerator WinSequence(bool tutorialDone) {
+    private IEnumerator WinSequence() {
         GameManager.instance.levelEnd = true;
         Time.timeScale = winInitialSlowdown;
         float elapsedTime = 0;
@@ -58,10 +68,10 @@ class GawrLevelLogic : MonoBehaviour {
             yield return null;
         } while (Time.timeScale > 0);
         yield return new WaitForSecondsRealtime(winDelay);
-        if (!tutorialDone) {
+        if (!GameManager.instance.tutorialComplete) {
             yield return MergeSequence();
         } else {
-            WinExitLevel();
+            GameManager.instance.Win();
         }
     }
 
@@ -108,13 +118,5 @@ class GawrLevelLogic : MonoBehaviour {
         player.SetFrozen(false);
         playerEntity.ResetHighlight();
         director.Play(turnTutorial);
-        yield return null;
-    }
-
-    private IEnumerator Tutorial() {
-        if (player.entrance != null) {
-            yield return player.entrance;
-        }
-        director.Play(tutorial);
     }
 }

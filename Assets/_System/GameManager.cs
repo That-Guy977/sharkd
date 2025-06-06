@@ -17,6 +17,7 @@ class GameManager : MonoBehaviour {
     [Header("Game State")]
     public GameState state = GameState.MainMenu;
     public bool levelEnd = false;
+    public bool tutorialShown = false;
     public bool tutorialComplete = false;
 
     Stack<Canvas> overlays = new();

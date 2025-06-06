@@ -3068,6 +3068,7 @@ MonoBehaviour:
   settings: {fileID: 840204675}
   state: 0
   levelEnd: 0
+  tutorialShown: 0
   tutorialComplete: 0
 --- !u!4 &874300804
 Transform:

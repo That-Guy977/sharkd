@@ -523,7 +523,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 523846194}
           m_TargetAssemblyTypeName: GawrLevelLogic, Assembly-CSharp
-          m_MethodName: SpawnGawr
+          m_MethodName: TutorialDone
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -537,7 +537,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 523846194}
           m_TargetAssemblyTypeName: GawrLevelLogic, Assembly-CSharp
-          m_MethodName: WinExitLevel
+          m_MethodName: TurnTutorialDone
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
