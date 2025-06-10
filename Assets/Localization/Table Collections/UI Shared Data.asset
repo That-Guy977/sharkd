@@ -63,6 +63,38 @@ MonoBehaviour:
     m_Key: BUTTON_TEST
     m_Metadata:
       m_Items: []
+  - m_Id: 15509746801958912
+    m_Key: TUTORIAL_MOVE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510365222723584
+    m_Key: TUTORIAL_JUMP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510511666847744
+    m_Key: TUTORIAL_DASH
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510603534688256
+    m_Key: TUTORIAL_ATTACK0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15529109621825536
+    m_Key: TUTORIAL_ATTACK1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510788230864896
+    m_Key: TUTORIAL_TURN0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510868870553600
+    m_Key: TUTORIAL_TURN1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15511002563993600
+    m_Key: TUTORIAL_TURN2
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

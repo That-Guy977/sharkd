@@ -45,7 +45,7 @@ class GameManager : MonoBehaviour {
         if (state == GameState.Transitioning || levelEnd) return;
         if (overlays.Count > 0) {
             CloseOverlay();
-        } else if (state == GameState.InLevel || state == GameState.Tutorial) {
+        } else if (state == GameState.InLevel) {
             Pause();
         }
     }
@@ -90,5 +90,4 @@ enum GameState {
     MainMenu,
     Transitioning,
     InLevel,
-    Tutorial,
 }

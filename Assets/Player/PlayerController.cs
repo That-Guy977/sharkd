@@ -204,7 +204,7 @@ class PlayerController : MonoBehaviour {
     }
 
     protected void OnTurn() {
-        if (GameManager.instance.state == GameState.Tutorial) return;
+        if (!GameManager.instance.tutorialComplete) return;
         if (state != PlayerState.None || turnCooldown) return;
         activeState = StartCoroutine(Turn());
         SoundFXPlayer.instance.Play(turnSounds);

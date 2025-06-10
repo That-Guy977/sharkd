@@ -40,7 +40,6 @@ class GawrLevelLogic : MonoBehaviour {
     }
 
     public void TurnTutorialDone() {
-        GameManager.instance.tutorialComplete = true;
         GameManager.instance.Win();
     }
 
@@ -117,6 +116,7 @@ class GawrLevelLogic : MonoBehaviour {
         yield return playerEntity.Dehighlight(mergeHighlightOutDuration);
         player.SetFrozen(false);
         playerEntity.ResetHighlight();
+        GameManager.instance.tutorialComplete = true;
         director.Play(turnTutorial);
     }
 }

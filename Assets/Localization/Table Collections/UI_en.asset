@@ -66,6 +66,38 @@ MonoBehaviour:
     m_Localized: Defeat
     m_Metadata:
       m_Items: []
+  - m_Id: 15509746801958912
+    m_Localized: Press A/D to  move.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510365222723584
+    m_Localized: Press [Space] to jump.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510511666847744
+    m_Localized: Hold W/A/S/D and press K to dash.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510603534688256
+    m_Localized: Hold J to attack.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510788230864896
+    m_Localized: You can now transform into Gawr!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510868870553600
+    m_Localized: Press L to transform.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15511002563993600
+    m_Localized: As Gawr, press J to attack. Slashing does not consume <color=#00A8FF>Mana</color>.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15529109621825536
+    m_Localized: Watch your <color=#00A8FF>Mana</color>!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

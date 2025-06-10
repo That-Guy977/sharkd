@@ -3133,9 +3133,6 @@ MonoBehaviour:
   initial:
     asset: {fileID: 102900000, guid: 8bd2503945f6e4231af1fdf139d330fe, type: 3}
     guid: 8bd2503945f6e4231af1fdf139d330fe
-  tutorial:
-    asset: {fileID: 102900000, guid: 45d693c57e2b54bce830787457ef7064, type: 3}
-    guid: 45d693c57e2b54bce830787457ef7064
   levelTransition:
     delay: 0.4
     animOut: {fileID: 782130545468224580, guid: a13d4af640518431589e23cbbde15ae8, type: 3}

@@ -9,7 +9,6 @@ class SceneLoader : MonoBehaviour {
 
     public SceneReference central;
     public SceneReference initial;
-    public SceneReference tutorial;
     public Transition levelTransition;
 
     public SceneReference current => SceneReference.FromScenePath(SceneManager.GetActiveScene().path);
@@ -57,7 +56,7 @@ class SceneLoader : MonoBehaviour {
     }
 
     public void LoadLevel(SceneReference level) {
-        StartCoroutine(Load(level, levelTransition, level.Guid != tutorial.Guid ? GameState.InLevel : GameState.Tutorial));
+        StartCoroutine(Load(level, levelTransition, GameState.InLevel));
     }
 
     private IEnumerator Load(SceneReference scene, Transition transition, GameState outState) {
