@@ -2995,6 +2995,7 @@ MonoBehaviour:
   beamManaThreshold: 5
   beamManaDrain: 20
   beamSpeed: 30
+  beamOverlap: 0.1
   beamContainer: {fileID: 293292441}
   beamAnchorGround: {fileID: 1651652329}
   beamAnchorAir: {fileID: 391731967}

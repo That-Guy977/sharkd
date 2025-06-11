@@ -15,6 +15,7 @@ class PlayerAttack : MonoBehaviour {
     public int beamManaThreshold;
     public float beamManaDrain;
     public float beamSpeed;
+    public float beamOverlap;
     public GameObject beamContainer;
     public Transform beamAnchorGround;
     public Transform beamAnchorAir;
@@ -114,16 +115,16 @@ class PlayerAttack : MonoBehaviour {
                 BeamCancel();
                 break;
             }
+            beam.size += Vector2.right * beamSpeed * Time.deltaTime;
             if (beamTargetCollider) {
-                float closeEdge = entity.facing switch {
-                    Direction.Right => beamTargetCollider.bounds.min.x,
-                    Direction.Left => beamTargetCollider.bounds.max.x,
+                float hitPoint = entity.facing switch {
+                    Direction.Right => beamTargetCollider.bounds.min.x + beamOverlap,
+                    Direction.Left => beamTargetCollider.bounds.max.x - beamOverlap,
                 };
-                beam.size = beam.size.WithX(Mathf.Abs(beam.transform.position.x - closeEdge));
-                beamHit.transform.position = new Vector3(closeEdge, beam.transform.position.y, 0);
+                beam.size = beam.size.WithX(Mathf.Max(Mathf.Min(beam.size.x, (hitPoint - beam.transform.position.x) * entity.facing.Value()), 0.1f));
+                beamHit.transform.position = ((Vector2)beamHit.transform.position).WithX(beam.transform.position.x + beam.size.x * entity.facing.Value());
                 beamHit.gameObject.SetActive(true);
             } else {
-                beam.size += Vector2.right * beamSpeed * Time.deltaTime;
                 beamHit.gameObject.SetActive(false);
             }
             mana -= beamManaDrain * Time.deltaTime;
