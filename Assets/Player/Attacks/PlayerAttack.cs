@@ -144,7 +144,6 @@ class PlayerAttack : MonoBehaviour {
 
     public void BeamCancel() {
         Clean();
-        manaDelay = StartCoroutine(ManaRegenDelay());
     }
 
     private IEnumerator BeamRepeatDamage(Entity target) {
