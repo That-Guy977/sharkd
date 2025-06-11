@@ -138,8 +138,16 @@ class PlayerAttack : MonoBehaviour {
         if (beamRepeatDamage != null) {
             StopCoroutine(beamRepeatDamage);
         }
-        if (collider && collider.TryGetComponent(out Entity target)) {
+        if (collider.TryGetComponent(out Entity target)) {
             beamRepeatDamage = StartCoroutine(BeamRepeatDamage(target));
+        }
+    }
+
+    public void BeamTargetCancel(Collider2D collider) {
+        if (collider == beamTargetCollider) {
+            if (beamRepeatDamage != null) {
+                StopCoroutine(beamRepeatDamage);
+            }
         }
     }
 

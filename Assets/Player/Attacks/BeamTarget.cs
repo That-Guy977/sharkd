@@ -7,7 +7,7 @@ class BeamTarget : MonoBehaviour {
         attack.BeamTarget(collider);
     }
 
-    void OnTriggerExit2D() {
-        attack.BeamTarget(null);
+    void OnTriggerExit2D(Collider2D collider) {
+        attack.BeamTargetCancel(collider);
     }
 }
