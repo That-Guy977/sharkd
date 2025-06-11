@@ -1302,7 +1302,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 781212737135873825, guid: 68abcbaa1d12349a8b15d1a17e71579d, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 781212737135873825, guid: 68abcbaa1d12349a8b15d1a17e71579d, type: 3}
       propertyPath: m_IsActive
@@ -1504,7 +1504,7 @@ GameObject:
   - component: {fileID: 857050633}
   - component: {fileID: 857050635}
   - component: {fileID: 857050636}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: SlashHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3390,7 +3390,7 @@ GameObject:
   - component: {fileID: 2073719880}
   - component: {fileID: 2073719882}
   - component: {fileID: 2073719881}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Slash
   m_TagString: Untagged
   m_Icon: {fileID: 0}

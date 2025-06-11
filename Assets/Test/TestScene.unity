@@ -1099,7 +1099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 781212737135873825, guid: 68abcbaa1d12349a8b15d1a17e71579d, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1976939375253899298, guid: 68abcbaa1d12349a8b15d1a17e71579d, type: 3}
       propertyPath: m_AnchoredPosition.y
