@@ -55,10 +55,10 @@ class CameraController : MonoBehaviour {
         bound = false;
     }
 
-    public void LevelInfo(Color backgroundFill, BoxCollider2D left, BoxCollider2D right) {
-        camera.backgroundColor = backgroundFill;
+    public void LevelInfo(LevelInfoProvider level) {
+        camera.backgroundColor = level.backgroundFill;
         bound = true;
-        leftBound = left.bounds.max.x + halfWidth;
-        rightBound = Mathf.Max(right.bounds.min.x - halfWidth, halfWidth);
+        leftBound = level.left + halfWidth;
+        rightBound = Mathf.Max(level.right - halfWidth, halfWidth);
     }
 }
