@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using Eflatun.SceneReference;
 
 class SceneLoader : MonoBehaviour {
-    public static SceneLoader instance;
+    public static SceneLoader instance { get; private set; }
 
     public SceneReference central;
     public SceneReference initial;

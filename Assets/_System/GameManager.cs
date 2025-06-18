@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 class GameManager : MonoBehaviour {
-    public static GameManager instance;
+    public static GameManager instance { get; private set; }
 
     [field: SerializeField] public PlayerController player { get; private set; }
     [field: SerializeField] public SceneLoader loader { get; private set; }

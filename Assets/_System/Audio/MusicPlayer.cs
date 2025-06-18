@@ -4,7 +4,7 @@ using AYellowpaper.SerializedCollections;
 using Eflatun.SceneReference;
 
 class MusicPlayer : MonoBehaviour {
-    public static MusicPlayer instance;
+    public static MusicPlayer instance { get; private set; }
 
     public float fadeInDuration;
     public float fadeOutDuration;

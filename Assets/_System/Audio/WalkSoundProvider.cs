@@ -3,7 +3,7 @@ using UnityEngine;
 using AYellowpaper.SerializedCollections;
 
 class WalkSoundProvider : MonoBehaviour {
-    public static WalkSoundProvider instance;
+    public static WalkSoundProvider instance { get; private set; }
 
     public float stepRate;
     [SerializedDictionary("Terrain", "Bank")]

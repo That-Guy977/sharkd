@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 class SoundFXPlayer : MonoBehaviour {
-    public static SoundFXPlayer instance;
+    public static SoundFXPlayer instance { get; private set; }
 
     public AudioSource template;
 
