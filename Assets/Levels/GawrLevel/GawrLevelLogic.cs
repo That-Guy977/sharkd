@@ -76,13 +76,11 @@ class GawrLevelLogic : MonoBehaviour {
 
     private IEnumerator MergeSequence() {
         Time.timeScale = 1;
-        Entity playerEntity = player.GetComponent<Entity>();
-        Entity gawrEntity = gawr.GetComponent<Entity>();
         player.SetFrozen(true);
         player.Clean();
-        playerEntity.hud.enabled = false;
+        player.entity.hud.enabled = false;
         gawr.SetFrozen(true);
-        gawrEntity.hud.enabled = false;
+        gawr.entity.hud.enabled = false;
         Vector2 playerPos = player.transform.position;
         Vector2 gawrPos = gawr.transform.position;
         Vector2 target = new Vector2(
@@ -94,8 +92,8 @@ class GawrLevelLogic : MonoBehaviour {
         float gawrDir = Mathf.Sign(target.x - gawrPos.x);
         Vector2 playerVel = new Vector2(0, (target.y - playerPos.y) / mergeDuration);
         Vector2 gawrVel = new Vector2(0, (target.y - gawrPos.y) / mergeDuration);
-        playerEntity.Highlight(mergeHighlightInDuration);
-        gawrEntity.Highlight(mergeHighlightInDuration);
+        player.entity.Highlight(mergeHighlightInDuration);
+        gawr.entity.Highlight(mergeHighlightInDuration);
         float elapsedTime = 0;
         do {
             elapsedTime += Time.deltaTime;
@@ -113,9 +111,9 @@ class GawrLevelLogic : MonoBehaviour {
         } while (elapsedTime < mergeDuration);
         yield return new WaitForSeconds(mergeDelay);
         gawr.gameObject.SetActive(false);
-        yield return playerEntity.Dehighlight(mergeHighlightOutDuration);
+        yield return player.entity.Dehighlight(mergeHighlightOutDuration);
         player.SetFrozen(false);
-        playerEntity.ResetHighlight();
+        player.entity.ResetHighlight();
         GameManager.instance.tutorialComplete = true;
         director.Play(turnTutorial);
     }

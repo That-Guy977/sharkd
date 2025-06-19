@@ -9,14 +9,9 @@ class GawrController : MonoBehaviour {
     public float jumpHeight;
     public float dashSpeed;
     public float dashDistance;
-    public float dashCooldownDuration;
 
     [Header("Combat")]
-    public float attackCooldownDuration;
     public float stunDuration;
-    public int defeatSlowdownSteps;
-    public float defeatInitialSlowdown;
-    public float defeatDelay;
 
     [Header("Misc")]
     public float entranceFadeInDuration;
@@ -28,7 +23,6 @@ class GawrController : MonoBehaviour {
     public AudioSingleProvider entranceSound;
     public AudioBankProvider dashSounds;
 
-    Entity entity;
     GawrAttack attack;
     new Rigidbody2D rigidbody;
     new BoxCollider2D collider;
@@ -43,8 +37,6 @@ class GawrController : MonoBehaviour {
     private PlayerState state;
     private Coroutine activeState;
     private Vector2 move;
-    private bool dashCooldown;
-    private bool attackCooldown;
 
     RaycastHit2D ground => Physics2D.BoxCast(
         transform.position,
@@ -56,12 +48,11 @@ class GawrController : MonoBehaviour {
     );
     float gravity => rigidbody.velocity.y > 0 ? jumpGravity : fallGravity;
 
+    public Entity entity { get; private set; }
     public PlayerState currentState => state;
-    public Coroutine entrance { get; private set; }
     public bool active => state != PlayerState.Stun && entrance == null;
-    public bool canJump => state == PlayerState.None && ground;
-    public bool canDash => state == PlayerState.None && !dashCooldown;
-    public bool canAttack => state == PlayerState.None && !attackCooldown;
+    public bool grounded => ground;
+    public Coroutine entrance { get; private set; }
 
     void Awake() {
         entity = GetComponent<Entity>();
@@ -103,7 +94,7 @@ class GawrController : MonoBehaviour {
                 rigidbody.AddForce(Vector2.down * gravity);
                 break;
             case PlayerState.Dash:
-                rigidbody.velocity = move * dashSpeed;
+                rigidbody.velocity = move.normalized * dashSpeed;
                 break;
             case PlayerState.Attack:
                 goto case PlayerState.None;
@@ -127,8 +118,6 @@ class GawrController : MonoBehaviour {
         if (activeState != null) {
             StopCoroutine(activeState);
         }
-        dashCooldown = false;
-        attackCooldown = false;
         attack.Clean();
         activeState = StartCoroutine(Stun(defeat));
         if (defeat) {
@@ -136,8 +125,13 @@ class GawrController : MonoBehaviour {
         }
     }
 
-    public void Move(float dir) {
-        move = Vector2.right * dir;
+    public void Move(Direction dir, float factor = 1) {
+        move = dir.AsVector() * factor;
+    }
+
+    public void Stop(Direction dir) {
+        move = Vector2.zero;
+        entity.facing = dir;
     }
 
     public void Jump() {
@@ -147,14 +141,15 @@ class GawrController : MonoBehaviour {
         }
     }
 
-    public void Dash(Vector2 dir) {
+    public Coroutine Dash(Vector2 dir) {
         move = dir;
-        activeState = StartCoroutine(DoDash());
         SoundFXPlayer.instance.Play(dashSounds);
+        return activeState = StartCoroutine(DoDash());
     }
 
-    public void Attack() {
-        activeState = StartCoroutine(DoAttack());
+    public Coroutine Attack(Direction dir) {
+        entity.facing = dir;
+        return activeState = StartCoroutine(DoAttack());
     }
 
     private IEnumerator DoDash() {
@@ -162,9 +157,6 @@ class GawrController : MonoBehaviour {
         yield return new WaitForSeconds(dashDuration);
         state = PlayerState.None;
         activeState = null;
-        dashCooldown = true;
-        yield return new WaitForSeconds(dashCooldownDuration);
-        dashCooldown = false;
     }
 
     private IEnumerator DoAttack() {
@@ -173,9 +165,6 @@ class GawrController : MonoBehaviour {
         state = PlayerState.None;
         activeState = null;
         attack.Clean();
-        attackCooldown = true;
-        yield return new WaitForSeconds(attackCooldownDuration);
-        attackCooldown = false;
     }
 
     private IEnumerator Stun(bool defeat) {

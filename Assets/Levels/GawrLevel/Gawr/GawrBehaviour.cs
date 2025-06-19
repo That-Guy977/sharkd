@@ -1,29 +1,47 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 class GawrBehaviour : MonoBehaviour {
+    public LevelInfoProvider level;
+
     [Header("Parameters")]
-    public float bufferRange;
-    // public float hardBuffer;
-    // public float actionRange;
-    // public float hitRange;
-    public float targetRange;
-    public float targetRejectRange;
-
-    [Header("Anchors")]
-    public List<Transform> targets;
-
-    [Header("Weights")]
-    public float targetFront;
-    public float targetBack;
+    public float jumpDelay;
+    public float trackReactRange;
+    public float trackReactBuffer;
+    public float trackEvadeRange;
+    public float trackEvadeBuffer;
+    public float trackActionBuffer;
+    public float trackActionDelay;
+    public float trackJumpChance;
+    public float trackDashChance;
+    public float trackEndRange;
+    public float attackDashDistance;
+    public float attackDashBuffer;
+    public float attackDashChance;
+    public float attackJumpChance;
+    public float retreatBuffer;
+    public float retreatFarBuffer;
+    public float retreatFarChance;
+    public float retreatHardBuffer;
+    public float retreatDuration;
+    public float retreatAttackChance;
+    public float crossRange;
+    public float crossOverBuffer;
+    public float recoverSpeedFactor;
 
     GawrController controller;
     Entity entity;
     PlayerController player;
 
     private Coroutine loop;
-    private Transform target;
+    private bool stun;
+
+    float playerDistance => Mathf.Abs(entity.position - player.entity.position);
+    float playerVerticalDistance => player.transform.position.y - transform.position.y;
+    Direction towardsPlayer => entity.Towards(player);
+    Direction fromPlayer => towardsPlayer.Reverse();
 
     void Awake() {
         controller = GetComponent<GawrController>();
@@ -35,6 +53,9 @@ class GawrBehaviour : MonoBehaviour {
     }
 
     void Update() {
+        if (controller.currentState == PlayerState.Stun) {
+            stun = true;
+        }
         if (loop != null && !controller.active) {
             StopCoroutine(loop);
             loop = null;
@@ -44,26 +65,109 @@ class GawrBehaviour : MonoBehaviour {
     }
 
     private IEnumerator BehaviourLoop() {
-        while (true) {
-            target = transform.position.Farthest(targets);
-            while (Entity.Distance(entity, player) > bufferRange) {
-                controller.Move(entity.Towards(player).Value());
-                yield return null;
-            }
-            if (controller.canAttack) {
-                controller.Attack();
-            }
-            if (
-                Entity.Distance(target, player) <= targetRejectRange
-                && entity.Towards(player) == entity.Towards(target)
-                && Entity.Distance(entity, player) <= Entity.Distance(entity, target)
-            ) {
-                target = target.position.Farthest(targets);
-            }
-            while (Entity.Distance(entity, target) > targetRange) {
-                controller.Move(entity.Towards(target).Value());
-                yield return null;
-            }
+        if (stun) {
+            yield return Recover();
+            stun = false;
         }
+        while (true) {
+            yield return Track();
+            yield return Attack();
+            yield return Retreat();
+        }
+    }
+
+    private IEnumerator Track() {
+        float distance = playerDistance;
+        bool attackDash = distance >= attackDashDistance && Random.value <= attackDashChance;
+        while (playerDistance > trackEndRange) {
+            controller.Move(towardsPlayer);
+            if (playerDistance > trackActionBuffer) {
+                bool jump = controller.grounded && Random.value <= trackJumpChance;
+                bool dash = Random.value <= trackDashChance;
+                if (jump) {
+                    controller.Jump();
+                    yield return new WaitForSeconds(jumpDelay);
+                }
+                if (dash) {
+                    yield return controller.Dash(towardsPlayer.AsVector());
+                }
+                if (jump) {
+                    yield return new WaitUntil(() => controller.grounded);
+                }
+                yield return new WaitForSeconds(trackActionDelay);
+            } else if (controller.grounded && (
+                playerDistance <= trackReactRange && (playerVerticalDistance > trackReactBuffer || player.currentState == PlayerState.Attack)
+                || playerDistance > trackEvadeRange && Mathf.Abs(playerVerticalDistance) <= trackEvadeBuffer && player.currentState == PlayerState.Attack
+            )) {
+                controller.Jump();
+                yield return new WaitForSeconds(jumpDelay);
+            }
+            if (attackDash && playerDistance < controller.dashDistance + attackDashBuffer) {
+                if (controller.grounded && Random.value < attackJumpChance) {
+                    controller.Jump();
+                    yield return new WaitForSeconds(jumpDelay);
+                }
+                yield return controller.Dash(towardsPlayer.AsVector());
+                attackDash = false;
+            }
+            yield return null;
+        }
+    }
+
+    private IEnumerator Attack() {
+        int moveDir = Math.Sign(player.velocity.x);
+        if (moveDir != 0) {
+            controller.Move((Direction)moveDir);
+        } else {
+            controller.Stop(towardsPlayer);
+        }
+        yield return controller.Attack(towardsPlayer);
+    }
+
+    private IEnumerator Retreat() {
+        bool far = Random.value <= retreatFarChance;
+        bool firstReach = false;
+        float elapsedTime = 0;
+        do {
+            elapsedTime += Time.deltaTime;
+            float target = player.entity.position + fromPlayer.Value() * (far ? retreatFarBuffer : retreatBuffer);
+            if (!level.InBounds(target)) {
+                yield return CrossOver();
+            }
+            if (playerDistance <= retreatHardBuffer) {
+                yield return controller.Dash(fromPlayer.AsVector());
+            } else if (Mathf.Abs(entity.position - target) > 0.1f) {
+                controller.Move(entity.Towards(target));
+            } else {
+                if (!firstReach) {
+                    if (Random.value <= retreatAttackChance) {
+                        yield return controller.Attack(entity.Towards(player));
+                    }
+                    firstReach = true;
+                }
+                controller.Stop(towardsPlayer);
+            }
+            yield return null;
+        } while (elapsedTime < retreatDuration);
+    }
+
+    private IEnumerator CrossOver() {
+        Direction dir = towardsPlayer;
+        while (playerDistance > crossRange) {
+            controller.Move(dir);
+            yield return null;
+        }
+        if (playerVerticalDistance < crossOverBuffer) {
+            yield return controller.Dash(Vector2.up);
+        }
+        yield return controller.Dash(dir.AsVector());
+    }
+
+    private IEnumerator Recover() {
+        controller.Move(fromPlayer, recoverSpeedFactor);
+        if (controller.grounded) {
+            controller.Jump();
+        }
+        yield return controller.Attack(towardsPlayer);
     }
 }

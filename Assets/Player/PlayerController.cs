@@ -37,7 +37,6 @@ class PlayerController : MonoBehaviour {
     public AudioBankProvider dashSounds;
     public AudioBankProvider turnSounds;
 
-    Entity entity;
     PlayerAttack attack;
     new Rigidbody2D rigidbody;
     new BoxCollider2D collider;
@@ -69,7 +68,10 @@ class PlayerController : MonoBehaviour {
     );
     float gravity => rigidbody.velocity.y > 0 ? jumpGravity : fallGravity;
 
+    public Entity entity { get; private set; }
+    public PlayerState currentState => state;
     public Coroutine entrance { get; private set; }
+    public Vector2 velocity => rigidbody.velocity;
 
     public enum Character {
         Gura,

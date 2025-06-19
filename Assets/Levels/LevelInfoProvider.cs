@@ -11,4 +11,8 @@ class LevelInfoProvider : MonoBehaviour {
     void Start() {
         GameManager.instance.camera.LevelInfo(this);
     }
+
+    public bool InBounds(float pos, float size = 0) {
+        return pos - size / 2 >= left && pos + size / 2 <= right;
+    }
 }

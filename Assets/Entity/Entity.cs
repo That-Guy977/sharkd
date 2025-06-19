@@ -24,6 +24,7 @@ class Entity : MonoBehaviour {
             UpdateFacing(fixedReflection);
         }
     }
+    public float position => transform.position.x;
 
     void Start() {
         healthBar.maxValue = maxHealth;
@@ -48,10 +49,6 @@ class Entity : MonoBehaviour {
         onHit.Invoke(knockback, health == 0);
     }
 
-    public static float Distance(Component a, Component b) {
-        return Mathf.Abs(a.transform.position.x - b.transform.position.x);
-    }
-
     public bool FacingTowards(Component targetPos) {
         return facing switch {
             Direction.Right => targetPos.transform.position.x > transform.position.x,
@@ -60,7 +57,11 @@ class Entity : MonoBehaviour {
     }
 
     public Direction Towards(Component target) {
-        return (Direction)Mathf.Sign(target.transform.position.x - transform.position.x);
+        return Towards(target.transform.position.x);
+    }
+
+    public Direction Towards(float target) {
+        return (Direction)Mathf.Sign(target - transform.position.x);
     }
 
     void UpdateFacing(Transform transform) {
