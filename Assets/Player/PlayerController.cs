@@ -315,6 +315,7 @@ class PlayerController : MonoBehaviour {
 
     public void SetFrozen(bool frozen) {
         playerInput.enabled = !frozen;
+        animator.speed = frozen ? 0 : 1;
         rigidbody.isKinematic = frozen;
     }
 

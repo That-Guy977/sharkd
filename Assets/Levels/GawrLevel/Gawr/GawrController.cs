@@ -37,6 +37,7 @@ class GawrController : MonoBehaviour {
     private PlayerState state;
     private Coroutine activeState;
     private Vector2 move;
+    private bool frozen = false;
 
     RaycastHit2D ground => Physics2D.BoxCast(
         transform.position,
@@ -50,7 +51,7 @@ class GawrController : MonoBehaviour {
 
     public Entity entity { get; private set; }
     public PlayerState currentState => state;
-    public bool active => state != PlayerState.Stun && entrance == null;
+    public bool active => !frozen && state != PlayerState.Stun && entrance == null;
     public bool grounded => ground;
     public Coroutine entrance { get; private set; }
 
@@ -178,6 +179,8 @@ class GawrController : MonoBehaviour {
     }
 
     public void SetFrozen(bool frozen) {
+        this.frozen = frozen;
+        animator.speed = frozen ? 0 : 1;
         rigidbody.isKinematic = frozen;
     }
 
