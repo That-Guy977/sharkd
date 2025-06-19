@@ -5518,6 +5518,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
+  secondaryTrackRange: {x: 0.6, y: 0.6}
+  secondaryLoseRange: {x: 0.8, y: 0.8}
 --- !u!81 &8944932453567441659
 AudioListener:
   m_ObjectHideFlags: 0

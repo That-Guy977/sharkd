@@ -1,6 +1,7 @@
 using UnityEngine;
 
 class LevelInfoProvider : MonoBehaviour {
+    public Transform target;
     public Color backgroundFill;
     public BoxCollider2D leftBound;
     public BoxCollider2D rightBound;

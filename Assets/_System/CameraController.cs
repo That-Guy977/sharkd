@@ -5,6 +5,8 @@ using UnityEngine;
 class CameraController : MonoBehaviour {
     [Min(0f)]
     public float speed;
+    public Vector2 secondaryTrackRange;
+    public Vector2 secondaryLoseRange;
 
     new Camera camera;
     PlayerController player;
@@ -12,15 +14,28 @@ class CameraController : MonoBehaviour {
     Color backgroundColor;
     float leftBound;
     float rightBound;
+    Transform secondaryTarget;
 
     private Vector2 velocity = Vector2.zero;
     private bool bound = false;
+    private bool secondaryTracking = false;
 
     float halfHeight => camera.orthographicSize;
     float halfWidth => halfHeight * camera.aspect;
+    Vector2 halfSize => new Vector2(halfWidth, halfHeight);
     Vector2 targetPos {
         get {
             Vector2 target = player.transform.position;
+            if (secondaryTarget && secondaryTarget.gameObject.activeInHierarchy) {
+                Bounds secondaryTrackingBounds = new Bounds(
+                    player.transform.position,
+                    (!secondaryTracking ? secondaryTrackRange : secondaryLoseRange) * halfSize * 4
+                );
+                secondaryTracking = secondaryTrackingBounds.Contains(secondaryTarget.position);
+                if (secondaryTracking) {
+                    target = (target + (Vector2)secondaryTarget.position) / 2;
+                }
+            }
             if (bound) {
                 target.x = Mathf.Clamp(target.x, leftBound, rightBound);
             }
@@ -50,9 +65,11 @@ class CameraController : MonoBehaviour {
     }
 
     public void Clean() {
-        camera.transform.position = new Vector3(halfWidth, halfHeight, -10);
+        camera.transform.position = (Vector3)halfSize + Vector3.forward * -10;
         camera.backgroundColor = backgroundColor;
         bound = false;
+        secondaryTarget = null;
+        secondaryTracking = false;
     }
 
     public void LevelInfo(LevelInfoProvider level) {
@@ -60,5 +77,6 @@ class CameraController : MonoBehaviour {
         bound = true;
         leftBound = level.left + halfWidth;
         rightBound = Mathf.Max(level.right - halfWidth, halfWidth);
+        secondaryTarget = level.target;
     }
 }
