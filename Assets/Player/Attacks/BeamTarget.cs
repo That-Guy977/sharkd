@@ -4,7 +4,9 @@ class BeamTarget : MonoBehaviour {
     public PlayerAttack attack;
 
     void OnTriggerEnter2D(Collider2D collider) {
-        attack.BeamTarget(collider);
+        if (gameObject.activeInHierarchy) {
+            attack.BeamTarget(collider);
+        }
     }
 
     void OnTriggerExit2D(Collider2D collider) {
