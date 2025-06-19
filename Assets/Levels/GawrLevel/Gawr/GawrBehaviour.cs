@@ -139,13 +139,13 @@ class GawrBehaviour : MonoBehaviour {
             } else if (Mathf.Abs(entity.position - target) > 0.1f) {
                 controller.Move(entity.Towards(target));
             } else {
+                controller.Stop(towardsPlayer);
                 if (!firstReach) {
                     if (Random.value <= retreatAttackChance) {
                         yield return controller.Attack(entity.Towards(player));
                     }
                     firstReach = true;
                 }
-                controller.Stop(towardsPlayer);
             }
             yield return null;
         } while (elapsedTime < retreatDuration);
