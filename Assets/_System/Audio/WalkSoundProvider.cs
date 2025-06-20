@@ -1,10 +1,7 @@
 using System;
-using UnityEngine;
 using AYellowpaper.SerializedCollections;
 
-class WalkSoundProvider : MonoBehaviour {
-    public static WalkSoundProvider instance { get; private set; }
-
+class WalkSoundProvider : Singleton<WalkSoundProvider> {
     public float stepRate;
     [SerializedDictionary("Terrain", "Bank")]
     public SerializedDictionary<TerrainType, WalkSoundBankWrapper> terrainSoundBanks;
@@ -13,14 +10,6 @@ class WalkSoundProvider : MonoBehaviour {
     public struct WalkSoundBankWrapper {
         [SerializedDictionary("Type", "SoundFX")]
         public SerializedDictionary<WalkSoundType, AudioBankProvider> soundBank;
-    }
-
-    void Awake() {
-        if (!instance) {
-            instance = this;
-        } else {
-            Destroy(this);
-        }
     }
 
     public void Emit(TerrainType terrain, WalkSoundType type, float volume = 1) {

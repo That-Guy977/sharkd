@@ -4,9 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Eflatun.SceneReference;
 
-class SceneLoader : MonoBehaviour {
-    public static SceneLoader instance { get; private set; }
-
+class SceneLoader : Singleton<SceneLoader> {
     public SceneReference central;
     public SceneReference initial;
     public Transition levelTransition;
@@ -17,14 +15,6 @@ class SceneLoader : MonoBehaviour {
     public struct Transition {
         public float delay;
         public Animator animOut, animIn;
-    }
-
-    void Awake() {
-        if (!instance) {
-            instance = this;
-        } else {
-            Destroy(this);
-        }
     }
 
     void Start() {

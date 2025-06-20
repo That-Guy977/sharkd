@@ -1,18 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-class SoundFXPlayer : MonoBehaviour {
-    public static SoundFXPlayer instance { get; private set; }
-
+class SoundFXPlayer : Singleton<SoundFXPlayer> {
     public AudioSource template;
-
-    void Awake() {
-        if (!instance) {
-            instance = this;
-        } else {
-            Destroy(this);
-        }
-    }
 
     public AudioSource Play(AudioProvider provider, float volume = 1) {
         AudioSource source = Instantiate(template, transform);

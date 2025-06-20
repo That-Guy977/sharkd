@@ -3,9 +3,7 @@ using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using Eflatun.SceneReference;
 
-class MusicPlayer : MonoBehaviour {
-    public static MusicPlayer instance { get; private set; }
-
+class MusicPlayer : Singleton<MusicPlayer> {
     public float fadeInDuration;
     public float fadeOutDuration;
     public float pauseVolume;
@@ -18,12 +16,8 @@ class MusicPlayer : MonoBehaviour {
 
     private float clipVolume;
 
-    void Awake() {
-        if (!instance) {
-            instance = this;
-        } else {
-            Destroy(this);
-        }
+    new void Awake() {
+        base.Awake();
         source = GetComponent<AudioSource>();
     }
 

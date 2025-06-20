@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class GameManager : MonoBehaviour {
-    public static GameManager instance { get; private set; }
-
+class GameManager : Singleton<GameManager> {
     [field: SerializeField] public PlayerController player { get; private set; }
     [field: SerializeField] public SceneLoader loader { get; private set; }
     [field: SerializeField] public new CameraController camera { get; private set; }
@@ -24,14 +22,6 @@ class GameManager : MonoBehaviour {
 
     public bool overlayOpen => overlays.Count > 0;
     public bool quitting { get; private set; } = false;
-
-    void Awake() {
-        if (!instance) {
-            instance = this;
-        } else {
-            Destroy(this);
-        }
-    }
 
     public void Clean() {
         player.gameObject.SetActive(false);
