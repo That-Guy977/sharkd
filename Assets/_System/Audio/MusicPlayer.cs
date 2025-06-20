@@ -4,6 +4,7 @@ using AYellowpaper.SerializedCollections;
 using Eflatun.SceneReference;
 
 class MusicPlayer : Singleton<MusicPlayer> {
+    public AudioSource source;
     public float fadeInDuration;
     public float fadeOutDuration;
     public float pauseVolume;
@@ -12,14 +13,7 @@ class MusicPlayer : Singleton<MusicPlayer> {
     [SerializedDictionary("Scene", "Music")]
     public SceneDictionary<AudioSingleProvider> music;
 
-    AudioSource source;
-
     private float clipVolume;
-
-    new void Awake() {
-        base.Awake();
-        source = GetComponent<AudioSource>();
-    }
 
     void Start() {
         source.ignoreListenerPause = true;
