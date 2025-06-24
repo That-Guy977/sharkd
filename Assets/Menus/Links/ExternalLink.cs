@@ -5,6 +5,7 @@ using UnityEngine.UI;
 class ExternalLink : MonoBehaviour {
     public Site site;
     public string id;
+    public string page;
 
     Image image;
 
@@ -19,6 +20,6 @@ class ExternalLink : MonoBehaviour {
     }
 
     public void OpenLink() {
-        Application.OpenURL($"https://{string.Format(site.baseLink, id)}");
+        Application.OpenURL($"https://{string.Format(site.baseLink, id, page)}");
     }
 }
