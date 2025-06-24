@@ -9,7 +9,7 @@ class ExternalLink : MonoBehaviour {
 
     Image image;
 
-    void Start() {
+    void Awake() {
         image = GetComponent<Image>();
     }
 
