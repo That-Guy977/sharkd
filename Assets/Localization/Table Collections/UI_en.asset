@@ -66,6 +66,10 @@ MonoBehaviour:
     m_Localized: Defeat
     m_Metadata:
       m_Items: []
+  - m_Id: 11071265036034048
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
   - m_Id: 15509746801958912
     m_Localized: Press A/D to  move.
     m_Metadata:
@@ -96,6 +100,34 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 15529109621825536
     m_Localized: Watch your <color=#00A8FF>Mana</color>!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471266388467712
+    m_Localized: Project Lead & Programming
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471363767623680
+    m_Localized: Producer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471389071859712
+    m_Localized: Art & Design
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471389944274944
+    m_Localized: Art
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471390883799040
+    m_Localized: Music & Sound Effects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471391735242752
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471392754458624
+    m_Localized: Programming
     m_Metadata:
       m_Items: []
   references:

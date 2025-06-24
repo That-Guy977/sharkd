@@ -35,6 +35,10 @@ MonoBehaviour:
     m_Key: MENU_DEFEAT
     m_Metadata:
       m_Items: []
+  - m_Id: 11071265036034048
+    m_Key: MENU_CREDITS
+    m_Metadata:
+      m_Items: []
   - m_Id: 3975731679232
     m_Key: BUTTON_BEGIN
     m_Metadata:
@@ -93,6 +97,34 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 15511002563993600
     m_Key: TUTORIAL_TURN2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471266388467712
+    m_Key: CREDITS_LEAD&PROGRAM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471363767623680
+    m_Key: CREDITS_PRODUCER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471389071859712
+    m_Key: CREDITS_ART&DESIGN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471389944274944
+    m_Key: CREDITS_ART
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471390883799040
+    m_Key: CREDITS_MUSIC&SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471391735242752
+    m_Key: CREDITS_MUSIC
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20471392754458624
+    m_Key: CREDITS_PROGRAM
     m_Metadata:
       m_Items: []
   m_Metadata:
