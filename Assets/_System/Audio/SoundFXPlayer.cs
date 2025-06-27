@@ -24,6 +24,6 @@ class SoundFXPlayer : Singleton<SoundFXPlayer> {
 
     private IEnumerator AutoStop(AudioSource source) {
         yield return new WaitWhile(() => source && source.isPlaying);
-        Destroy(source.gameObject);
+        if (source) Destroy(source.gameObject);
     }
 }
