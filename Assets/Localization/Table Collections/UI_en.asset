@@ -130,6 +130,30 @@ MonoBehaviour:
     m_Localized: Programming
     m_Metadata:
       m_Items: []
+  - m_Id: 20616097475584000
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20987962719199232
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20987966200471552
+    m_Localized: Master
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20987966796062720
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20988030062944256
+    m_Localized: Sound Effects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20988184690155520
+    m_Localized: Controls
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

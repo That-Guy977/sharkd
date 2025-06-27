@@ -127,6 +127,30 @@ MonoBehaviour:
     m_Key: CREDITS_PROGRAM
     m_Metadata:
       m_Items: []
+  - m_Id: 20616097475584000
+    m_Key: SETTINGS_LANGUAGE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20987962719199232
+    m_Key: SETTINGS_AUDIO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20987966200471552
+    m_Key: SETTINGS_MASTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20987966796062720
+    m_Key: SETTINGS_MUSIC
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20988030062944256
+    m_Key: SETTINGS_SOUNDFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20988184690155520
+    m_Key: SETTINGS_CONTROLS
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
