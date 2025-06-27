@@ -71,7 +71,7 @@ MonoBehaviour:
         m_AsynchronousBehaviour: 0
         m_UseFallback: 0
         m_MissingTranslationState: 1
-        m_NoTranslationFoundMessage: No translation found for '{key}' in {table.TableCollectionName}
+        m_NoTranslationFoundMessage: '{locale.Identifier.Code}:{table.TableCollectionName}/{key}'
         m_SmartFormat:
           rid: 159394658501263366
     - rid: 159394658501263366
