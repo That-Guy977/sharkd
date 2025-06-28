@@ -14,6 +14,7 @@ class PlayerController : MonoBehaviour {
     public float dashCooldownDuration;
 
     [Header("Combat")]
+    public float dashInvincibilityTime;
     public float guraAttackExitTime;
     public float guraAttackCooldownDuration;
     public float gawrAttackCooldownDuration;
@@ -182,6 +183,7 @@ class PlayerController : MonoBehaviour {
         }
         SetFacing(dashDirection);
         activeState = StartCoroutine(Dash());
+        StartCoroutine(DashInvincible());
         SoundFXPlayer.instance.Play(dashSounds);
     }
 
@@ -237,6 +239,12 @@ class PlayerController : MonoBehaviour {
         dashCooldown = true;
         yield return new WaitForSeconds(dashCooldownDuration);
         dashCooldown = false;
+    }
+
+    private IEnumerator DashInvincible() {
+        entity.invincible = true;
+        yield return new WaitForSeconds(dashInvincibilityTime);
+        entity.invincible = false;
     }
 
     private IEnumerator GuraAttack() {

@@ -11,6 +11,7 @@ class GawrController : MonoBehaviour {
     public float dashDistance;
 
     [Header("Combat")]
+    public float dashInvincibilityTime;
     public float stunDuration;
 
     [Header("Misc")]
@@ -144,6 +145,7 @@ class GawrController : MonoBehaviour {
 
     public Coroutine Dash(Vector2 dir) {
         move = dir;
+        StartCoroutine(DashInvincible());
         SoundFXPlayer.instance.Play(dashSounds);
         return activeState = StartCoroutine(DoDash());
     }
@@ -158,6 +160,12 @@ class GawrController : MonoBehaviour {
         yield return new WaitForSeconds(dashDuration);
         state = PlayerState.None;
         activeState = null;
+    }
+
+    private IEnumerator DashInvincible() {
+        entity.invincible = true;
+        yield return new WaitForSeconds(dashInvincibilityTime);
+        entity.invincible = false;
     }
 
     private IEnumerator DoAttack() {

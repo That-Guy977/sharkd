@@ -1008,6 +1008,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1263908749, guid: 9e6bd6b2a91c7457a98d59e0072ea76c, type: 3}
     - target: {fileID: 3812225907487805891, guid: 68abcbaa1d12349a8b15d1a17e71579d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3812225907487805891, guid: 68abcbaa1d12349a8b15d1a17e71579d, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -3733,6 +3737,7 @@ MonoBehaviour:
   dashSpeed: 12
   dashDistance: 3
   dashCooldownDuration: 0.8
+  dashInvincibilityTime: 0.1
   guraAttackExitTime: 0.2
   guraAttackCooldownDuration: 0.3
   gawrAttackCooldownDuration: 0.1

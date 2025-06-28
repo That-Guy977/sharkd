@@ -28,7 +28,6 @@ class GawrBehaviour : MonoBehaviour {
     public float retreatDuration;
     public float retreatAttackChance;
     public float crossRange;
-    public float crossOverBuffer;
     public float recoverSpeedFactor;
 
     GawrController controller;
@@ -157,10 +156,7 @@ class GawrBehaviour : MonoBehaviour {
             controller.Move(dir);
             yield return null;
         }
-        if (playerVerticalDistance < crossOverBuffer) {
-            yield return controller.Dash(Vector2.up);
-        }
-        yield return controller.Dash(dir.AsVector());
+        yield return controller.Dash(dir.AsVector() + Vector2.up);
     }
 
     private IEnumerator Recover() {

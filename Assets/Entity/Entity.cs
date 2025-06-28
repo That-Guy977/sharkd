@@ -24,6 +24,7 @@ class Entity : MonoBehaviour {
             UpdateFacing(fixedReflection);
         }
     }
+    public bool invincible { get; set; }
     public float position => transform.position.x;
 
     void Start() {
@@ -37,10 +38,11 @@ class Entity : MonoBehaviour {
     void OnEnable() {
         hud.enabled = true;
         health = maxHealth;
+        invincible = false;
     }
 
     public void Damage(int damage, Vector2 knockback) {
-        if (health == 0) return;
+        if (invincible || health == 0) return;
         health -= damage;
         health = Mathf.Max(health, 0);
         highlight.speed = 1;
