@@ -1,6 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 class LocaleSetting : MonoBehaviour {
     public Locale locale;
@@ -11,11 +13,18 @@ class LocaleSetting : MonoBehaviour {
 
     void Awake() {
         image = GetComponent<Image>();
+        LocalizationSettings.SelectedLocaleChanged += UpdateState;
+        StartCoroutine(InitState());
     }
 
-    void Update() {
-        image.color = locale == Settings.instance.GetLocale() ? activeColor : inactiveColor;
+    void UpdateState(Locale currentLocale) {
+        image.color = locale.Identifier == currentLocale.Identifier ? activeColor : inactiveColor;
     }
 
     public void SetLocale() => Settings.instance.SetLocale(locale);
+
+    private IEnumerator InitState() {
+        yield return LocalizationSettings.InitializationOperation;
+        UpdateState(LocalizationSettings.SelectedLocale);
+    }
 }
