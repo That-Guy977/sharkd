@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Localization.Settings;
 using Eflatun.SceneReference;
 
 class SceneLoader : Singleton<SceneLoader> {
@@ -71,6 +72,7 @@ class SceneLoader : Singleton<SceneLoader> {
     }
 
     private IEnumerator LoadInitial() {
+        yield return LocalizationSettings.InitializationOperation;
         yield return SceneManager.LoadSceneAsync(initial.Name, LoadSceneMode.Additive);
         SceneManager.SetActiveScene(initial.LoadedScene);
         MusicPlayer.instance.Play(initial);
