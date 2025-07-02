@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
-  m_Name: UI
+  m_Name: Credits
   m_EditorClassIdentifier: 
-  m_SharedTableData: {fileID: 11400000, guid: 82149b3e51ccbe1b09faed522f44faf3, type: 2}
+  m_SharedTableData: {fileID: 11400000, guid: bbaf89037aea44b77b2d1add6b059191, type: 2}
   m_Tables:
-  - {fileID: 11400000, guid: c2d8cfefa6b1d560cae03ea01cfe10b1, type: 2}
-  - {fileID: 11400000, guid: 6254044583b5b4c73892f7935d0dc253, type: 2}
+  - {fileID: 11400000, guid: b72d30a50c6bf45a2872addceb7c9fb4, type: 2}
+  - {fileID: 11400000, guid: 35f191bc9efd248fbb6138e453468a74, type: 2}
   m_Extensions: []
-  m_Group: String Table
+  m_Group: UI
   references:
     version: 2
     RefIds: []

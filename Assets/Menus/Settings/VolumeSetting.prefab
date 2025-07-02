@@ -305,7 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:cdca60ca59f454d988e2d4110abe99b8
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: 

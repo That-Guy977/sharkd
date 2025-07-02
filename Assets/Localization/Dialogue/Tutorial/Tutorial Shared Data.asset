@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Tutorial Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Tutorial
+  m_TableCollectionNameGuidString: aa98ed38679ef42f4b751ddbd4317b1a
+  m_Entries:
+  - m_Id: 15509746801958912
+    m_Key: Move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510365222723584
+    m_Key: Jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510511666847744
+    m_Key: Dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510603534688256
+    m_Key: Attack0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15529109621825536
+    m_Key: Attack1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510788230864896
+    m_Key: Turn0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15510868870553600
+    m_Key: Turn1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15511002563993600
+    m_Key: Turn2
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 5295355792237002760
+  references:
+    version: 2
+    RefIds:
+    - rid: 5295355792237002760
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1751473760707

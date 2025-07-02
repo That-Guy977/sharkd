@@ -17,8 +17,28 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 7c721b379f4abaee9a2ad538ab7c188a
   m_SerializeEntries:
+  - m_GUID: 51e04b60808f848819b71a497bb0791a
+    m_Address: Assets/Level Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 82149b3e51ccbe1b09faed522f44faf3
     m_Address: Assets/Localization/Table Collections/UI Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa98ed38679ef42f4b751ddbd4317b1a
+    m_Address: Assets/Tutorial Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bbaf89037aea44b77b2d1add6b059191
+    m_Address: Assets/Credits Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cdca60ca59f454d988e2d4110abe99b8
+    m_Address: Assets/Localization/Settings/Settings Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

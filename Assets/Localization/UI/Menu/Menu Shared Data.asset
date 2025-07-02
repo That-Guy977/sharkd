@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Menu Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Menu
+  m_TableCollectionNameGuidString: 82149b3e51ccbe1b09faed522f44faf3
+  m_Entries:
+  - m_Id: 21714479288320
+    m_Key: Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3975731679232
+    m_Key: Begin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21714487676930
+    m_Key: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21714487676929
+    m_Key: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21714487676928
+    m_Key: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10820557263069184
+    m_Key: Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10820591748636672
+    m_Key: Win
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10820596777607168
+    m_Key: Defeat
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 159394658501263384
+  references:
+    version: 2
+    RefIds:
+    - rid: 159394658501263384
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1745885234295

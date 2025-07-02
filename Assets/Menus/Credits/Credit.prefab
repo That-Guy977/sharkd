@@ -404,7 +404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:bbaf89037aea44b77b2d1add6b059191
     m_TableEntryReference:
       m_KeyId: 0
       m_Key: 

@@ -655,7 +655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: GUID:82149b3e51ccbe1b09faed522f44faf3
+      m_TableCollectionName: GUID:cdca60ca59f454d988e2d4110abe99b8
     m_TableEntryReference:
       m_KeyId: 20987962719199232
       m_Key: 
@@ -1110,7 +1110,6 @@ GameObject:
   - component: {fileID: 307507079}
   - component: {fileID: 307507078}
   - component: {fileID: 307507077}
-  - component: {fileID: 307507080}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -1232,34 +1231,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307507075}
   m_CullTransparentMesh: 1
---- !u!114 &307507080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 307507075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: 
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
-    m_PersistentCalls:
-      m_Calls: []
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &327628129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1900,10 +1871,6 @@ PrefabInstance:
     - target: {fileID: 1825926967197384177, guid: c7d92d73e54ed487da49c33faac675d3, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
       value: 20987966796062720
-      objectReference: {fileID: 0}
-    - target: {fileID: 1825926967197384177, guid: c7d92d73e54ed487da49c33faac675d3, type: 3}
-      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
-      value: GUID:82149b3e51ccbe1b09faed522f44faf3
       objectReference: {fileID: 0}
     - target: {fileID: 2643793233499140337, guid: c7d92d73e54ed487da49c33faac675d3, type: 3}
       propertyPath: m_Name
@@ -3135,7 +3102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: GUID:82149b3e51ccbe1b09faed522f44faf3
+      m_TableCollectionName: GUID:cdca60ca59f454d988e2d4110abe99b8
     m_TableEntryReference:
       m_KeyId: 20616097475584000
       m_Key: 
@@ -3513,8 +3480,12 @@ PrefabInstance:
       value: 6028524720128
       objectReference: {fileID: 0}
     - target: {fileID: 5462903447751356792, guid: 1b1479086516240eaaab7cbe96bf6241, type: 3}
+      propertyPath: m_StringReference.m_CurrentTable.m_TableCollectionName
+      value: GUID:cdca60ca59f454d988e2d4110abe99b8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5462903447751356792, guid: 1b1479086516240eaaab7cbe96bf6241, type: 3}
       propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
-      value: GUID:82149b3e51ccbe1b09faed522f44faf3
+      value: GUID:cdca60ca59f454d988e2d4110abe99b8
       objectReference: {fileID: 0}
     - target: {fileID: 8196248761020629296, guid: 1b1479086516240eaaab7cbe96bf6241, type: 3}
       propertyPath: m_text
@@ -6190,10 +6161,6 @@ PrefabInstance:
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
       value: 20988030062944256
       objectReference: {fileID: 0}
-    - target: {fileID: 1825926967197384177, guid: c7d92d73e54ed487da49c33faac675d3, type: 3}
-      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
-      value: GUID:82149b3e51ccbe1b09faed522f44faf3
-      objectReference: {fileID: 0}
     - target: {fileID: 2643793233499140337, guid: c7d92d73e54ed487da49c33faac675d3, type: 3}
       propertyPath: m_Name
       value: Sound Effects
@@ -7025,7 +6992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: GUID:82149b3e51ccbe1b09faed522f44faf3
+      m_TableCollectionName: GUID:cdca60ca59f454d988e2d4110abe99b8
     m_TableEntryReference:
       m_KeyId: 6028524720128
       m_Key: 
@@ -7566,10 +7533,6 @@ PrefabInstance:
     - target: {fileID: 1825926967197384177, guid: c7d92d73e54ed487da49c33faac675d3, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
       value: 20987966200471552
-      objectReference: {fileID: 0}
-    - target: {fileID: 1825926967197384177, guid: c7d92d73e54ed487da49c33faac675d3, type: 3}
-      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
-      value: GUID:82149b3e51ccbe1b09faed522f44faf3
       objectReference: {fileID: 0}
     - target: {fileID: 2643793233499140337, guid: c7d92d73e54ed487da49c33faac675d3, type: 3}
       propertyPath: m_Name
