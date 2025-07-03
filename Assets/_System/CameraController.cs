@@ -8,7 +8,6 @@ class CameraController : MonoBehaviour {
     public Vector2 secondaryTrackRange;
     public Vector2 secondaryLoseRange;
 
-    new Camera camera;
     PlayerController player;
 
     Color backgroundColor;
@@ -44,6 +43,7 @@ class CameraController : MonoBehaviour {
         }
     }
 
+    public new Camera camera { get; private set; }
     public float width => halfWidth * 2;
 
     public event Action cameraUpdate;

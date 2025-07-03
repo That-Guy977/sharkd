@@ -42,6 +42,7 @@ class GameManager : Singleton<GameManager> {
 
     public void OpenOverlay(Canvas overlay) {
         overlays.Push(overlay);
+        overlay.sortingOrder = overlays.Count;
         overlay.gameObject.SetActive(true);
     }
 
