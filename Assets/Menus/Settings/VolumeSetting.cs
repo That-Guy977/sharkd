@@ -7,7 +7,7 @@ class VolumeSetting : MonoBehaviour {
     public TMP_Text preview;
 
     public void SetVolume(float value) {
-        Settings.instance.SetVolume(audioGroup, value);
+        audioGroup.audioMixer.SetFloat($"{audioGroup.name}Volume", Mathf.Log10(Mathf.Max(value, 0.0001f)) * 20);
         preview.text = $"{Mathf.RoundToInt(value * 100)}%";
     }
 }

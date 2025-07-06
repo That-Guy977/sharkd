@@ -21,7 +21,9 @@ class LocaleSetting : MonoBehaviour {
         image.color = locale.Identifier == currentLocale.Identifier ? activeColor : inactiveColor;
     }
 
-    public void SetLocale() => Settings.instance.SetLocale(locale);
+    public void SetLocale() {
+        LocalizationSettings.SelectedLocale = locale;
+    }
 
     private IEnumerator InitState() {
         yield return LocalizationSettings.InitializationOperation;
