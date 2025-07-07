@@ -20,24 +20,39 @@ class GameManager : Singleton<GameManager> {
 
     Stack<Canvas> overlays = new();
 
+    private bool toPause = false;
+    private bool toExit = false;
+
     public bool overlayOpen => overlays.Count > 0;
     public bool quitting { get; private set; } = false;
+
+    void Update() {
+        if (overlayOpen) {
+            if (toExit) {
+                CloseOverlay();
+            } else if (toPause && state == GameState.InLevel) {
+                Unpause();
+            }
+        } else if ((toPause || toExit) && state == GameState.InLevel) {
+            Pause();
+        }
+        toPause = toExit = false;
+    }
 
     public void Clean() {
         player.gameObject.SetActive(false);
         camera.Clean();
-        while (overlayOpen) {
-            CloseOverlay();
-        }
+        CloseAllOverlays();
+    }
+
+    protected void OnPause() {
+        if (levelEnd) return;
+        toPause = true;
     }
 
     protected void OnExit() {
         if (state == GameState.Transitioning || levelEnd) return;
-        if (overlays.Count > 0) {
-            CloseOverlay();
-        } else if (state == GameState.InLevel) {
-            Pause();
-        }
+        toExit = true;
     }
 
     public void OpenOverlay(Canvas overlay) {
@@ -46,8 +61,14 @@ class GameManager : Singleton<GameManager> {
         overlay.gameObject.SetActive(true);
     }
 
-    public void CloseOverlay() {
+    void CloseOverlay() {
         overlays.Pop().gameObject.SetActive(false);
+    }
+
+    void CloseAllOverlays() {
+        while (overlayOpen) {
+            CloseOverlay();
+        }
     }
 
     public void Pause() {
@@ -55,9 +76,7 @@ class GameManager : Singleton<GameManager> {
     }
 
     public void Unpause() {
-        while (pause.gameObject.activeSelf && overlays.Count > 0) {
-            CloseOverlay();
-        }
+        CloseAllOverlays();
     }
 
     public void Win() {

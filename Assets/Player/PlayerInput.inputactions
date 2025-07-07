@@ -213,9 +213,18 @@
             "id": "8502b3e4-ab5c-4c1f-82dc-f7bc7d1eb6d9",
             "actions": [
                 {
-                    "name": "Exit",
+                    "name": "Pause",
                     "type": "Button",
                     "id": "0f2c3af9-d367-479f-8a20-f40ac8df0acd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Exit",
+                    "type": "Button",
+                    "id": "27186c75-6605-4645-915b-dd277c9cd7d0",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -227,6 +236,17 @@
                     "name": "",
                     "id": "b5e4a0c7-0125-49f3-bca2-90f82d2b0299",
                     "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6e666c5a-7af4-4137-bb8b-6002e3501e14",
+                    "path": "*/{Back}",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard",
