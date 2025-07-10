@@ -46,6 +46,50 @@ MonoBehaviour:
     m_Localized: Controls
     m_Metadata:
       m_Items: []
+  - m_Id: 1481066316554240
+    m_Localized: Click to cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1481154984140800
+    m_Localized: Reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2956479324741632
+    m_Localized: Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2956533611618304
+    m_Localized: Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2956538925801472
+    m_Localized: Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2956541178142720
+    m_Localized: Down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2956713866027008
+    m_Localized: Jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2957365144969216
+    m_Localized: Dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2957394127609856
+    m_Localized: Attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2957414000222208
+    m_Localized: Transform
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2957429946966016
+    m_Localized: Pause
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

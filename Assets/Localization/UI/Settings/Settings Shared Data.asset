@@ -43,6 +43,50 @@ MonoBehaviour:
     m_Key: Controls
     m_Metadata:
       m_Items: []
+  - m_Id: 1481154984140800
+    m_Key: ControlsReset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1481066316554240
+    m_Key: ControlsCancelPrompt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2956479324741632
+    m_Key: ControlsActionMoveLeft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2956533611618304
+    m_Key: ControlsActionMoveRight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2956538925801472
+    m_Key: ControlsActionMoveUp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2956541178142720
+    m_Key: ControlsActionMoveDown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2956713866027008
+    m_Key: ControlsActionJump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2957365144969216
+    m_Key: ControlsActionDash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2957394127609856
+    m_Key: ControlsActionAttack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2957414000222208
+    m_Key: ControlsActionTurn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2957429946966016
+    m_Key: ControlsActionPause
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
