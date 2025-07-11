@@ -18,7 +18,7 @@ class GameManager : Singleton<GameManager> {
     public bool tutorialShown = false;
     public bool tutorialComplete = false;
 
-    Stack<Canvas> overlays = new();
+    readonly Stack<Canvas> overlays = new();
 
     private bool toPause = false;
     private bool toExit = false;
