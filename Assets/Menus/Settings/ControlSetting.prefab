@@ -429,17 +429,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3198fb96861134d7c8301559e8c9843a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
   playerInput: {fileID: 0}
   actionReference: {fileID: 0}
   compositePart: 
-  controlScheme: Keyboard
-  cancelControl: <Mouse>/press
   rebind: {fileID: 1939722739780867189}
   reset: {fileID: 359425081567059659}
   bindingPreview: {fileID: 3647555297899366587}
   cancelPrompt: {fileID: 5186558196611084404}
-  UIInputActions: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  UIInputActionMap: UI
 --- !u!1 &3732521471217876169
 GameObject:
   m_ObjectHideFlags: 0
