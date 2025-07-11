@@ -20,11 +20,9 @@ class ControlSetting : MonoBehaviour {
     InputAction action => playerInput.actions.FindAction(actionReference.action.id);
 
     void Start() {
-        bindingIndex = action.bindings.IndexOf(
-            (binding) =>
-                Array.Exists(binding.groups.Split(InputBinding.Separator), (group) => group == manager.controlScheme)
-                && (string.IsNullOrEmpty(compositePart) || binding.isPartOfComposite && binding.name == compositePart)
-        );
+        InputBinding bindingMask = InputBinding.MaskByGroup(manager.controlScheme);
+        if (!string.IsNullOrEmpty(compositePart)) bindingMask.name = compositePart;
+        bindingIndex = action.GetBindingIndex(bindingMask);
         UpdatePreview();
     }
 
