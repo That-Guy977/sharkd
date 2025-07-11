@@ -14,6 +14,7 @@ class ControlsManager : MonoBehaviour {
     public string UIInputActionMap;
 
     readonly List<ControlSetting> controls = new();
+    readonly Dictionary<string, int> paths = new();
     InputActionMap uiActionMap;
 
     private RebindingOperation rebindOperation;
@@ -42,9 +43,23 @@ class ControlsManager : MonoBehaviour {
         uiActionMap.Disable();
         rebindOperation = action.PerformInteractiveRebinding(bindingIndex)
             .WithCancelingThrough(cancelPath)
-            .OnComplete((_) => (clean + Clean)())
+            .OnComplete((_) => (clean + Clean + CheckConflict)())
             .OnCancel((_) => (clean + Clean)())
             .Start();
+    }
+
+    public void CheckConflict() {
+        foreach (var control in controls) {
+            if (paths.ContainsKey(control.path)) {
+                paths[control.path]++;
+            } else {
+                paths[control.path] = 1;
+            }
+        }
+        foreach (var control in controls) {
+            control.UpdateConflict(paths[control.path] > 1);
+        }
+        paths.Clear();
     }
 
     void OnActionChange(object obj, InputActionChange change) {

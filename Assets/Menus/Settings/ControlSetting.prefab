@@ -433,8 +433,11 @@ MonoBehaviour:
   playerInput: {fileID: 0}
   actionReference: {fileID: 0}
   compositePart: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  conflictColor: {r: 1, g: 0.75, b: 0.75, a: 1}
   rebind: {fileID: 1939722739780867189}
   reset: {fileID: 359425081567059659}
+  rebindImage: {fileID: 4720880881838297610}
   bindingPreview: {fileID: 3647555297899366587}
   cancelPrompt: {fileID: 5186558196611084404}
 --- !u!1 &3732521471217876169

@@ -9,14 +9,19 @@ class ControlSetting : MonoBehaviour {
     public PlayerInput playerInput;
     public InputActionReference actionReference;
     public string compositePart;
+    public Color color;
+    public Color conflictColor;
     public Button rebind;
     public Button reset;
+    public Image rebindImage;
     public TMP_Text bindingPreview;
     public TMP_Text cancelPrompt;
 
     int bindingIndex;
 
     InputAction action => playerInput.actions.FindAction(actionReference.action.id);
+
+    public string path => action.bindings[bindingIndex].effectivePath;
 
     void Start() {
         InputBinding bindingMask = InputBinding.MaskByGroup(manager.controlScheme);
@@ -42,6 +47,10 @@ class ControlSetting : MonoBehaviour {
         reset.interactable = !string.IsNullOrEmpty(action.bindings[bindingIndex].overridePath);
     }
 
+    public void UpdateConflict(bool conflict) {
+        rebindImage.color = conflict ? conflictColor : color;
+    }
+
     public void Rebind() {
         action.actionMap.asset.Disable();
         rebind.interactable = false;
@@ -53,5 +62,6 @@ class ControlSetting : MonoBehaviour {
     public void ResetBind() {
         action.RemoveBindingOverride(bindingIndex);
         UpdatePreview();
+        manager.CheckConflict();
     }
 }
