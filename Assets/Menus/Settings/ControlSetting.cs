@@ -1,8 +1,7 @@
-using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
-using UnityEngine.UI;
 using static UnityEngine.InputSystem.InputActionRebindingExtensions;
 
 class ControlSetting : MonoBehaviour {
