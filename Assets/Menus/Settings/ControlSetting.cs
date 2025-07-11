@@ -33,13 +33,13 @@ class ControlSetting : MonoBehaviour {
     void Clean() {
         if (!action.actionMap.asset.enabled) action.actionMap.asset.Enable();
         rebind.interactable = true;
-        reset.interactable = !string.IsNullOrEmpty(action.bindings[bindingIndex].overridePath);
         cancelPrompt.enabled = false;
         UpdatePreview();
     }
 
     public void UpdatePreview() {
         bindingPreview.text = action.GetBindingDisplayString(bindingIndex, InputBinding.DisplayStringOptions.DontIncludeInteractions);
+        reset.interactable = !string.IsNullOrEmpty(action.bindings[bindingIndex].overridePath);
     }
 
     public void Rebind() {
@@ -52,7 +52,6 @@ class ControlSetting : MonoBehaviour {
 
     public void ResetBind() {
         action.RemoveBindingOverride(bindingIndex);
-        reset.interactable = false;
         UpdatePreview();
     }
 }
