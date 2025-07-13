@@ -3,6 +3,8 @@ using UnityEngine;
 class AnimatorPlaying : CustomYieldInstruction {
     Animator animator;
 
+    const int startBufferFrames = 2;
+
     public override bool keepWaiting {
         get {
             if (bufferFrames != 0) {
@@ -18,6 +20,6 @@ class AnimatorPlaying : CustomYieldInstruction {
 
     public AnimatorPlaying(Animator animator) {
         this.animator = animator;
-        bufferFrames = 2;
+        bufferFrames = startBufferFrames;
     }
 }
