@@ -19,7 +19,8 @@ class ControlSetting : MonoBehaviour {
 
     int bindingIndex;
 
-    InputAction action => playerInput.actions.FindAction(actionReference.action.id);
+    InputAction action => actionReference.action;
+    InputAction playerAction => playerInput.actions.FindAction(action.id);
 
     public string path => action.bindings[bindingIndex].effectivePath;
 
@@ -42,6 +43,15 @@ class ControlSetting : MonoBehaviour {
         UpdatePreview();
     }
 
+    void SyncOverride() {
+        string overridePath = action.bindings[bindingIndex].overridePath;
+        if (!string.IsNullOrEmpty(overridePath)) {
+            playerAction.ApplyBindingOverride(bindingIndex, overridePath);
+        } else {
+            playerAction.RemoveBindingOverride(bindingIndex);
+        }
+    }
+
     public void UpdatePreview() {
         bindingPreview.text = action.GetBindingDisplayString(bindingIndex, InputBinding.DisplayStringOptions.DontIncludeInteractions);
         reset.interactable = !string.IsNullOrEmpty(action.bindings[bindingIndex].overridePath);
@@ -56,12 +66,16 @@ class ControlSetting : MonoBehaviour {
         rebind.interactable = false;
         bindingPreview.text = "Waiting...";
         cancelPrompt.enabled = true;
-        manager.Rebind(action, bindingIndex, Clean);
+        manager.Rebind(action, bindingIndex, () => {
+            Clean();
+            SyncOverride();
+        });
     }
 
     public void ResetBind() {
         action.RemoveBindingOverride(bindingIndex);
         UpdatePreview();
+        SyncOverride();
         manager.CheckConflict();
     }
 }
