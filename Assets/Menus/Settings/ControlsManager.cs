@@ -43,8 +43,15 @@ class ControlsManager : MonoBehaviour {
         uiActionMap.Disable();
         rebindOperation = action.PerformInteractiveRebinding(bindingIndex)
             .WithCancelingThrough(cancelPath)
-            .OnComplete((_) => (clean + Clean + CheckConflict)())
-            .OnCancel((_) => (clean + Clean)())
+            .OnComplete((_) => {
+                clean();
+                Clean();
+                CheckConflict();
+            })
+            .OnCancel((_) => {
+                clean();
+                Clean();
+            })
             .Start();
     }
 
