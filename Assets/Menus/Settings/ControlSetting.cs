@@ -56,7 +56,7 @@ class ControlSetting : MonoBehaviour {
     }
 
     public void UpdatePreview() {
-        bindingPreview.text = action.GetBindingDisplayString(bindingIndex, InputBinding.DisplayStringOptions.DontIncludeInteractions);
+        bindingPreview.text = InputBindings.DisplayString(action, bindingIndex);
         reset.interactable = !string.IsNullOrEmpty(action.bindings[bindingIndex].overridePath);
     }
 

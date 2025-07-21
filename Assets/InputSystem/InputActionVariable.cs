@@ -20,13 +20,13 @@ class InputActionVariable : IVariableValueChanged, IVariableGroup {
 
     void Clean() {
         initialized = false;
-        InputBindingsUpdater.instance.bindingsChanged -= UpdateValue;
+        InputBindings.instance.bindingsChanged -= UpdateValue;
         Application.quitting -= Clean;
     }
 
     public object GetSourceValue(ISelectorInfo _) {
         if (!initialized) {
-            InputBindingsUpdater.instance.bindingsChanged += UpdateValue;
+            InputBindings.instance.bindingsChanged += UpdateValue;
             bindingIndices = new();
             compositeParts = new();
             InputBinding bindingMask = InputBinding.MaskByGroup("Keyboard");
@@ -66,7 +66,7 @@ class InputActionVariable : IVariableValueChanged, IVariableGroup {
     }
 
     string DisplayString(int bindingIndex) {
-        string displayString = action.GetBindingDisplayString(bindingIndex, InputBinding.DisplayStringOptions.DontIncludeInteractions);
+        string displayString = InputBindings.DisplayString(action, bindingIndex);
         if (displayString.Length == 1) {
             return displayString;
         } else {

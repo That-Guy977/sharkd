@@ -25,11 +25,11 @@ class ControlsManager : MonoBehaviour {
     }
 
     void OnEnable() {
-        InputBindingsUpdater.instance.bindingsChanged += OnBindingsChange;
+        InputBindings.instance.bindingsChanged += OnBindingsChange;
     }
 
     void OnDisable() {
-        InputBindingsUpdater.instance.bindingsChanged -= OnBindingsChange;
+        InputBindings.instance.bindingsChanged -= OnBindingsChange;
         Clean();
     }
 
