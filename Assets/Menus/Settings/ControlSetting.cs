@@ -15,6 +15,7 @@ class ControlSetting : MonoBehaviour {
     public Button reset;
     public Image rebindImage;
     public TMP_Text bindingPreview;
+    public TMP_Text waitingPrompt;
     public TMP_Text cancelPrompt;
 
     int bindingIndex;
@@ -39,6 +40,8 @@ class ControlSetting : MonoBehaviour {
     void Clean() {
         if (!action.actionMap.asset.enabled) action.actionMap.asset.Enable();
         rebind.interactable = true;
+        bindingPreview.enabled = true;
+        waitingPrompt.enabled = false;
         cancelPrompt.enabled = false;
         UpdatePreview();
     }
@@ -64,7 +67,8 @@ class ControlSetting : MonoBehaviour {
     public void Rebind() {
         action.actionMap.asset.Disable();
         rebind.interactable = false;
-        bindingPreview.text = "Waiting...";
+        bindingPreview.enabled = false;
+        waitingPrompt.enabled = true;
         cancelPrompt.enabled = true;
         manager.Rebind(action, bindingIndex, () => {
             Clean();

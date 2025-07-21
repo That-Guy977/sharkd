@@ -47,8 +47,12 @@ MonoBehaviour:
     m_Key: ControlsReset
     m_Metadata:
       m_Items: []
+  - m_Id: 6889478579806208
+    m_Key: ControlsWaiting
+    m_Metadata:
+      m_Items: []
   - m_Id: 1481066316554240
-    m_Key: ControlsCancelPrompt
+    m_Key: ControlsCancel
     m_Metadata:
       m_Items: []
   - m_Id: 2956479324741632
