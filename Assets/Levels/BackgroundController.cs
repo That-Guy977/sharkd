@@ -54,6 +54,7 @@ class BackgroundController : MonoBehaviour {
 
     void OnDestroy() {
         if (!Application.isPlaying) return;
+        if (GameManager.instance.quitting) return;
         camera.cameraUpdate -= CameraUpdate;
     }
 
