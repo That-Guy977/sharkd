@@ -25,11 +25,11 @@ class ControlsManager : MonoBehaviour {
     }
 
     void OnEnable() {
-        InputSystem.onActionChange += OnActionChange;
+        InputBindingsUpdater.instance.bindingsChanged += OnBindingsChange;
     }
 
     void OnDisable() {
-        InputSystem.onActionChange -= OnActionChange;
+        InputBindingsUpdater.instance.bindingsChanged -= OnBindingsChange;
         Clean();
     }
 
@@ -69,8 +69,7 @@ class ControlsManager : MonoBehaviour {
         paths.Clear();
     }
 
-    void OnActionChange(object obj, InputActionChange change) {
-        if (GameManager.instance.quitting || change != InputActionChange.BoundControlsChanged) return;
+    void OnBindingsChange() {
         controls.ForEach((control) => control.UpdatePreview());
     }
 }

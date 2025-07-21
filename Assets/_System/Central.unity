@@ -5216,6 +5216,7 @@ GameObject:
   - component: {fileID: 874300804}
   - component: {fileID: 874300803}
   - component: {fileID: 874300807}
+  - component: {fileID: 874300808}
   - component: {fileID: 874300806}
   m_Layer: 0
   m_Name: GameManager
@@ -5314,6 +5315,18 @@ MonoBehaviour:
     delay: 0.4
     animOut: {fileID: 782130545468224580, guid: a13d4af640518431589e23cbbde15ae8, type: 3}
     animIn: {fileID: 7839767216866085571, guid: 74a94b1425f0b42fcb84e3060061ca11, type: 3}
+--- !u!114 &874300808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874300802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66b5d67220bdc463c9ecbbd33929d838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &876481965
 PrefabInstance:
   m_ObjectHideFlags: 0

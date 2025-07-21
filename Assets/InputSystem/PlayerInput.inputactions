@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerInput",
     "maps": [
         {
@@ -75,9 +76,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Down",
-                    "id": "9c68d288-dc96-495c-83fa-d810ae20df89",
-                    "path": "<Keyboard>/s",
+                    "name": "Left",
+                    "id": "81915f66-0a7c-4ad9-8f06-826a02541b63",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard",
@@ -86,9 +87,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Left",
-                    "id": "81915f66-0a7c-4ad9-8f06-826a02541b63",
-                    "path": "<Keyboard>/a",
+                    "name": "Down",
+                    "id": "9c68d288-dc96-495c-83fa-d810ae20df89",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard",
