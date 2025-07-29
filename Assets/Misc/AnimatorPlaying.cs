@@ -7,7 +7,7 @@ class AnimatorPlaying : CustomYieldInstruction {
 
     public override bool keepWaiting {
         get {
-            if (bufferFrames != 0) {
+            if (bufferFrames > 0) {
                 bufferFrames--;
                 return true;
             } else {
