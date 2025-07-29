@@ -56,7 +56,8 @@ MonoBehaviour:
     m_Localized: As Gawr, press {input.attack} to attack. Slashing does not consume
       <color=#00A8FF>Mana</color>.
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 5295356236482740224
   references:
     version: 2
     RefIds:
@@ -70,3 +71,4 @@ MonoBehaviour:
         - id: 15510511666847744
         - id: 15510603534688256
         - id: 15510868870553600
+        - id: 15511002563993600
