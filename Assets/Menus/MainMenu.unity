@@ -2686,7 +2686,6 @@ GameObject:
   - component: {fileID: 847114506}
   - component: {fileID: 847114504}
   - component: {fileID: 847114508}
-  - component: {fileID: 847114509}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -2720,7 +2719,7 @@ Canvas:
   m_GameObject: {fileID: 847114503}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
@@ -2731,7 +2730,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 160824855
+  m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &847114507
@@ -2778,18 +2777,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &847114509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 847114503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96eb83aeab0f24d9b90d34d14022d587, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &848729355
 GameObject:
   m_ObjectHideFlags: 0
