@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 82149b3e51ccbe1b09faed522f44faf3, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 8157807358458462210
   m_TableData:
   - m_Id: 3975731679232
     m_Localized: Play
@@ -50,6 +51,21 @@ MonoBehaviour:
     m_Localized: Defeat
     m_Metadata:
       m_Items: []
+  - m_Id: 32897881995206656
+    m_Localized: Skip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32899168644096000
+    m_Localized: '{input.skip}'
+    m_Metadata:
+      m_Items:
+      - rid: 8157807358458462210
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 8157807358458462210
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 32899168644096000

@@ -214,6 +214,15 @@
             "id": "8502b3e4-ab5c-4c1f-82dc-f7bc7d1eb6d9",
             "actions": [
                 {
+                    "name": "Exit",
+                    "type": "Button",
+                    "id": "27186c75-6605-4645-915b-dd277c9cd7d0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "0f2c3af9-d367-479f-8a20-f40ac8df0acd",
@@ -223,12 +232,12 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Exit",
+                    "name": "Skip",
                     "type": "Button",
-                    "id": "27186c75-6605-4645-915b-dd277c9cd7d0",
+                    "id": "b922ae99-61a5-4f90-954f-a690e0ddedb9",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 }
             ],
@@ -252,6 +261,17 @@
                     "processors": "",
                     "groups": ";Keyboard",
                     "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "18d97d74-6620-4642-9e40-baf6dae5634a",
+                    "path": "<Keyboard>/slash",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Skip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

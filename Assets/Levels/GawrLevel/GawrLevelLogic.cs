@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
 class GawrLevelLogic : MonoBehaviour {
@@ -15,15 +14,11 @@ class GawrLevelLogic : MonoBehaviour {
     public float mergeHighlightInDuration;
     public float mergeHighlightOutDuration;
     public List<EntitySpawnPoint> spawnPoints;
+    public CutsceneDirector cutsceneDirector;
     public TimelineAsset tutorial;
     public TimelineAsset turnTutorial;
 
     PlayerController player;
-    PlayableDirector director;
-
-    void Awake() {
-        director = GetComponent<PlayableDirector>();
-    }
 
     void Start() {
         player = GameManager.instance.player;
@@ -32,15 +27,6 @@ class GawrLevelLogic : MonoBehaviour {
         } else {
             SpawnGawr();
         }
-    }
-
-    public void TutorialDone() {
-        GameManager.instance.tutorialShown = true;
-        SpawnGawr();
-    }
-
-    public void TurnTutorialDone() {
-        GameManager.instance.Win();
     }
 
     public void Win() {
@@ -54,7 +40,10 @@ class GawrLevelLogic : MonoBehaviour {
 
     private IEnumerator Tutorial() {
         yield return player.entrance;
-        director.Play(tutorial);
+        cutsceneDirector.Play(tutorial, () => {
+            GameManager.instance.tutorialShown = true;
+            SpawnGawr();
+        });
     }
 
     private IEnumerator WinSequence() {
@@ -115,6 +104,6 @@ class GawrLevelLogic : MonoBehaviour {
         player.SetFrozen(false);
         player.entity.ResetHighlight();
         GameManager.instance.tutorialComplete = true;
-        director.Play(turnTutorial);
+        cutsceneDirector.Play(turnTutorial, () => GameManager.instance.Win());
     }
 }

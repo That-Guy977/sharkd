@@ -28,6 +28,15 @@ MonoBehaviour:
   - name: turn
     variable:
       rid: 5295356236482740228
+  - name: exit
+    variable:
+      rid: 8157807358458462213
+  - name: pause
+    variable:
+      rid: 8157807358458462212
+  - name: skip
+    variable:
+      rid: 8157807358458462211
   references:
     version: 2
     RefIds:
@@ -51,3 +60,15 @@ MonoBehaviour:
       type: {class: InputActionVariable, ns: , asm: Assembly-CSharp}
       data:
         actionReference: {fileID: 4259307159453783821, guid: f9515d193c41244b6ac3311f8c7936d8, type: 3}
+    - rid: 8157807358458462211
+      type: {class: InputActionVariable, ns: , asm: Assembly-CSharp}
+      data:
+        actionReference: {fileID: -7415774466329966441, guid: f9515d193c41244b6ac3311f8c7936d8, type: 3}
+    - rid: 8157807358458462212
+      type: {class: InputActionVariable, ns: , asm: Assembly-CSharp}
+      data:
+        actionReference: {fileID: 3082128658046042570, guid: f9515d193c41244b6ac3311f8c7936d8, type: 3}
+    - rid: 8157807358458462213
+      type: {class: InputActionVariable, ns: , asm: Assembly-CSharp}
+      data:
+        actionReference: {fileID: 7440816974415831844, guid: f9515d193c41244b6ac3311f8c7936d8, type: 3}

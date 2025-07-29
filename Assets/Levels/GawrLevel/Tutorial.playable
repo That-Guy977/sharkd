@@ -12,30 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde0d25a170598d46a0b9dc16b4527a5, type: 3}
   m_Name: ActivationPlayableAsset(Clone)(Clone)
   m_EditorClassIdentifier: 
---- !u!114 &-6401453758185066686
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b46e36075dd1c124a8422c228e75e1fb, type: 3}
-  m_Name: Signal Track
-  m_EditorClassIdentifier: 
-  m_Version: 3
-  m_AnimClip: {fileID: 0}
-  m_Locked: 0
-  m_Muted: 0
-  m_CustomPlayableFullTypename: 
-  m_Curves: {fileID: 0}
-  m_Parent: {fileID: 11400000}
-  m_Children: []
-  m_Clips: []
-  m_Markers:
-    m_Objects:
-    - {fileID: 22105884484972593}
 --- !u!114 &-5494844643661460208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -46,7 +22,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21bf7f712d84d26478ebe6a299f21738, type: 3}
-  m_Name: Activation Track (2)
+  m_Name: Dash
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -162,7 +138,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21bf7f712d84d26478ebe6a299f21738, type: 3}
-  m_Name: Activation Track (1)
+  m_Name: Jump
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -255,7 +231,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21bf7f712d84d26478ebe6a299f21738, type: 3}
-  m_Name: Activation Track (3)
+  m_Name: Attack0
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -360,7 +336,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21bf7f712d84d26478ebe6a299f21738, type: 3}
-  m_Name: Activation Track (4)
+  m_Name: Attack1
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
@@ -457,17 +433,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Version: 0
   m_Tracks:
-  - {fileID: -6401453758185066686}
   - {fileID: 9174454515549864112}
   - {fileID: -3964011899899101564}
   - {fileID: -5494844643661460208}
   - {fileID: -3455608954408078723}
   - {fileID: -176263243884480478}
-  m_FixedDuration: 0
+  m_FixedDuration: 17.75
   m_EditorSettings:
     m_Framerate: 60
     m_ScenePreview: 1
-  m_DurationMode: 0
+  m_DurationMode: 1
   m_MarkerTrack: {fileID: -4199648780175832772}
 --- !u!114 &22105884484972593
 MonoBehaviour:
@@ -531,7 +506,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21bf7f712d84d26478ebe6a299f21738, type: 3}
-  m_Name: Activation Track
+  m_Name: Move
   m_EditorClassIdentifier: 
   m_Version: 3
   m_AnimClip: {fileID: 0}
