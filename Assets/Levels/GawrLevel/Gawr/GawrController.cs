@@ -68,7 +68,6 @@ class GawrController : MonoBehaviour {
 
     void Start() {
         state = PlayerState.None;
-        StopAllCoroutines();
         activeState = null;
         move = Vector2.zero;
         SoundFXChecks();
