@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Eflatun.SceneReference;
-using System.Collections.Generic;
 
 static class VectorUtils {
     public static Vector2 WithX(this Vector2 vec, float x) {
