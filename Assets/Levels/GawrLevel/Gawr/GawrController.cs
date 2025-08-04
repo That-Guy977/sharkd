@@ -52,7 +52,7 @@ class GawrController : MonoBehaviour {
 
     public Entity entity { get; private set; }
     public PlayerState currentState => state;
-    public bool active => !frozen && state != PlayerState.Stun && entrance == null;
+    public bool active => !frozen && state != PlayerState.Stun && state != PlayerState.Defeat && entrance == null;
     public bool grounded => ground;
     public Coroutine entrance { get; private set; }
 
