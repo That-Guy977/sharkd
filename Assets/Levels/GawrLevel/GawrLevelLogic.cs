@@ -34,7 +34,7 @@ class GawrLevelLogic : MonoBehaviour {
     }
 
     void SpawnGawr() {
-        EntitySpawnPoint spawnPoint = player.transform.position.Farthest(spawnPoints);
+        EntitySpawnPoint spawnPoint = player.entity.FarthestTarget(spawnPoints);
         spawnPoint.gameObject.SetActive(true);
     }
 

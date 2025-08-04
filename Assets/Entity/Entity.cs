@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 class Entity : MonoBehaviour {
     public int maxHealth;
@@ -64,6 +65,19 @@ class Entity : MonoBehaviour {
 
     public Direction Towards(float target) {
         return (Direction)Mathf.Sign(target - transform.position.x);
+    }
+
+    public T FarthestTarget<T>(IEnumerable<T> targets) where T : Component {
+        T farthest = null;
+        float maxDist = 0;
+        foreach (var target in targets) {
+            float dist = Vector2.Distance(transform.position, target.transform.position);
+            if (dist > maxDist) {
+                farthest = target;
+                maxDist = dist;
+            }
+        }
+        return farthest;
     }
 
     void UpdateFacing(Transform transform) {
