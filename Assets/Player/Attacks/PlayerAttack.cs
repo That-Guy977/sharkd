@@ -80,7 +80,7 @@ class PlayerAttack : MonoBehaviour {
         beamHit.gameObject.SetActive(false);
         beam.size = beam.size.WithX(0);
         slashContainer.SetActive(false);
-        slashHitbox.gameObject.SetActive(false);
+        slashHitbox.enabled = false;
         slashHit = false;
         if (beamSummonSoundSource) Destroy(beamSummonSoundSource.gameObject);
         if (beamSoundSource) Destroy(beamSoundSource.gameObject);
@@ -172,7 +172,7 @@ class PlayerAttack : MonoBehaviour {
     }
 
     public void Slash() {
-        slashHitbox.gameObject.SetActive(true);
+        slashHitbox.enabled = true;
         SoundFXPlayer.instance.Play(slashSounds);
     }
 
