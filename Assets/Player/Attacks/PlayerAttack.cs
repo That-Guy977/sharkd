@@ -74,6 +74,7 @@ class PlayerAttack : MonoBehaviour {
     public void Clean() {
         StopAllCoroutines();
         beamRepeatDamage = null;
+        beamTargetCollider = null;
         beamContainer.SetActive(false);
         beamOrigin.gameObject.SetActive(false);
         beam.gameObject.SetActive(false);
@@ -145,6 +146,7 @@ class PlayerAttack : MonoBehaviour {
 
     public void BeamTargetCancel(Collider2D collider) {
         if (collider == beamTargetCollider) {
+            beamTargetCollider = null;
             if (beamRepeatDamage != null) {
                 StopCoroutine(beamRepeatDamage);
             }
