@@ -37,7 +37,7 @@ class GawrBehaviour : MonoBehaviour {
     private Coroutine loop;
     private bool stun;
 
-    float playerDistance => Mathf.Abs(entity.position - player.entity.position);
+    float playerDistance => Mathf.Abs(entity.position.x - player.entity.position.x);
     float playerVerticalDistance => player.transform.position.y - transform.position.y;
     Direction towardsPlayer => entity.Towards(player);
     Direction fromPlayer => towardsPlayer.Reverse();
@@ -129,13 +129,13 @@ class GawrBehaviour : MonoBehaviour {
         float elapsedTime = 0;
         do {
             elapsedTime += Time.deltaTime;
-            float target = player.entity.position + fromPlayer.Value() * (far ? retreatFarBuffer : retreatBuffer);
+            float target = player.entity.position.x + fromPlayer.Value() * (far ? retreatFarBuffer : retreatBuffer);
             if (!level.InBounds(target)) {
                 yield return CrossOver();
             }
             if (playerDistance <= retreatHardBuffer) {
                 yield return controller.Dash(fromPlayer.AsVector());
-            } else if (Mathf.Abs(entity.position - target) > 0.1f) {
+            } else if (Mathf.Abs(entity.position.x - target) > 0.1f) {
                 controller.Move(entity.Towards(target));
             } else {
                 controller.Stop(towardsPlayer);

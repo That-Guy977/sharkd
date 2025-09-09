@@ -14,6 +14,8 @@ class Entity : MonoBehaviour {
     [Header("Messages")]
     public UnityEvent<Vector2, bool> onHit;
 
+    new Collider2D collider;
+
     private int health;
     private Direction currentDir;
 
@@ -26,7 +28,11 @@ class Entity : MonoBehaviour {
         }
     }
     public bool invincible { get; set; }
-    public float position => transform.position.x;
+    public Vector2 position => collider.bounds.center;
+
+    void Awake() {
+        collider = GetComponent<Collider2D>();
+    }
 
     void Start() {
         healthBar.maxValue = maxHealth;
